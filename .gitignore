@@ -8,3 +8,6 @@ probe/*.json
 # 배포용으로 묶은 파일
 dist/
 *.zip
+
+# 만들어진 UI 설명 페이지 (찍은 화면을 담고 있어 크다)
+docs/ui_page/out/
