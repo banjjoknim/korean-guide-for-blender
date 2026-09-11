@@ -20,7 +20,7 @@
 
 import bpy
 
-from . import guide_data, search
+from . import focus, guide_data, search
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -177,9 +177,61 @@ def _tag_items(self, context):
 
 # ── 결과 한 줄 그리기 ─────────────────────────────────────────────────
 
+# ⚠️ 팝업에서 기능을 직접 실행하는 단추는 일부러 두지 않는다.
+#
+# 예전에는 '지금 실행' 단추가 있었는데, 걷어냈다. 까닭은 이렇다.
+#
+# invoke_popup 으로 띄운 팝업은 **단추를 눌러도 닫히지 않는다.** 마우스를
+# 움직이지 않고 같은 자리를 두 번 누르면 단추가 두 번 눌리는 것으로 확인했다.
+# 그래서 돌리기처럼 마우스를 끄는 기능을 여기서 실행하면, 변형은 시작되지만
+# 팝업이 그 위를 덮은 채로 남는다. 점선 안내선은 기준점에서 마우스까지 그어지는데
+# 마우스가 팝업 위에 있으니 가려지고, 팝업이 키 입력을 먼저 가져가므로
+# X · Y · Z 축 고정도 안 먹는다.
+#
+# 시도했다가 듣지 않은 것들을 적어 둔다. 같은 길을 다시 가지 않기 위해서이다.
+#   - operator_context 를 INVOKE_REGION_WIN 으로 바로잡기. 재어 보니 팝업의
+#     기본값이 이미 그 값이라 원인과 무관했다.
+#   - 타이머로 한 박자 미뤄서 부르기. 팝업이 닫히지 않으니 미뤄도 소용이 없다.
+#   - Window.cursor_warp 로 커서를 팝업 밖으로 내보내 닫기. 이벤트를 흉내 낸
+#     시험에서는 통했지만 실제 사용에서는 증상이 그대로였다.
+#
+# 블렌더에는 팝업을 닫는 API 가 아예 없다. bpy.ops 전체를 훑어도 없다.
+# 그래서 반쪽으로 시작되는 실행 단추를 두느니, 무엇을 눌러야 하는지 알려 주는
+# 가이드 본래 역할에 집중하는 편이 낫다고 판단했다. 단축키와 메뉴 위치는
+# 그대로 보여 주고, 안내 모드에서는 실제 메뉴를 펼쳐 준다.
+
+
+def _draw_entry_name(row, context, entry: dict, available: bool,
+                     learner: bool) -> None:
+    """항목 이름을 그린다.
+
+    안내 모드면 이름이 '어디에 있는지 보기' 단추가 되고, 안내 모드를 끄면
+    누를 것이 없는 글자로 둔다.
+
+    왜 겉모습(emboss=False)을 글자처럼 두는가: 목록이 단추 밭처럼 보이면
+    무엇을 눌러야 할지 고르는 데 시간이 들어서, 훑어보는 화면으로서는 나빠진다.
+    """
+    ko = entry.get("ko", "이름 없음")
+    name = row.row(align=True)
+    # 왼쪽으로 붙여야 원래의 글자 배치와 같아 보인다.
+    name.alignment = 'LEFT'
+
+    if learner:
+        op = name.operator("blender_guide.focus", text=ko, emboss=False)
+        op.entry_id = entry.get("id", "")
+        return
+
+    name.label(text=ko)
+
+
 def _draw_entry(layout, context, entry: dict, available: bool,
-                text_width: int, force_expand: bool = False) -> None:
+                text_width: int, force_expand: bool = False, p=None) -> None:
     """가이드 항목 하나를 그린다."""
+    if p is None:
+        from . import prefs
+        p = prefs.get_prefs(context)
+    learner = bool(getattr(p, "learner_mode", True))
+
     state = get_state(context, entry.get("id", ""))
     expanded = state.expanded or force_expand
     shortcut, from_blender = guide_data.get_shortcut(entry)
@@ -199,7 +251,7 @@ def _draw_entry(layout, context, entry: dict, available: bool,
     # 왜: 없애 버리면 '검색이 안 된다'로 오해하게 되고, 모드를 바꾸면 쓸 수 있다는
     #     사실 자체를 배우지 못한다.
     name_row.active = available
-    name_row.label(text=entry.get("ko", "이름 없음"))
+    _draw_entry_name(name_row, context, entry, available, learner)
 
     if shortcut:
         key_row = head.row(align=True)
@@ -226,6 +278,17 @@ def _draw_entry(layout, context, entry: dict, available: bool,
         warn.label(text=_mode_hint(entry, context),
                    icon=safe_icon('ERROR', fallback='NONE'))
 
+        # 안내만 해 두고 사용자가 Tab 을 누르게 하면, 고른 물체가 없는 경우처럼
+        # Tab 이 듣지 않는 상황에서 왜 안 되는지 알 길이 없다. 그래서 직접
+        # 모드를 바꿔 주는 단추를 붙인다.
+        target = _mode_target(entry, context)
+        if target:
+            fix = sub.row(align=True)
+            fix.alignment = 'RIGHT'
+            fix.operator("blender_guide.set_mode", text="바꾸기",
+                         icon=safe_icon('ARROW_LEFTRIGHT',
+                                        fallback='NONE')).mode = target
+
     if not expanded:
         return
 
@@ -234,10 +297,21 @@ def _draw_entry(layout, context, entry: dict, available: bool,
 
     where = entry.get("where")
     if where:
-        for i, line in enumerate(wrap_text(where, text_width)):
-            row = col.row()
-            row.label(text=line,
-                      icon=safe_icon('KEYINGSET', fallback='NONE') if i == 0 else 'BLANK1')
+        steps = focus.path_steps(entry)
+        if learner and getattr(p, "focus_show_path", True) and steps:
+            # 경로를 한 줄로 붙여 두면 어디까지가 한 단계인지 헷갈린다.
+            # 번호를 붙여 끊어 주면 그대로 따라 누르기만 하면 된다.
+            for i, step in enumerate(steps, start=1):
+                row = col.row()
+                row.label(text=f"{i}. {step}",
+                          icon=safe_icon('KEYINGSET', fallback='NONE')
+                          if i == 1 else 'BLANK1')
+        else:
+            for i, line in enumerate(wrap_text(where, text_width)):
+                row = col.row()
+                row.label(text=line,
+                          icon=safe_icon('KEYINGSET', fallback='NONE')
+                          if i == 0 else 'BLANK1')
 
     note = entry.get("note")
     if note:
@@ -248,30 +322,72 @@ def _draw_entry(layout, context, entry: dict, available: bool,
             row.label(text=line,
                       icon=safe_icon('INFO', fallback='NONE') if i == 0 else 'BLANK1')
 
-    op_idname = entry.get("op")
-    if op_idname and guide_data.op_exists(op_idname):
+    if learner:
         col.separator()
-        run = col.row(align=True)
-        run.enabled = available
-        # INVOKE_DEFAULT 로 두어야 이동·회전처럼 마우스로 조작하는 기능이
-        # 평소 단축키를 누른 것과 똑같이 동작한다.
-        run.operator_context = 'INVOKE_DEFAULT'
-        try:
-            run.operator(op_idname, text="지금 실행",
-                         icon=safe_icon('PLAY', fallback='NONE'))
-        except Exception:
-            # 실행 버튼을 못 그려도 설명은 남아야 하므로 조용히 넘어간다.
-            pass
+        actions = col.row(align=True)
+        actions.operator("blender_guide.focus", text="어디에 있는지 보기",
+                         icon=safe_icon('VIEWZOOM', fallback='NONE')
+                         ).entry_id = entry.get("id", "")
+
+
+# 에디트 모드가 있는 물체 종류이다. 여기 없는 종류는 Tab 을 눌러도 아무 일이 없다.
+_EDITABLE_TYPES = {'MESH', 'CURVE', 'SURFACE', 'META', 'FONT', 'ARMATURE',
+                   'LATTICE', 'CURVES', 'GREASEPENCIL', 'POINTCLOUD'}
+
+
+def _active_object(context):
+    """지금 활성 물체를 돌려준다. 없으면 None 이다."""
+    try:
+        return context.view_layer.objects.active
+    except Exception:
+        return None
+
+
+def _mode_target(entry: dict, context) -> str:
+    """모드가 안 맞아서 못 쓰는 항목이면 어느 모드로 바꿔야 하는지 돌려준다.
+
+    바꿀 만한 모드가 없으면 빈 글자를 돌려준다. 그때는 단추를 그리지 않는다.
+    """
+    modes = entry.get("modes") or []
+    mode = getattr(context, "mode", "") or ""
+    if not modes or mode in modes:
+        return ""
+    if any(m.startswith("EDIT") for m in modes):
+        return 'EDIT'
+    if "OBJECT" in modes:
+        return 'OBJECT'
+    if "POSE" in modes:
+        return 'POSE'
+    if "SCULPT" in modes:
+        return 'SCULPT'
+    return ""
 
 
 def _mode_hint(entry: dict, context) -> str:
-    """왜 지금 쓸 수 없는지를 한 줄로 알려 준다."""
+    """왜 지금 쓸 수 없는지를 한 줄로 알려 준다.
+
+    예전에는 'Tab 을 눌러 에디트 모드로' 라고만 적었는데, 고른 물체가 없거나
+    편집할 수 없는 종류이면 Tab 을 눌러도 모드가 바뀌지 않는다. 그 상태에서
+    Tab 을 누르라고만 하면 사용자는 애드온이 틀린 줄 안다. 그래서 바뀌지 않는
+    까닭을 먼저 짚어 준다.
+    """
     modes = entry.get("modes") or []
-    if "EDIT_MESH" in modes and context.mode != "EDIT_MESH":
-        return "Tab 을 눌러 에디트 모드로"
-    if "OBJECT" in modes and context.mode != "OBJECT":
-        return "Tab 을 눌러 오브젝트 모드로"
-    if not context.selected_objects and context.mode == "OBJECT":
+    mode = getattr(context, "mode", "") or ""
+    obj = _active_object(context)
+
+    if modes and mode not in modes:
+        wants_edit = any(m.startswith("EDIT") for m in modes)
+        if obj is None:
+            return "물체를 먼저 고르세요"
+        if wants_edit and obj.type not in _EDITABLE_TYPES:
+            return f"'{obj.name}' 은(는) 편집할 수 없는 종류입니다"
+        if wants_edit:
+            return "에디트 모드에서 됩니다"
+        if "OBJECT" in modes:
+            return "오브젝트 모드에서 됩니다"
+        return "다른 모드에서 됩니다"
+
+    if mode == "OBJECT" and not getattr(context, "selected_objects", None):
         return "물체를 먼저 고르세요"
     return "지금은 쓸 수 없음"
 
@@ -337,6 +453,14 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         filter_row.prop(wm, "blender_guide_only_available",
                         text="지금 쓸 수 있는 것만", toggle=True)
 
+        # 안내 모드를 여기서 바로 껐다 켤 수 있게 둔다.
+        # 왜 설정 화면에만 두지 않는가: 익숙해지는 시점은 사람마다 다르고,
+        # 그때마다 Preferences 를 여는 것은 번거로워서 결국 안 끄게 된다.
+        # _FallbackPrefs 는 RNA 가 아니라서 prop 으로 그릴 수 없으므로 걸러 낸다.
+        if hasattr(p, "bl_rna"):
+            filter_row.prop(p, "learner_mode", text="안내", toggle=True,
+                            icon=safe_icon('QUESTION', fallback='NONE'))
+
         availability = guide_data.get_availability(context)
         entries = guide_data.load_entries()
         query = wm.blender_guide_query.strip()
@@ -369,7 +493,8 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
                             bool(availability.get(entry.get("id"))),
                             text_width,
                             # 첫 번째 결과는 펼쳐서 보여 준다. 대개 그것을 찾고 있다.
-                            force_expand=(i == 0 and p.auto_expand_first))
+                            force_expand=(i == 0 and p.auto_expand_first),
+                            p=p)
             return
 
         # ── 한국어 항목에서 못 찾았을 때: 블렌더 전체에서 영어로 찾아본다 ──
@@ -428,7 +553,7 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             for entry in favorites[:p.max_results]:
                 _draw_entry(layout, context, entry,
                             bool(availability.get(entry.get("id"))),
-                            text_width)
+                            text_width, p=p)
             layout.separator()
 
         # 지금 상황을 한 줄로 알려 준다.
@@ -461,7 +586,8 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             row.prop(state, "favorite", text="",
                      icon=safe_icon('SOLO_ON' if state.favorite else 'SOLO_OFF'),
                      emboss=False)
-            row.label(text=entry.get("ko", ""))
+            _draw_entry_name(row, context, entry, True,
+                             bool(getattr(p, "learner_mode", True)))
             if shortcut:
                 kr = row.row()
                 kr.alignment = 'RIGHT'
