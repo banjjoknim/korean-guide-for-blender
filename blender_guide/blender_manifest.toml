@@ -1,0 +1,19 @@
+# 블렌더 4.2 부터 쓰는 확장(Extension) 정보이다.
+# 이 파일이 있으면 zip 을 블렌더 창에 떨구는 것만으로 설치된다.
+# 옛 판에서도 쓸 수 있도록 __init__.py 의 bl_info 도 함께 남겨 두었다.
+
+schema_version = "1.0.0"
+
+id = "blender_guide_ko"
+version = "0.1.0"
+name = "블렌더 가이드 (한국어)"
+tagline = "하고 싶은 일을 한국어로 치면 기능과 단축키를 찾아 준다"
+maintainer = "banjjoknim"
+type = "add-on"
+
+blender_version_min = "4.2.0"
+
+# 블렌더 애드온은 블렌더의 파이썬 API 를 쓰므로 GPL 을 따라야 한다.
+license = ["SPDX:GPL-3.0-or-later"]
+
+tags = ["User Interface"]

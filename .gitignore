@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+# 확인용으로 찍은 화면. 블렌더를 띄우면 다시 만들 수 있으므로 담지 않는다.
+probe/shot_*.png
+probe/*.json
+
+# 배포용으로 묶은 파일
+dist/
+*.zip
