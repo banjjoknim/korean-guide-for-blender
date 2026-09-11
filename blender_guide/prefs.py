@@ -79,6 +79,36 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         default=True,
     )
 
+    # ── 안내 모드 ──
+    # 왜 토글로 두는가: 익숙해지면 '어디에 있는지'는 이미 알고 있어서, 단축키만
+    # 확인하고 바로 닫는다. 그때 안내가 계속 끼어들면 오히려 느려진다.
+    learner_mode: bpy.props.BoolProperty(
+        name="안내 모드",
+        description=("켜면 항목을 누를 때 그 기능이 화면 어디에 있는지 짚어 줍니다. "
+                     "끄면 이름과 단축키만 조용히 보여 줍니다"),
+        default=True,
+    )
+    focus_open_menu: bpy.props.BoolProperty(
+        name="실제 메뉴를 펼친다",
+        description="안내할 때 그 기능이 들어 있는 블렌더 메뉴를 실제로 펼쳐 보여 준다",
+        default=True,
+    )
+    focus_highlight: bpy.props.BoolProperty(
+        name="화면에 강조 표시를 그린다",
+        description="안내할 때 그 메뉴가 있는 자리에 주황색 테두리와 쪽지를 띄운다",
+        default=True,
+    )
+    focus_show_path: bpy.props.BoolProperty(
+        name="메뉴 경로를 단계별로 보여 준다",
+        description="펼친 설명에서 메뉴 경로를 1, 2, 3 으로 끊어서 보여 준다",
+        default=True,
+    )
+    focus_duration: bpy.props.FloatProperty(
+        name="강조 표시가 머무는 시간",
+        description="강조 표시가 화면에 남아 있는 시간이다. 단위는 초이다",
+        default=5.0, min=1.0, max=30.0, soft_max=15.0,
+    )
+
     # ── 항목 팩 ──
     pack_dir: bpy.props.StringProperty(
         name="추가 항목 폴더",
@@ -123,6 +153,27 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         sub = col.column(align=True)
         sub.active = self.use_op_index
         sub.prop(self, "max_fallback")
+
+        # ── 안내 모드 ──
+        box = layout.box()
+        head = box.row()
+        head.prop(self, "learner_mode", toggle=True,
+                  icon=popup.safe_icon('QUESTION', fallback='NONE'))
+
+        col = box.column(align=True)
+        col.active = self.learner_mode
+        col.prop(self, "focus_open_menu")
+        col.prop(self, "focus_highlight")
+        sub = col.column(align=True)
+        sub.active = self.learner_mode and self.focus_highlight
+        sub.prop(self, "focus_duration")
+        col.prop(self, "focus_show_path")
+
+        info = box.column(align=True)
+        info.active = False
+        info.label(text="안내 모드를 끄면 이름과 단축키만 조용히 보여 줍니다.")
+        info.label(text="블렌더는 펼친 메뉴 안의 특정 줄을 강조하지 못하므로,")
+        info.label(text="강조는 메뉴가 있는 영역까지만 하고 정확한 줄은 경로 글자로 알려 줍니다.")
 
         # ── 항목 관리 ──
         box = layout.box()
@@ -237,6 +288,11 @@ class _FallbackPrefs:
     auto_expand_first = True
     focus_search_on_open = True
     use_op_index = True
+    learner_mode = True
+    focus_open_menu = True
+    focus_highlight = True
+    focus_show_path = True
+    focus_duration = 5.0
     pack_dir = ""
     favorites_json = "[]"
 

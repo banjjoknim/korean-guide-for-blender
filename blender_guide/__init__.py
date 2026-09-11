@@ -10,6 +10,7 @@
 #
 # 파일 구성:
 #   search.py     — 한국어 검색 (블렌더 없이도 시험할 수 있다)
+#   focus.py      — 안내: 기능이 화면 어디에 있는지 짚어 주기
 #   guide_data.py — 항목 읽기 · 단축키 조회 · 지금 쓸 수 있는지 판단
 #   popup.py      — 팝업 화면
 #   sidebar.py    — N 패널의 '가이드' 탭
@@ -34,17 +35,20 @@ import bpy
 # 이것이 없으면 파일을 고쳐도 블렌더를 껐다 켜기 전까지 바뀌지 않는다.
 if "guide_data" in locals():
     import importlib
-    for _name in ("search", "guide_data", "popup", "sidebar", "prefs", "keymaps"):
+    for _name in ("search", "guide_data", "focus", "popup", "sidebar",
+                  "prefs", "keymaps"):
         if _name in locals():
             importlib.reload(locals()[_name])
 
-from . import guide_data, keymaps, popup, prefs, search, sidebar
+from . import focus, guide_data, keymaps, popup, prefs, search, sidebar
 
 
 def register():
     # ① 클래스를 등록한다. 항목 상태(PropertyGroup)가 먼저여야
     #    아래의 CollectionProperty 가 그것을 가리킬 수 있다.
     for cls in popup.classes:
+        bpy.utils.register_class(cls)
+    for cls in focus.classes:
         bpy.utils.register_class(cls)
     for cls in prefs.classes:
         bpy.utils.register_class(cls)
@@ -78,8 +82,9 @@ def register():
         type=popup.BLENDERGUIDE_PG_entry_state,
     )
 
-    # ④ 단축키를 등록한다.
+    # ④ 단축키와 화면에 그리는 강조 표시를 등록한다.
     keymaps.register_keymaps()
+    focus.register_handlers()
 
     # ⑤ Help 메뉴에 항목을 더한다. 단축키를 잊었을 때의 두 번째 입구이다.
     try:
@@ -97,6 +102,11 @@ def unregister():
 
     keymaps.unregister_keymaps()
 
+    # 그리기 손잡이는 반드시 걷어야 한다. 남겨 두면 애드온을 껐는데도 강조가
+    # 화면에 계속 그려지고, 블렌더를 껐다 켜기 전까지 지울 방법이 없다.
+    focus.stop()
+    focus.unregister_handlers()
+
     wm = bpy.types.WindowManager
     for prop_name in ("blender_guide_query", "blender_guide_tag",
                       "blender_guide_only_available", "blender_guide_states"):
@@ -107,6 +117,8 @@ def unregister():
     for cls in reversed(sidebar.classes):
         bpy.utils.unregister_class(cls)
     for cls in reversed(prefs.classes):
+        bpy.utils.unregister_class(cls)
+    for cls in reversed(focus.classes):
         bpy.utils.unregister_class(cls)
     for cls in reversed(popup.classes):
         bpy.utils.unregister_class(cls)

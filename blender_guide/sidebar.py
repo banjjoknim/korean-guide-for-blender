@@ -34,6 +34,14 @@ class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
                      text="기능 찾기" + (f"   ({shortcut})" if shortcut else ""),
                      icon=popup.safe_icon('VIEWZOOM', fallback='NONE'))
 
+        # ── 안내 모드 ──
+        # 팝업 안에도 같은 토글이 있지만, 팝업을 열지 않고도 껐다 켤 수 있어야
+        # '지금은 안내가 거슬린다'는 순간에 바로 끌 수 있다.
+        if hasattr(p, "bl_rna"):
+            toggle = layout.row(align=True)
+            toggle.prop(p, "learner_mode", text="안내 모드", toggle=True,
+                        icon=popup.safe_icon('QUESTION', fallback='NONE'))
+
         # ── 지금 상황 ──
         box = layout.box()
         box.label(text=popup._mode_label(context),
@@ -67,7 +75,8 @@ class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
 
             row = col.row(align=True)
             row.active = available
-            row.label(text=entry.get("ko", ""))
+            popup._draw_entry_name(row, context, entry, available,
+                                   bool(getattr(p, "learner_mode", True)))
             if shortcut_text:
                 key = row.row()
                 key.alignment = 'RIGHT'
