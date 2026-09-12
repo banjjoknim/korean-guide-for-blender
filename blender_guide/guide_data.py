@@ -347,6 +347,59 @@ def invalidate_caches(drop_entries: bool = False) -> None:
 _op_index: list | None = None
 
 
+# ── 블렌더가 가진 한국어 번역 ─────────────────────────────────────────
+
+_ko_catalog = None
+
+
+def load_blender_korean():
+    """블렌더에 딸려 오는 한국어 번역을 읽는다. 없으면 None 이다.
+
+    왜 번역 파일을 직접 읽는가: bpy.app.translations.pgettext 는 사용자가 지금
+    쓰는 언어로만 번역한다. 영어로 쓰는 사람에게는 영어가 돌아온다. 그렇다고
+    설정의 언어를 잠깐 바꾸면, 저장 설정이 켜져 있을 때 사용자의 화면 언어가
+    한국어로 바뀌어 버린다. 실제로 저장 설정이 켜져 있는 것을 확인했다.
+
+    번역 파일은 파이썬 기본 기능으로 그냥 읽을 수 있다. 설정을 건드리지 않고,
+    사용자가 무슨 언어로 쓰든 한국어 이름을 꺼낼 수 있다.
+    """
+    global _ko_catalog
+    if _ko_catalog is not None:
+        return _ko_catalog or None
+
+    import gettext
+
+    try:
+        root = bpy.utils.resource_path('LOCAL')
+    except Exception:
+        _ko_catalog = False
+        return None
+
+    path = os.path.join(root, "datafiles", "locale", "ko",
+                        "LC_MESSAGES", "blender.mo")
+    if not os.path.exists(path):
+        _ko_catalog = False
+        return None
+
+    try:
+        with open(path, "rb") as handle:
+            _ko_catalog = gettext.GNUTranslations(handle)
+    except Exception:
+        _ko_catalog = False
+        return None
+    return _ko_catalog
+
+
+def to_korean(text: str) -> str:
+    """블렌더가 아는 한국어 이름을 돌려준다. 모르면 원래 글자를 그대로 준다."""
+    if not text:
+        return ""
+    catalog = load_blender_korean()
+    if catalog is None:
+        return text
+    return catalog.gettext(text)
+
+
 def build_op_index(force: bool = False) -> list:
     """블렌더에 등록된 기능 전부(2천 개가 넘는다)를 훑어서 색인을 만든다.
 
@@ -382,12 +435,18 @@ def build_op_index(force: bool = False) -> list:
                 desc = rna.description or ""
             except Exception:
                 continue
+            # 블렌더가 아는 한국어 이름이 있으면 함께 담는다. 한국어로 쳐도
+            # 걸리게 하려는 것이다. 2,459개 가운데 406개에 번역이 있다.
+            ko_label = to_korean(label)
+            ko_desc = to_korean(desc)
             index.append({
                 "idname": idname,
                 "label": label,
                 "desc": desc,
+                "ko": ko_label if ko_label != label else "",
+                "ko_desc": ko_desc if ko_desc != desc else "",
                 # 검색에 쓸 비교용 한 덩어리이다. 미리 만들어 둔다.
-                "hay": f"{idname} {label} {desc}".lower(),
+                "hay": " ".join((idname, label, desc, ko_label, ko_desc)).lower(),
             })
 
     _op_index = index

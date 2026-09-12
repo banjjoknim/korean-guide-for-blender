@@ -70,7 +70,10 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
     )
     focus_search_on_open: bpy.props.BoolProperty(
         name="팝업을 열면 바로 칠 수 있게 한다",
-        description="팝업이 뜨자마자 검색창에 커서를 넣는다. 단축키를 누르고 곧바로 칠 수 있다",
+        description=("팝업이 뜨자마자 검색창에 커서를 넣습니다. 단축키를 누르고 곧바로 "
+                     "칠 수 있습니다. 다만 커서가 검색창에 있는 동안에는 팝업 안의 "
+                     "첫 클릭이 그 상태를 빠져나오는 데 쓰여서 단추까지 닿지 않습니다. "
+                     "치고 나서 Enter 를 한 번 누르면 그다음 클릭부터 바로 닿습니다"),
         default=True,
     )
     use_op_index: bpy.props.BoolProperty(

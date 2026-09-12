@@ -32,7 +32,27 @@ _ASK_PATTERNS = [
     "무엇", "방법", "좀", "제발", "please",
 ]
 
+# 영어로 물어볼 때 붙는 말이다. 긴 것부터 지운다.
+#
+# 왜 영어도 받는가: 블렌더 자료는 대부분 영어라서, 영어 이름을 어렴풋이 아는
+# 사람이 많다. 그런 사람이 'how do i bevel an edge' 라고 치면 찾아 줘야 한다.
+_ASK_PATTERNS_EN = [
+    "is there a way to", "how can i", "how do i", "how do you", "how to",
+    "i want to", "i'd like to", "i would like to", "i need to",
+    "can you", "can i", "could you", "please tell me", "please",
+    "what is the", "what is", "what's", "show me", "tell me",
+    "in blender", "of the", "on the", "in the",
+]
+
 # 혼자서는 뜻이 없는 낱말이다. 남겨 두면 엉뚱한 항목이 걸린다.
+_STOPWORDS_EN = {
+    "a", "an", "the", "to", "of", "in", "on", "at", "for", "with", "and", "or",
+    "is", "are", "was", "were", "be", "do", "does", "did", "my", "me", "it",
+    "this", "that", "these", "those", "i", "you", "we", "some", "any", "how",
+    "what", "where", "when", "why", "can", "could", "would", "should", "will",
+    "blender", "please", "thanks",
+}
+
 _STOPWORDS = {
     "이거", "그거", "저거", "이것", "그것", "저것", "여기", "거기", "저기",
     "지금", "다시", "계속", "전부", "모두", "각각", "너무", "조금", "많이",
@@ -62,10 +82,17 @@ _MIN_TOKEN = 1
 
 
 def strip_asking(text: str) -> str:
-    """문장에서 요청하는 말투를 걷어낸다."""
+    """문장에서 요청하는 말투를 걷어낸다. 한국어와 영어를 모두 본다."""
     cleaned = text
     for pattern in _ASK_PATTERNS:
         cleaned = cleaned.replace(pattern, " ")
+    lowered = cleaned.lower()
+    for pattern in _ASK_PATTERNS_EN:
+        # 영어는 대소문자를 가리지 않고 지운다. 지운 자리를 원문에서도 맞춘다.
+        while pattern in lowered:
+            at = lowered.index(pattern)
+            cleaned = cleaned[:at] + " " + cleaned[at + len(pattern):]
+            lowered = lowered[:at] + " " + lowered[at + len(pattern):]
     return re.sub(r"\s+", " ", cleaned).strip()
 
 
@@ -75,6 +102,10 @@ def strip_particle(token: str) -> str:
         if token.endswith(particle) and len(token) - len(particle) >= _MIN_TOKEN:
             return token[: -len(particle)]
     return token
+
+
+# 영어 낱말 끝에 붙는 것이다. 'beveling' 에서 'ing' 을 떼면 'bevel' 이 된다.
+_ENDINGS_EN = ["ings", "ing", "ied", "ies", "ed", "es", "s"]
 
 
 def stems(token: str) -> list:
@@ -91,6 +122,18 @@ def stems(token: str) -> list:
             if stem not in found:
                 found.append(stem)
             break
+
+    # 영어 낱말이면 어미도 떼어 본다. 한글에는 해당하지 않는다.
+    if token.isascii() and token.isalpha():
+        lowered = token.lower()
+        if lowered not in found:
+            found.append(lowered)
+        for ending in _ENDINGS_EN:
+            if lowered.endswith(ending) and len(lowered) - len(ending) >= 3:
+                stem = lowered[: -len(ending)]
+                if stem not in found:
+                    found.append(stem)
+                break
     return found
 
 
@@ -103,7 +146,9 @@ def keywords(text: str) -> list:
     found = []
     for raw in cleaned.split():
         token = strip_particle(raw.strip())
-        if not token or token in _STOPWORDS:
+        if not token:
+            continue
+        if token in _STOPWORDS or token.lower() in _STOPWORDS_EN:
             continue
         if len(token) < _MIN_TOKEN:
             continue
@@ -123,7 +168,9 @@ def looks_like_sentence(text: str) -> bool:
         return False
     if " " in text:
         return True
-    return any(p in text for p in _ASK_PATTERNS)
+    lowered = text.lower()
+    return (any(p in text for p in _ASK_PATTERNS)
+            or any(p in lowered for p in _ASK_PATTERNS_EN))
 
 
 def search(entries: list, text: str, availability: dict | None = None,
@@ -170,6 +217,24 @@ def search(entries: list, text: str, availability: dict | None = None,
 
     # 낱말을 붙여서 한 번 본다. 붙여야만 걸리는 항목이 있다.
     take(" ".join(words))
+
+    # 붙어 있는 두 낱말도 함께 본다. '루프 컷', '면 나누기' 처럼 두 낱말이
+    # 한 이름인 경우가 많다. 이것을 안 보면 'how to add a loop cut' 에서
+    # 'add' 하나가 'loop' 와 'cut' 둘을 이긴다. 실제로 그렇게 나왔다.
+    for first, second in zip(words, words[1:]):
+        pair = f"{first} {second}"
+        for entry in entries:
+            eid = entry.get("id")
+            now = bool(availability.get(eid, False))
+            score = engine.score_entry(entry, pair, available_now=now)
+            if score <= 0:
+                continue
+            entry_by_id[eid] = entry
+            if score > best_score.get(eid, 0):
+                best_score[eid] = score
+            # 두 낱말을 한꺼번에 맞혔으므로 둘 다 걸린 것으로 센다.
+            covered.setdefault(eid, set()).update((first, second))
+
     for word, shapes in forms.items():
         for shape in shapes:
             take(shape, word)
@@ -215,6 +280,22 @@ if __name__ == "__main__":
         ("점을 합치고 싶은데 어떻게 해", "merge"),
         ("전체가 보이게 해줘", "view_all"),
         ("물체를 지우고 싶어", "delete_object"),
+        # 영어로 물어보는 경우이다. 블렌더 자료가 대부분 영어라서 흔하다.
+        ("how do i bevel an edge", "bevel"),
+        ("i want to subdivide a face", "subdivide"),
+        ("how to add a loop cut", "loopcut"),
+        ("duplicate an object", "duplicate"),
+        ("how do i extrude faces", "extrude"),
+        # 애니메이션. 초보자는 '키프레임' 이라는 말을 아직 모른다.
+        ("물체를 움직이게 하고 싶어", "keyframe_insert"),
+        ("키프레임 넣는 법", "keyframe_insert"),
+        ("애니메이션 재생하고 싶어", "anim_play"),
+        ("캐릭터에 뼈대를 넣으려면", "armature_add"),
+        ("움직임이 뚝뚝 끊겨", "interpolation_type"),
+        ("표정을 만들고 싶어", "shape_key_add"),
+        ("카메라가 물체를 따라가게 하고 싶어", "constraint_add"),
+        ("how do i insert a keyframe", "keyframe_insert"),
+        ("how to play the animation", "anim_play"),
     ]
 
     passed = failed = 0

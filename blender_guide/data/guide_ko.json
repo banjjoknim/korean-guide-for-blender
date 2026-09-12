@@ -948,10 +948,10 @@
       "ko": "UV 펼치기",
       "aliases": [
         "언랩",
-        "UV",
         "펼치기",
         "텍스처 입히기 준비",
-        "전개도"
+        "전개도",
+        "UV"
       ],
       "en": "UV Unwrap",
       "op": "uv.unwrap",
@@ -1082,13 +1082,13 @@
       "aliases": [
         "익스포트",
         "내보내기",
-        "gltf",
-        "glb",
         "게임엔진",
         "게임으로",
         "유니티",
         "언리얼",
-        "엔진으로"
+        "엔진으로",
+        "gltf",
+        "glb"
       ],
       "en": "Export glTF 2.0",
       "op": "export_scene.gltf",
@@ -1323,8 +1323,7 @@
         "큐브",
         "구",
         "실린더",
-        "생성",
-        "add"
+        "생성"
       ],
       "en": "Add Mesh",
       "op": "mesh.primitive_cube_add",
@@ -1337,6 +1336,316 @@
       "note": "3D 커서 자리에 생깁니다. 만든 직후 F9 를 누르면 크기와 분할 수를 정할 수 있습니다.",
       "tags": [
         "기본조작"
+      ]
+    },
+    {
+      "id": "keyframe_insert",
+      "ko": "움직임 기록하기 (키프레임)",
+      "aliases": [
+        "키프레임",
+        "키 프레임",
+        "움직이게",
+        "애니메이션",
+        "기록",
+        "키 넣기",
+        "움직임 만들기",
+        "애니"
+      ],
+      "en": "Insert Keyframe",
+      "op": "anim.keyframe_insert_menu",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "Object > Animation > Insert Keyframe",
+      "shortcut": "I",
+      "note": "애니메이션의 시작입니다. 아래 타임라인에서 프레임을 옮긴 뒤 물체를 움직이고 다시 I 를 누르면, 그 사이가 저절로 이어집니다. 아무 일도 안 일어난 것 같으면 물체를 골랐는지 확인하세요.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "keyframe_delete",
+      "ko": "기록한 움직임 지우기",
+      "aliases": [
+        "키프레임 지우기",
+        "키 지우기",
+        "움직임 취소",
+        "애니메이션 지우기"
+      ],
+      "en": "Delete Keyframe",
+      "op": "anim.keyframe_delete_v3d",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "Object > Animation > Delete Keyframe",
+      "shortcut": "Option+I",
+      "note": "지금 프레임의 기록만 지웁니다. 그 물체의 움직임을 통째로 없애려면 Remove Animation 을 씁니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "anim_play",
+      "ko": "움직여 보기 (재생)",
+      "aliases": [
+        "재생",
+        "플레이",
+        "돌려보기",
+        "움직여봐",
+        "미리보기",
+        "플레이백"
+      ],
+      "en": "Play Animation",
+      "op": "screen.animation_play",
+      "modes": [],
+      "where": "화면 아래 타임라인의 삼각형 단추",
+      "shortcut": "Space",
+      "note": "Space 를 한 번 더 누르면 멈춥니다. 재생해도 아무 변화가 없으면 키프레임이 두 개 이상 있어야 한다는 것을 기억하세요. 하나만으로는 움직이지 않습니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "frame_jump",
+      "ko": "처음이나 끝으로 가기",
+      "aliases": [
+        "처음으로",
+        "끝으로",
+        "맨 앞",
+        "맨 뒤",
+        "프레임 이동"
+      ],
+      "en": "Jump to Endpoint",
+      "op": "screen.frame_jump",
+      "modes": [],
+      "where": "화면 아래 타임라인의 화살표 단추",
+      "shortcut": "Shift+Left",
+      "note": "Shift+Left 는 처음으로, Shift+Right 는 끝으로 갑니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "keyframe_jump",
+      "ko": "다음 기록으로 건너뛰기",
+      "aliases": [
+        "키프레임 이동",
+        "다음 키",
+        "이전 키",
+        "키 사이 이동"
+      ],
+      "en": "Jump to Keyframe",
+      "op": "screen.keyframe_jump",
+      "modes": [],
+      "where": "Up·Down 화살표",
+      "shortcut": "Up / Down",
+      "note": "기록해 둔 지점으로만 건너뜁니다. 어디에 기록했는지 찾을 때 씁니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "anim_remove",
+      "ko": "애니메이션 통째로 없애기",
+      "aliases": [
+        "애니메이션 삭제",
+        "움직임 전부 지우기",
+        "되돌리기",
+        "다시 시작"
+      ],
+      "en": "Remove Animation",
+      "op": "anim.keyframe_clear_v3d",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "Object > Animation > Clear Keyframes",
+      "shortcut": "Option+Shift+I",
+      "note": "그 물체에 기록한 모든 움직임이 사라집니다. 한 프레임만 지우려면 '기록한 움직임 지우기' 를 쓰세요.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "interpolation_type",
+      "ko": "움직임이 뚝뚝 끊길 때 (보간 방식)",
+      "aliases": [
+        "부드럽게",
+        "뚝뚝",
+        "끊겨",
+        "가속",
+        "등속",
+        "리니어",
+        "베지어",
+        "보간"
+      ],
+      "en": "Set Keyframe Interpolation",
+      "op": "graph.interpolation_type",
+      "modes": [],
+      "where": "그래프 에디터에서 키를 고르고 T",
+      "shortcut": "T",
+      "note": "기본은 천천히 시작했다 천천히 멈추는 방식입니다. 일정한 속도로 움직이게 하려면 Linear 를 고릅니다. 기계나 회전에 어울립니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "armature_add",
+      "ko": "뼈대 넣기",
+      "aliases": [
+        "뼈",
+        "아마추어",
+        "리깅",
+        "본",
+        "관절",
+        "캐릭터 움직이기"
+      ],
+      "en": "Add Armature",
+      "op": "object.armature_add",
+      "modes": [
+        "OBJECT"
+      ],
+      "where": "Add > Armature",
+      "shortcut": null,
+      "note": "캐릭터처럼 구부러지는 것을 움직이려면 뼈대가 필요합니다. 뼈대를 넣은 뒤 에디트 모드에서 E 로 뼈를 늘려 가며 이어 붙입니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "parent_armature",
+      "ko": "뼈대에 물체 매달기",
+      "aliases": [
+        "본에 붙이기",
+        "스키닝",
+        "웨이트",
+        "연결",
+        "따라 움직이게"
+      ],
+      "en": "Parent to Armature",
+      "op": "object.parent_set",
+      "modes": [
+        "OBJECT"
+      ],
+      "where": "물체를 고르고 뼈대를 나중에 고른 뒤 Object > Parent > Armature Deform",
+      "shortcut": "Cmd+P",
+      "note": "순서가 중요합니다. 움직일 물체를 먼저 고르고 뼈대를 나중에 골라야 합니다. With Automatic Weights 를 고르면 어느 뼈가 어디를 움직일지 알아서 나눕니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "pose_mode",
+      "ko": "포즈 잡기 모드",
+      "aliases": [
+        "포즈",
+        "자세",
+        "뼈 움직이기",
+        "포즈모드"
+      ],
+      "en": "Pose Mode",
+      "op": "object.posemode_toggle",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "화면 왼쪽 위 모드 드롭다운 > Pose Mode",
+      "shortcut": "Ctrl+Tab",
+      "note": "뼈대를 고른 상태에서만 들어갈 수 있습니다. 여기서 뼈를 돌려 자세를 잡고 I 로 기록합니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "pose_clear",
+      "ko": "잡은 자세 되돌리기",
+      "aliases": [
+        "포즈 초기화",
+        "자세 풀기",
+        "원래대로",
+        "T포즈"
+      ],
+      "en": "Clear Pose Transforms",
+      "op": "pose.transforms_clear",
+      "modes": [
+        "POSE"
+      ],
+      "where": "Pose > Clear Transform > All",
+      "shortcut": "Option+G / Option+R",
+      "note": "Option+G 는 위치만, Option+R 은 회전만 되돌립니다. 자세가 엉켰을 때 처음으로 돌아가는 길입니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "shape_key_add",
+      "ko": "모양 자체를 바꿔 가며 섞기 (셰이프키)",
+      "aliases": [
+        "셰이프키",
+        "표정",
+        "모프",
+        "입모양",
+        "블렌드셰이프",
+        "모양 바꾸기"
+      ],
+      "en": "Add Shape Key",
+      "op": "object.shape_key_add",
+      "modes": [
+        "OBJECT"
+      ],
+      "where": "속성 패널의 초록 역삼각형 아이콘 > Shape Keys",
+      "shortcut": null,
+      "note": "표정처럼 뼈대로는 어려운 변형에 씁니다. Basis 를 먼저 만들고, 새 키를 더한 뒤 에디트 모드에서 모양을 고칩니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "constraint_add",
+      "ko": "다른 것을 따라가게 하기 (제약)",
+      "aliases": [
+        "컨스트레인트",
+        "따라가기",
+        "제약",
+        "바라보기",
+        "묶기",
+        "추적"
+      ],
+      "en": "Add Constraint",
+      "op": "object.constraint_add",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "속성 패널의 뼈와 사슬 모양 아이콘",
+      "shortcut": null,
+      "note": "카메라가 물체를 늘 바라보게 하려면 Track To 를 씁니다. 손으로 일일이 돌리는 것보다 훨씬 편합니다.",
+      "tags": [
+        "애니메이션"
+      ]
+    },
+    {
+      "id": "motion_path",
+      "ko": "지나간 길 보기",
+      "aliases": [
+        "모션패스",
+        "궤적",
+        "경로",
+        "움직인 자리"
+      ],
+      "en": "Calculate Object Motion Paths",
+      "op": "object.paths_calculate",
+      "modes": [
+        "OBJECT",
+        "POSE"
+      ],
+      "where": "Object > Motion Paths > Calculate",
+      "shortcut": null,
+      "note": "물체가 어떤 길로 움직이는지 선으로 보여 줍니다. 움직임이 어색할 때 어디가 문제인지 눈으로 찾을 수 있습니다.",
+      "tags": [
+        "애니메이션"
       ]
     }
   ]
