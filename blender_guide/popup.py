@@ -458,6 +458,15 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             self._needs_focus = False
         field.prop(wm, "blender_guide_query", text="")
 
+        # 커서를 안 넣는 설정이면 그 사실을 알린다. 단축키를 누르고 바로
+        # 쳤는데 아무것도 안 들어가면 고장으로 느끼기 때문이다. 실제로
+        # 그렇게 겪은 일이 있어서 한 줄 남긴다.
+        if not p.focus_search_on_open:
+            tip = layout.row()
+            tip.active = False
+            tip.label(text="검색창을 한 번 눌러야 칠 수 있습니다. "
+                           "설정에서 '팝업을 열면 바로 칠 수 있게 한다' 를 켜 보세요.")
+
         # ── 거르개 ──
         filter_row = layout.row(align=True)
         filter_row.prop(wm, "blender_guide_tag", text="")
@@ -521,6 +530,13 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         weak = not results or _strength(results[0], probes) < search.SCORE_TAG
 
         if results and not weak:
+            # 검색창에 커서가 들어가 있으면 팝업 안의 첫 클릭이 글자 입력을
+            # 빠져나오는 데 쓰여서 단추까지 닿지 않는다. 블렌더 UI 의 성질이라
+            # 우리가 막을 수 없으므로, 무엇을 하면 되는지 한 줄로 알린다.
+            if p.focus_search_on_open and bool(getattr(p, "learner_mode", True)):
+                tip = layout.row()
+                tip.active = False
+                tip.label(text="Enter 를 한 번 누르면 그다음부터는 클릭이 바로 닿습니다.")
             for i, entry in enumerate(results):
                 _draw_entry(layout, context, entry,
                             bool(availability.get(entry.get("id"))),
@@ -814,6 +830,14 @@ def _draw_catalog(layout, context, query: str, p, probes=None) -> bool:
                 row.label(text=line_text,
                           icon=safe_icon('INFO', fallback='NONE')
                           if i == 0 else 'BLANK1')
+
+        # 모디파이어나 설정값이야말로 어디 있는지 짚어 주어야 한다. 기능은
+        # 단축키라도 있지만, 이것들은 탭을 찾아 들어가는 수밖에 없다.
+        if bool(getattr(p, "learner_mode", True)):
+            act = col.row(align=True)
+            act.operator("blender_guide.focus", text="어디에 있는지 보기",
+                         icon=safe_icon('VIEWZOOM', fallback='NONE')
+                         ).entry_id = entry.get("id", "")
 
     hint = layout.column(align=True)
     hint.active = False

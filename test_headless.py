@@ -515,6 +515,41 @@ def check_setting_group_shown():
 check("설정값에 어느 묶음인지 붙는다", check_setting_group_shown)
 
 
+def check_focus_reaches_catalog():
+    """모디파이어와 설정값도 안내를 받을 수 있는지 본다.
+
+    안내는 오래도록 정리된 74개만 짚어 주었다. 그런데 정작 헤매는 것은
+    설정값 쪽이다. 기능은 단축키라도 있지만 설정값은 탭을 찾아 들어가는
+    수밖에 없기 때문이다.
+    """
+    focus = blender_guide.focus
+    catalog = blender_guide.catalog
+
+    found = catalog.search("그림자 끄기", limit=1)
+    if not found:
+        raise AssertionError("설정값을 못 찾았다")
+    entry = focus.find_anywhere(found[0]["id"])
+    if entry is None:
+        raise AssertionError(f"안내가 {found[0]['id']} 를 못 찾는다")
+    tab = focus.resolve_properties_tab(entry)
+    if tab != 'RENDER':
+        raise AssertionError(f"렌더 탭이어야 하는데 {tab!r}")
+
+    # 노드는 다른 작업 공간에 있다. 3D 화면에 테두리를 두르면 안 된다.
+    node = next((e for e in catalog.as_entries()
+                 if e["id"].startswith("catalog:shader_node:")), None)
+    if node is None:
+        raise AssertionError("셰이더 노드가 카탈로그에 없다")
+    area, _, place = focus.resolve_region(node, None)
+    if area != 'NONE':
+        raise AssertionError(f"노드에 {area} 테두리를 두르려 한다 ({place})")
+
+    return f"설정값 → {tab} 탭 · 노드 → {place} 라고 알리기만 한다"
+
+
+check("모디파이어와 설정값도 안내한다", check_focus_reaches_catalog)
+
+
 def builtin_entries():
     """애드온에 딸린 항목만 읽는다.
 

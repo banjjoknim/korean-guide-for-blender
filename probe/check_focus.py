@@ -100,14 +100,41 @@ def step_register():
                  "focus_show_path", "focus_duration"):
         check(f"설정 항목 {attr}", hasattr(p, attr), str(getattr(p, attr, "없음")))
 
-    # 메뉴 경로를 실제 블렌더 메뉴로 얼마나 옮길 수 있는지 센다.
+    # 항목마다 안내가 무엇을 할 수 있는지 센다. '자리만 두른다' 가 많으면
+    # 안내가 '저쪽 어딘가를 보세요' 로 흐려졌다는 뜻이다.
+    import blender_guide.catalog as catalog
+
+    def what_it_does(entry):
+        if focus.resolve_menu(entry, bpy.context):
+            return "메뉴를 펼친다"
+        if focus.resolve_popover(entry):
+            return "쪽창을 연다"
+        if focus.resolve_properties_tab(entry):
+            return "속성 탭을 연다"
+        area, _, place = focus.resolve_region(entry, bpy.context)
+        if area == 'NONE':
+            return "다른 작업 공간이라 알림만"
+        return "자리만 두른다"
+
     entries = guide_data.load_entries()
-    pathed = [e for e in entries if focus.path_steps(e)]
-    missed = [f"{e['id']}({focus.path_steps(e)[0]})"
-              for e in pathed if not focus.resolve_menu(e, bpy.context)]
-    ok("메뉴 경로 해석",
-       f"경로형 {len(pathed)}개 중 {len(pathed) - len(missed)}개 연결"
-       + (f" · 못 맞춘 것 {len(missed)}개: {', '.join(missed)}" if missed else ""))
+    for label, items in (("정리된 항목", entries),
+                         ("카탈로그", catalog.as_entries())):
+        tally = {}
+        for entry in items:
+            key = what_it_does(entry)
+            tally[key] = tally.get(key, 0) + 1
+        opens = sum(v for k, v in tally.items() if k.endswith(("펼친다", "연다")))
+        ok(f"안내가 실제로 여는 것 · {label}",
+           f"{len(items)}개 중 {opens}개를 연다 — "
+           + " · ".join(f"{k} {v}" for k, v in sorted(tally.items())))
+
+    # 속성 패널에 있는 것에는 빠짐없이 탭이 정해져야 한다. 탭이 스무 개라
+    # '오른쪽 어딘가' 로는 못 찾는다.
+    blind = [e["ko"] for e in catalog.as_entries()
+             if focus.resolve_region(e, bpy.context)[0] == 'PROPERTIES'
+             and not focus.resolve_properties_tab(e)]
+    check("속성 패널 항목에는 탭이 정해진다", not blind,
+          f"탭을 못 고른 것 {len(blind)}개" if blind else "모두 정해진다")
 
     # 어떤 항목이든 강조 자리를 예외 없이 정할 수 있어야 한다.
     try:
@@ -167,6 +194,15 @@ def step_mode():
     bpy.app.timers.register(step_focus, first_interval=0.3)
 
 
+def _properties_tab() -> str:
+    """지금 속성 패널이 어느 탭을 보고 있는지 돌려준다."""
+    for window in bpy.context.window_manager.windows:
+        for area in window.screen.areas:
+            if area.type == 'PROPERTIES':
+                return area.spaces.active.context
+    return ""
+
+
 def step_focus():
     import blender_guide.focus as focus
     import blender_guide.guide_data as guide_data
@@ -187,6 +223,41 @@ def step_focus():
         check("없는 항목은 거절", result == {'CANCELLED'}, str(result))
     except Exception:
         bad("안내 오퍼레이터", traceback.format_exc(limit=4))
+
+    # 속성 패널에 있는 것은 탭을 실제로 열어 주어야 한다. '오른쪽 속성 패널을
+    # 보세요' 라고만 하면 탭이 스무 개라 여전히 헤맨다.
+    if hasattr(p, "focus_open_menu"):
+        p.focus_open_menu = True
+    try:
+        for name, entry_id, want in (
+                ("모디파이어", "modifier_add", 'MODIFIER'),
+                ("머티리얼", "material_new", 'MATERIAL'),
+                ("씬 단위", "scene_scale", 'SCENE')):
+            with bpy.context.temp_override(**override):
+                bpy.ops.blender_guide.focus(entry_id=entry_id)
+            now = _properties_tab()
+            check(f"속성 탭을 연다 · {name}", now == want, f"{now} (바라던 것 {want})")
+    except Exception:
+        bad("속성 탭을 연다", traceback.format_exc(limit=4))
+
+    # 카탈로그(모디파이어 종류·설정값)도 안내를 받을 수 있어야 한다.
+    try:
+        import blender_guide.catalog as catalog
+        found = catalog.search("그림자 끄기", limit=1)
+        if not found:
+            bad("카탈로그 안내", "설정값을 못 찾았다")
+        else:
+            with bpy.context.temp_override(**override):
+                result = bpy.ops.blender_guide.focus(entry_id=found[0]["id"])
+            check("카탈로그 항목도 안내한다", result == {'FINISHED'},
+                  f"{found[0]['ko']} → {result}")
+            check("설정값에도 자리를 짚는다",
+                  bool(focus._state.get("place")), focus._state.get("place", ""))
+    except Exception:
+        bad("카탈로그 안내", traceback.format_exc(limit=4))
+
+    if hasattr(p, "focus_open_menu"):
+        p.focus_open_menu = False
 
     # 강조를 켜 둔 채로 화면을 다시 그리게 해서, 오버레이가 예외 없이 도는지 본다.
     try:

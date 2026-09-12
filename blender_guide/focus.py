@@ -51,6 +51,7 @@ _MENU_BY_HEAD = {
     "Add":    {"EDIT_MESH": "VIEW3D_MT_mesh_add",
                "*": "VIEW3D_MT_add"},
     "Object": {"*": "VIEW3D_MT_object"},
+    "Pose":   {"*": "VIEW3D_MT_pose"},
     "Mesh":   {"*": "VIEW3D_MT_edit_mesh"},
     "Vertex": {"*": "VIEW3D_MT_edit_mesh_vertices"},
     "Edge":   {"*": "VIEW3D_MT_edit_mesh_edges"},
@@ -81,6 +82,25 @@ def path_steps(entry: dict) -> list:
     if ">" not in where:
         return []
     return [part.strip() for part in where.split(">") if part.strip()]
+
+
+def find_anywhere(entry_id: str):
+    """정리된 항목에서 찾고, 없으면 카탈로그에서 찾는다.
+
+    모디파이어나 설정값도 어디에 있는지 짚어 주어야 한다. 오히려 그쪽이
+    더 헤맨다. 기능은 단축키라도 있지만 설정값은 탭을 찾아 들어가야 한다.
+    """
+    from . import guide_data
+    entry = guide_data.find_entry(entry_id)
+    if entry is not None:
+        return entry
+    if not (entry_id or "").startswith("catalog:"):
+        return None
+    from . import catalog
+    for item in catalog.as_entries():
+        if item.get("id") == entry_id:
+            return item
+    return None
 
 
 def mode_matches(entry: dict, context) -> bool:
@@ -117,12 +137,100 @@ def resolve_menu(entry: dict, context) -> str:
 # 경로 꼴이 아닌 한국어 설명문은 낱말을 보고 자리를 짐작한다.
 # 앞에 적힌 것부터 차례로 맞춰 보므로, 더 좁게 가리키는 낱말을 위에 둔다.
 _KEYWORD_REGIONS = (
-    (("속성 패널", "렌치", "모디파이어", "머티리얼", "빨간 공", "원뿔+공"),
+    (("왼쪽 도구 막대", "도구 막대", "툴바"),
+     ('VIEW_3D', 'TOOLS', "3D 화면 왼쪽 도구 막대")),
+    (("속성 패널", "렌치", "모디파이어", "머티리얼", "빨간 공", "원뿔+공",
+      "Properties"),
      ('PROPERTIES', 'WINDOW', "오른쪽 속성 패널")),
+    (("사이드바", "N 을 눌러", "(N)"),
+     ('VIEW_3D', 'UI', "3D 화면 오른쪽 사이드바")),
+    (("타임라인", "재생 머리", "플레이헤드"),
+     ('DOPESHEET_EDITOR', 'WINDOW', "화면 아래 타임라인")),
     (("오버레이", "공 모양 아이콘", "겹친 사각형", "모드 드롭다운",
-      "점·선·면", "자석", "화면 위쪽 가운데", "화면 오른쪽 위", "화면 왼쪽 위"),
+      "점·선·면", "자석", "화면 위쪽 가운데", "화면 오른쪽 위", "화면 왼쪽 위",
+      "위쪽 머리글", "머리말", "Overlays", "Viewport Shading"),
      ('VIEW_3D', 'HEADER', "3D 화면 머리말")),
 )
+
+# 머리말의 화살표를 누르면 열리는 쪽창(팝오버)이다. 메뉴가 아니라서
+# wm.call_menu 로는 안 되고 wm.call_panel 로 연다. 오버레이 설정만 95가지가
+# 이 안에 들어 있어서, 열어 주지 않으면 '화살표를 누르세요' 로 끝난다.
+_POPOVERS = (
+    (("오버레이 드롭다운", "Overlays 단추", "오버레이"), "VIEW3D_PT_overlay"),
+    (("공 네 개", "Viewport Shading", "음영 드롭다운"), "VIEW3D_PT_shading"),
+    (("스냅 드롭다운", "스냅 설정"), "VIEW3D_PT_snapping"),
+    (("비례 편집",), "VIEW3D_PT_proportional_edit"),
+)
+
+
+def resolve_popover(entry: dict) -> str:
+    """이 항목이 들어 있는 쪽창 이름을 돌려준다. 없으면 빈 글자이다."""
+    where = entry.get("where") or ""
+    for keywords, panel in _POPOVERS:
+        if any(word in where for word in keywords):
+            return panel if hasattr(bpy.types, panel) else ""
+    return ""
+
+
+# 속성 패널의 어느 탭을 열어야 하는지 낱말로 알아낸다.
+# 탭을 실제로 여는 것이 '오른쪽 어딘가' 라고 두르는 것보다 훨씬 확실하다.
+# 앞에 적힌 것부터 맞춰 보므로, 더 좁게 가리키는 낱말을 위에 둔다.
+_PROPERTIES_TABS = (
+    (("렌치", "모디파이어", "Modifier"), 'MODIFIER'),
+    (("뼈와 사슬", "제약", "Constraint"), 'CONSTRAINT'),
+    (("체크무늬 공", "빨간 공", "머티리얼", "Material"), 'MATERIAL'),
+    (("프린터", "Output"), 'OUTPUT'),
+    (("카메라 뒷면", "Render Properties", "렌더 엔진"), 'RENDER'),
+    (("지구", "World"), 'WORLD'),
+    (("원뿔·공", "원뿔+공", "장면", "Scene Properties", "Units"), 'SCENE'),
+    (("주황 사각형", "Object Properties"), 'OBJECT'),
+    (("초록 삼각형", "초록 카메라", "초록 전구", "초록 역삼각형",
+      "Object Data", "Shape Keys"), 'DATA'),
+    (("물리", "Physics"), 'PHYSICS'),
+    (("입자", "Particles"), 'PARTICLES'),
+)
+
+
+# 쪽지에 어느 탭을 열었는지 적어 주기 위한 이름이다.
+_TAB_KO = {
+    'MODIFIER': "모디파이어", 'CONSTRAINT': "제약", 'MATERIAL': "머티리얼",
+    'OUTPUT': "출력", 'RENDER': "렌더", 'WORLD': "월드", 'SCENE': "씬",
+    'OBJECT': "오브젝트", 'DATA': "오브젝트 데이터", 'PHYSICS': "물리",
+    'PARTICLES': "파티클", 'TOOL': "도구",
+}
+
+
+def resolve_properties_tab(entry: dict) -> str:
+    """속성 패널의 어느 탭을 열지 정한다. 알 수 없으면 빈 글자이다."""
+    where = entry.get("where") or ""
+    for keywords, tab in _PROPERTIES_TABS:
+        if any(word in where for word in keywords):
+            return tab
+    return ""
+
+
+def open_properties_tab(context, tab: str) -> str:
+    """속성 패널을 그 탭으로 돌려놓는다. 연 탭 이름을 돌려준다.
+
+    '오른쪽 속성 패널을 보세요' 라고만 하면 탭이 스무 개라 여전히 헤맨다.
+    블렌더는 SpaceProperties.context 로 탭을 바꿀 수 있으므로 실제로 열어 준다.
+    """
+    if not tab:
+        return ""
+    for window in getattr(context.window_manager, "windows", []):
+        for area in window.screen.areas:
+            if area.type != 'PROPERTIES':
+                continue
+            space = area.spaces.active
+            try:
+                space.context = tab
+            except (TypeError, AttributeError):
+                # 지금 고른 물체에는 없는 탭이다. 메시가 아닌 것에 모디파이어
+                # 탭이 없는 것처럼. 그때는 조용히 넘어간다.
+                continue
+            area.tag_redraw()
+            return tab
+    return ""
 
 
 def resolve_region(entry: dict, context) -> tuple:
@@ -138,6 +246,15 @@ def resolve_region(entry: dict, context) -> tuple:
             return ('VIEW_3D', 'HEADER', "3D 화면 머리말")
 
     where = entry.get("where") or ""
+
+    # 다른 작업 공간이나 다른 편집기에 있는 것은 지금 화면에 아예 없다.
+    # 그런데도 3D 화면에 테두리를 두르면 엉뚱한 자리를 가리키는 셈이 된다.
+    # 노드가 469가지나 되므로 그냥 두면 안내의 절반이 거짓말이 된다.
+    for mark in ("작업 공간", "편집기"):
+        if mark in where:
+            head = where.split(mark)[0].strip(" >")
+            return ('NONE', 'NONE', f"{head} {mark}".strip())
+
     for keywords, target in _KEYWORD_REGIONS:
         if any(word in where for word in keywords):
             return target
@@ -159,6 +276,7 @@ _state = {
     "place": "",
     "where": "",
     "topbar": False,
+    "tab": "",
     "started": 0.0,
     "duration": 5.0,
 }
@@ -297,6 +415,9 @@ def draw_callout() -> None:
         # 자리 이름을 여기에도 쓰면 아래 줄과 똑같은 말이 두 번 나온다.
         path = _state["where"] or _state["place"]
     place = _with_particle(_state["place"], "을", "를") + " 보세요"
+    if _state["tab"]:
+        # 탭을 실제로 열어 두었으면 그 사실을 밝힌다. 눈이 그리로 가야 한다.
+        place += f"  ·  {_TAB_KO.get(_state['tab'], _state['tab'])} 탭을 열어 두었습니다"
 
     pad = 14 * scale
     gap = 8 * scale
@@ -406,6 +527,7 @@ def start(context, entry: dict, duration: float = 5.0) -> None:
         place=place,
         where=(entry.get("where") or "").strip(),
         topbar=place == "화면 맨 위 막대",
+        tab="",
         started=time.time(),
         duration=max(1.0, duration),
     )
@@ -474,7 +596,7 @@ class BLENDERGUIDE_OT_focus(bpy.types.Operator):
     def execute(self, context):
         from . import guide_data, history, prefs
 
-        entry = guide_data.find_entry(self.entry_id)
+        entry = find_anywhere(self.entry_id)
         if entry is None:
             self.report({'WARNING'}, "항목을 찾지 못했습니다.")
             return {'CANCELLED'}
@@ -488,6 +610,13 @@ class BLENDERGUIDE_OT_focus(bpy.types.Operator):
             start(context, entry, duration=getattr(p, "focus_duration", 5.0))
 
         if getattr(p, "focus_open_menu", True):
+            # 속성 패널에 있는 것은 탭을 실제로 열어 준다. 탭이 스무 개나
+            # 되어서 '오른쪽 속성 패널' 이라고만 하면 여전히 헤맨다.
+            # 메뉴가 아니므로 모드와 상관없이 먼저 해 둔다.
+            opened = open_properties_tab(context, resolve_properties_tab(entry))
+            if opened:
+                _state["tab"] = opened
+
             # 모드가 안 맞으면 그 메뉴 자체가 지금 화면에 없다. 그때 억지로
             # 펼치면 엉뚱한 메뉴가 뜨거나 오류가 나므로, 강조와 경로 안내만
             # 남기고 무엇을 먼저 해야 하는지 알린다.
@@ -497,6 +626,7 @@ class BLENDERGUIDE_OT_focus(bpy.types.Operator):
                 return {'FINISHED'}
 
             menu = resolve_menu(entry, context)
+            panel = "" if menu else resolve_popover(entry)
             if menu:
                 try:
                     bpy.ops.wm.call_menu('INVOKE_DEFAULT', name=menu)
@@ -504,7 +634,13 @@ class BLENDERGUIDE_OT_focus(bpy.types.Operator):
                     # 메뉴를 못 펼쳐도 강조와 경로 안내는 이미 떠 있으므로,
                     # 작업을 멈추지 않고 까닭만 알린다.
                     self.report({'INFO'}, f"메뉴를 펼치지 못했습니다 ({exc}).")
-            elif not path_steps(entry):
+            elif panel:
+                try:
+                    bpy.ops.wm.call_panel('INVOKE_DEFAULT', name=panel,
+                                          keep_open=True)
+                except Exception as exc:
+                    self.report({'INFO'}, f"쪽창을 열지 못했습니다 ({exc}).")
+            elif not opened and not path_steps(entry):
                 self.report({'INFO'},
                             entry.get("where") or "메뉴가 아니라 손으로 하는 조작입니다.")
 

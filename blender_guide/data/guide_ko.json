@@ -1,1664 +1,1664 @@
 {
-  "schema_version": 1,
-  "description": "초보자용 한국어 블렌더 기능 사전. 게임용 로우폴리 모델링에 실제로 쓰는 것 위주로 골랐다.",
-  "field_help": {
-    "id": "항목 고유 이름. 즐겨찾기를 저장할 때 이 값을 쓴다.",
-    "ko": "팝업에 크게 표시되는 한국어 이름.",
-    "aliases": "검색용 별칭. 초보자가 칠 법한 말을 넉넉히 넣어야 검색이 잘 걸린다.",
-    "en": "블렌더 화면에 실제로 적힌 영어 이름. 메뉴에서 눈으로 찾을 때 쓴다.",
-    "op": "오퍼레이터 식별자. 이 값으로 단축키를 블렌더에서 자동으로 읽어 온다.",
-    "modes": "이 기능을 쓸 수 있는 모드. 상황별 추천이 이 값으로 걸러진다. 빈 배열이면 어디서나 쓴다.",
-    "where": "메뉴 경로. 단축키를 모를 때 눈으로 찾아가는 길이다.",
-    "shortcut": "수동으로 적어 둔 단축키. 자동 조회가 실패했을 때만 쓰인다. 맥 기준으로 적는다. 팝업 한 줄에 들어가게 짧게 적고, 긴 설명은 note 로 보낸다.",
-    "note": "초보자가 걸려 넘어지는 지점을 적는다.",
-    "tags": "분류. 검색어가 비었을 때 묶어서 보여 준다.",
-    "prefer_manual": "참으로 두면 블렌더에서 읽은 단축키 대신 손으로 적은 값을 쓴다. 마우스를 끄는 조작처럼 블렌더가 알려 주는 글자가 알아보기 어려울 때만 켠다."
+ "schema_version": 1,
+ "description": "초보자용 한국어 블렌더 기능 사전. 게임용 로우폴리 모델링에 실제로 쓰는 것 위주로 골랐다.",
+ "field_help": {
+  "id": "항목 고유 이름. 즐겨찾기를 저장할 때 이 값을 쓴다.",
+  "ko": "팝업에 크게 표시되는 한국어 이름.",
+  "aliases": "검색용 별칭. 초보자가 칠 법한 말을 넉넉히 넣어야 검색이 잘 걸린다.",
+  "en": "블렌더 화면에 실제로 적힌 영어 이름. 메뉴에서 눈으로 찾을 때 쓴다.",
+  "op": "오퍼레이터 식별자. 이 값으로 단축키를 블렌더에서 자동으로 읽어 온다.",
+  "modes": "이 기능을 쓸 수 있는 모드. 상황별 추천이 이 값으로 걸러진다. 빈 배열이면 어디서나 쓴다.",
+  "where": "메뉴 경로. 단축키를 모를 때 눈으로 찾아가는 길이다.",
+  "shortcut": "수동으로 적어 둔 단축키. 자동 조회가 실패했을 때만 쓰인다. 맥 기준으로 적는다. 팝업 한 줄에 들어가게 짧게 적고, 긴 설명은 note 로 보낸다.",
+  "note": "초보자가 걸려 넘어지는 지점을 적는다.",
+  "tags": "분류. 검색어가 비었을 때 묶어서 보여 준다.",
+  "prefer_manual": "참으로 두면 블렌더에서 읽은 단축키 대신 손으로 적은 값을 쓴다. 마우스를 끄는 조작처럼 블렌더가 알려 주는 글자가 알아보기 어려울 때만 켠다."
+ },
+ "entries": [
+  {
+   "id": "view_orbit",
+   "ko": "시점 돌리기",
+   "aliases": [
+    "회전",
+    "돌리기",
+    "카메라 돌리기",
+    "시점",
+    "빙글빙글",
+    "화면 돌리기"
+   ],
+   "en": "Orbit View",
+   "op": "view3d.rotate",
+   "modes": [],
+   "where": "마우스 가운데 버튼을 누른 채 끌기",
+   "shortcut": "마우스 가운데 드래그",
+   "note": "트랙패드만 쓴다면 Preferences > Input 에서 'Emulate 3 Button Mouse' 를 켜고 Option+드래그로 대신합니다.",
+   "tags": [
+    "화면조작"
+   ],
+   "prefer_manual": true
   },
-  "entries": [
-    {
-      "id": "view_orbit",
-      "ko": "시점 돌리기",
-      "aliases": [
-        "회전",
-        "돌리기",
-        "카메라 돌리기",
-        "시점",
-        "빙글빙글",
-        "화면 돌리기"
-      ],
-      "en": "Orbit View",
-      "op": "view3d.rotate",
-      "modes": [],
-      "where": "마우스 가운데 버튼을 누른 채 끌기",
-      "shortcut": "마우스 가운데 드래그",
-      "note": "트랙패드만 쓴다면 Preferences > Input 에서 'Emulate 3 Button Mouse' 를 켜고 Option+드래그로 대신합니다.",
-      "tags": [
-        "화면조작"
-      ],
-      "prefer_manual": true
-    },
-    {
-      "id": "view_pan",
-      "ko": "시점 옮기기",
-      "aliases": [
-        "이동",
-        "패닝",
-        "화면 밀기",
-        "옆으로",
-        "시점 이동"
-      ],
-      "en": "Pan View",
-      "op": "view3d.move",
-      "modes": [],
-      "where": "Shift + 마우스 가운데 버튼 드래그",
-      "shortcut": "Shift + 가운데 드래그",
-      "note": "시점이 어디로 갔는지 모르겠으면 Home 키를 눌러 전체가 보이는 위치로 되돌립니다.",
-      "tags": [
-        "화면조작"
-      ],
-      "prefer_manual": true
-    },
-    {
-      "id": "view_selected",
-      "ko": "선택한 것을 화면 가운데로",
-      "aliases": [
-        "줌",
-        "확대",
-        "찾기",
-        "가운데",
-        "포커스",
-        "안 보여",
-        "어디갔지"
-      ],
-      "en": "Frame Selected",
-      "op": "view3d.view_selected",
-      "modes": [],
-      "where": "View > Frame Selected",
-      "shortcut": "Numpad .",
-      "note": "물체를 놓쳤을 때 제일 먼저 씁니다. 넘버패드가 없는 키보드라면 Preferences > Input 에서 'Emulate Numpad' 를 켜고 글자 위의 숫자열을 씁니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "view_all",
-      "ko": "전체가 보이게",
-      "aliases": [
-        "전체",
-        "다 보기",
-        "홈",
-        "리셋",
-        "초기화"
-      ],
-      "en": "Frame All",
-      "op": "view3d.view_all",
-      "modes": [],
-      "where": "View > Frame All",
-      "shortcut": "Home",
-      "note": "시점이 완전히 엉켰을 때의 탈출구입니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "view_axis",
-      "ko": "정면·측면·윗면에서 보기",
-      "aliases": [
-        "정면",
-        "측면",
-        "윗면",
-        "정투영",
-        "직교",
-        "각도 고정",
-        "축"
-      ],
-      "en": "View Axis (Front/Side/Top)",
-      "op": "view3d.view_axis",
-      "modes": [],
-      "where": "View > Viewpoint > Front / Side / Top",
-      "shortcut": "Numpad 1 · 3 · 7",
-      "note": "넘버패드 1 이 정면, 3 이 오른쪽, 7 이 위에서 본 모습입니다. 쿼터뷰처럼 시점 각도가 정해진 게임을 만든다면 정면과 윗면을 자주 오가게 됩니다. Ctrl 을 같이 누르면 반대쪽에서 봅니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "view_persp_ortho",
-      "ko": "원근·직교 전환",
-      "aliases": [
-        "직교",
-        "원근",
-        "투영",
-        "퍼스펙티브",
-        "오쏘",
-        "왜곡"
-      ],
-      "en": "Perspective/Orthographic",
-      "op": "view3d.view_persportho",
-      "modes": [],
-      "where": "View > Perspective/Orthographic",
-      "shortcut": "Numpad 5",
-      "note": "직교로 두면 멀고 가까움에 따른 왜곡이 사라져서 크기를 정확히 비교할 수 있습니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "shading_wireframe",
-      "ko": "표시 방식 바꾸기 (와이어프레임·솔리드)",
-      "aliases": [
-        "와이어",
-        "선만",
-        "투명",
-        "표시",
-        "쉐이딩",
-        "속이 안 보여"
-      ],
-      "en": "Toggle Wireframe / Shading",
-      "op": "view3d.toggle_shading",
-      "modes": [],
-      "where": "화면 오른쪽 위의 공 모양 아이콘 네 개",
-      "shortcut": "Z",
-      "note": "Z 를 누르면 원형 메뉴가 뜨고, 마우스를 원하는 방향으로 움직여 고릅니다. Shift+Z 를 누르면 와이어프레임으로 바로 넘어갑니다. 가려진 뒷면을 골라야 할 때 씁니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "local_view",
-      "ko": "선택한 것만 따로 보기",
-      "aliases": [
-        "혼자",
-        "격리",
-        "나머지 숨기기",
-        "로컬",
-        "집중",
-        "다른게 가려"
-      ],
-      "en": "Local View",
-      "op": "view3d.localview",
-      "modes": [],
-      "where": "View > Local View > Toggle Local View",
-      "shortcut": "Numpad /",
-      "note": "복잡한 장면에서 하나만 손볼 때 씁니다. 같은 키를 다시 누르면 원래대로 돌아옵니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "transform_move",
-      "ko": "옮기기",
-      "aliases": [
-        "이동",
-        "움직이기",
-        "위치",
-        "끌기",
-        "옮김"
-      ],
-      "en": "Move",
-      "op": "transform.translate",
-      "modes": [],
-      "where": "Object > Transform > Move",
-      "shortcut": "G",
-      "note": "G 를 누른 뒤 X·Y·Z 를 누르면 그 축으로만 움직입니다. 숫자를 치면 정확한 거리만큼 갑니다. 예를 들어 G 다음 Z 다음 2 를 치면 위로 2미터 올라갑니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "transform_rotate",
-      "ko": "돌리기",
-      "aliases": [
-        "회전",
-        "각도",
-        "틀기",
-        "돌림"
-      ],
-      "en": "Rotate",
-      "op": "transform.rotate",
-      "modes": [],
-      "where": "Object > Transform > Rotate",
-      "shortcut": "R",
-      "note": "R 다음 Z 다음 45 를 치면 Z축으로 정확히 45도 돕니다. 각도를 눈대중으로 맞추지 말고 숫자로 치면 나중에 어긋나지 않습니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "transform_scale",
-      "ko": "크기 바꾸기",
-      "aliases": [
-        "크기",
-        "스케일",
-        "확대",
-        "축소",
-        "키우기",
-        "줄이기"
-      ],
-      "en": "Scale",
-      "op": "transform.resize",
-      "modes": [],
-      "where": "Object > Transform > Scale",
-      "shortcut": "S",
-      "note": "오브젝트 모드에서 크기를 바꾸면 실제 크기가 아니라 배율만 바뀝니다. 게임 엔진으로 내보내기 전에 반드시 '크기 확정하기'(Apply Scale)를 해야 합니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "apply_transform",
-      "ko": "크기·회전 확정하기",
-      "aliases": [
-        "어플라이",
-        "적용",
-        "확정",
-        "스케일 초기화",
-        "1로",
-        "내보내기 전에"
-      ],
-      "en": "Apply Transform",
-      "op": "object.transform_apply",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Apply > All Transforms",
-      "shortcut": "Cmd+A",
-      "note": "매우 중요합니다. 이것을 안 하면 게임 엔진에서 크기와 회전이 엉뚱하게 들어갑니다. 맥에서는 Cmd+A 입니다. 내보내기 직전에 습관처럼 합니다.",
-      "tags": [
-        "기본조작",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "duplicate",
-      "ko": "복제하기",
-      "aliases": [
-        "복사",
-        "붙여넣기",
-        "하나 더",
-        "똑같은거",
-        "중복"
-      ],
-      "en": "Duplicate Objects",
-      "op": "object.duplicate_move",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Duplicate Objects",
-      "shortcut": "Shift+D",
-      "note": "복제한 직후 바로 이동 상태가 되므로, 제자리에 두려면 우클릭이나 Esc 를 누릅니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "duplicate_linked",
-      "ko": "연결된 복제 (원본을 고치면 같이 바뀐다)",
-      "aliases": [
-        "링크 복제",
-        "연결 복사",
-        "같이 바뀌는",
-        "인스턴스"
-      ],
-      "en": "Duplicate Linked",
-      "op": "object.duplicate_move_linked",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Duplicate Linked",
-      "shortcut": "Option+D",
-      "note": "같은 모양을 여러 개 놓을 때 씁니다. 하나를 고치면 전부 같이 바뀌므로 나무나 기둥처럼 반복되는 것에 알맞습니다. 맥에서는 Option+D 입니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "delete_object",
-      "ko": "지우기",
-      "aliases": [
-        "삭제",
-        "제거",
-        "없애기",
-        "지움"
-      ],
-      "en": "Delete",
-      "op": "object.delete",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Delete",
-      "shortcut": "X",
-      "note": "X 를 누르면 확인 메뉴가 뜨고, Delete 키는 묻지 않고 바로 지웁니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "set_origin",
-      "ko": "중심점 옮기기",
-      "aliases": [
-        "오리진",
-        "원점",
-        "중심",
-        "축",
-        "피벗",
-        "회전 중심"
-      ],
-      "en": "Set Origin",
-      "op": "object.origin_set",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Set Origin",
-      "shortcut": null,
-      "note": "물체가 회전하는 기준점을 정합니다. 게임 엔진에서 그 물체의 위치가 되는 지점이므로, 캐릭터는 보통 발밑에 둡니다. 'Origin to 3D Cursor' 를 쓰려면 먼저 3D 커서를 원하는 자리에 놓습니다.",
-      "tags": [
-        "기본조작",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "join_objects",
-      "ko": "여러 물체를 하나로 합치기",
-      "aliases": [
-        "합치기",
-        "조인",
-        "병합",
-        "하나로",
-        "묶기"
-      ],
-      "en": "Join",
-      "op": "object.join",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Join",
-      "shortcut": "Cmd+J",
-      "note": "마지막으로 선택한 것(밝은 테두리)이 기준이 되고 나머지가 거기에 흡수됩니다. 순서를 헷갈리면 결과가 달라집니다. 맥에서는 Cmd+J 입니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "separate",
-      "ko": "하나를 여러 물체로 쪼개기",
-      "aliases": [
-        "분리",
-        "떼기",
-        "나누기",
-        "쪼개기",
-        "세퍼레이트"
-      ],
-      "en": "Separate",
-      "op": "mesh.separate",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Separate",
-      "shortcut": "P",
-      "note": "에디트 모드에서 면을 고른 다음 P 를 눌러 'Selection' 을 고르면 그 부분만 새 물체가 됩니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "toggle_editmode",
-      "ko": "에디트 모드 들어가기·나가기",
-      "aliases": [
-        "에디트",
-        "편집",
-        "모드",
-        "탭",
-        "점 편집",
-        "안 눌려"
-      ],
-      "en": "Toggle Edit Mode",
-      "op": "object.editmode_toggle",
-      "modes": [
-        "OBJECT",
-        "EDIT_MESH"
-      ],
-      "where": "화면 왼쪽 위의 모드 드롭다운",
-      "shortcut": "Tab",
-      "note": "블렌더에서 가장 자주 쓰는 키입니다. 오브젝트 모드는 물체를 통째로 다루고, 에디트 모드는 점·선·면을 다룹니다. 기능이 회색으로 눌리지 않으면 대개 모드가 틀린 것입니다.",
-      "tags": [
-        "기본조작",
-        "메시편집"
-      ]
-    },
-    {
-      "id": "extrude",
-      "ko": "면 밀어내기",
-      "aliases": [
-        "돌출",
-        "익스트루드",
-        "뽑기",
-        "늘리기",
-        "튀어나오게",
-        "밀어내기"
-      ],
-      "en": "Extrude Region",
-      "op": "mesh.extrude_region_and_move",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Extrude",
-      "shortcut": "E",
-      "note": "모델링의 기본입니다. 면을 고르고 E 를 누르면 그 면이 바깥으로 뽑혀 나옵니다. E 다음 Z 를 누르면 위로만 뽑힙니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "inset",
-      "ko": "면 안쪽으로 테두리 만들기",
-      "aliases": [
-        "인셋",
-        "안쪽",
-        "테두리",
-        "액자",
-        "면 안에 면",
-        "축소 면"
-      ],
-      "en": "Inset Faces",
-      "op": "mesh.inset",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Face > Inset Faces",
-      "shortcut": "I",
-      "note": "면 안쪽에 한 겹 작은 면을 만듭니다. 창문이나 버튼처럼 파인 부분을 만들 때 인셋으로 테두리를 만들고 밀어내기로 밀어 넣습니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "bevel",
-      "ko": "모서리 둥글게 깎기",
-      "aliases": [
-        "베벨",
-        "둥글게",
-        "깎기",
-        "모따기",
-        "각 없애기",
-        "부드럽게"
-      ],
-      "en": "Bevel",
-      "op": "mesh.bevel",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Edge > Bevel Edges",
-      "shortcut": "Cmd+B",
-      "note": "Cmd+B 를 누르고 마우스를 움직여 폭을 정합니다. 그 상태에서 마우스 휠을 굴리면 깎는 단 수가 늘어납니다. 로우폴리에서는 1~2단으로 충분합니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "loopcut",
-      "ko": "가로줄·세로줄 넣기",
-      "aliases": [
-        "루프컷",
-        "선 추가",
-        "자르기",
-        "분할선",
-        "면 늘리기",
-        "가로줄",
-        "엣지 루프",
-        "루프 컷",
-        "엣지루프"
-      ],
-      "en": "Loop Cut and Slide",
-      "op": "mesh.loopcut_slide",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Edge > Loop Cut and Slide",
-      "shortcut": "Cmd+R",
-      "note": "Cmd+R 을 누르고 면 위에 마우스를 올리면 노란 선이 미리 보입니다. 휠을 굴리면 선 개수가 늘고, 클릭하면 확정, 우클릭하면 가운데에 고정됩니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "subdivide",
-      "ko": "면 잘게 나누기",
-      "aliases": [
-        "세분화",
-        "섭디바이드",
-        "쪼개기",
-        "잘게",
-        "폴리곤 늘리기",
-        "면 나누기",
-        "서브디비전",
-        "서브디비젼",
-        "섭디"
-      ],
-      "en": "Subdivide",
-      "op": "mesh.subdivide",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "면 위에서 우클릭 > Subdivide",
-      "shortcut": null,
-      "note": "실행한 뒤 화면 왼쪽 아래에 접힌 패널이 생기는데, 그것을 펴서 'Number of Cuts' 를 올리면 더 잘게 나뉩니다. 이 패널은 다른 작업을 하면 사라집니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "knife",
-      "ko": "칼로 자유롭게 자르기",
-      "aliases": [
-        "나이프",
-        "칼",
-        "자르기",
-        "선 긋기",
-        "자유 분할"
-      ],
-      "en": "Knife Topology Tool",
-      "op": "mesh.knife_tool",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Knife",
-      "shortcut": "K",
-      "note": "K 를 누르고 클릭해 가며 자를 선을 긋습니다. 다 그었으면 Enter 로 확정하고 Esc 로 취소합니다. 확정을 안 하면 아무 일도 일어나지 않습니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "merge",
-      "ko": "점 합치기",
-      "aliases": [
-        "머지",
-        "병합",
-        "합치기",
-        "붙이기",
-        "점 합침",
-        "구멍 메우기"
-      ],
-      "en": "Merge Vertices",
-      "op": "mesh.merge",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Merge",
-      "shortcut": "M",
-      "note": "'At Center' 는 고른 점들을 가운데로 모으고, 'By Distance' 는 겹쳐 있는 점들을 자동으로 합칩니다. 모델이 이상하게 갈라져 보일 때 By Distance 가 자주 해결책이 됩니다.",
-      "tags": [
-        "메시편집",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "fill_face",
-      "ko": "구멍 막기 (면 만들기)",
-      "aliases": [
-        "면 만들기",
-        "구멍",
-        "막기",
-        "채우기",
-        "페이스",
-        "뚫려있어"
-      ],
-      "en": "Make Edge/Face",
-      "op": "mesh.edge_face_add",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Vertex > New Edge/Face from Vertices",
-      "shortcut": "F",
-      "note": "점이나 선을 고르고 F 를 누르면 그 사이가 면으로 채워집니다. 네 점을 고르면 사각형 면이 하나 생깁니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "delete_mesh",
-      "ko": "점·선·면 지우기",
-      "aliases": [
-        "삭제",
-        "지우기",
-        "제거",
-        "면 지우기",
-        "선 지우기"
-      ],
-      "en": "Delete Mesh Elements",
-      "op": "mesh.delete",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Delete",
-      "shortcut": "X",
-      "note": "무엇을 지울지 고르는 메뉴가 뜹니다. 'Faces' 는 면만 지우고 테두리 선을 남기며, 'Vertices' 는 딸린 것까지 전부 지웁니다. 헷갈리면 Vertices 가 가장 깔끔합니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "dissolve",
-      "ko": "선만 없애고 면은 남기기",
-      "aliases": [
-        "디졸브",
-        "녹이기",
-        "선 없애기",
-        "정리",
-        "합치되 구멍 안 내기"
-      ],
-      "en": "Dissolve Edges",
-      "op": "mesh.dissolve_edges",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Delete > Dissolve Edges",
-      "shortcut": "X > Dissolve Edges",
-      "note": "그냥 지우면 구멍이 뚫리지만, 디졸브는 양옆 면을 하나로 합치면서 선만 없앱니다. X 를 누른 뒤 메뉴에서 'Dissolve Edges' 를 고릅니다. 폴리곤 수를 줄일 때 씁니다.",
-      "tags": [
-        "메시편집"
-      ]
-    },
-    {
-      "id": "mesh_select_mode",
-      "ko": "점·선·면 선택 방식 바꾸기",
-      "aliases": [
-        "버텍스",
-        "엣지",
-        "페이스",
-        "선택 모드",
-        "점 선택",
-        "면 선택",
-        "1 2 3"
-      ],
-      "en": "Mesh Select Mode",
-      "op": "mesh.select_mode",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "화면 왼쪽 위의 점·선·면 아이콘 세 개",
-      "shortcut": "1 · 2 · 3",
-      "note": "에디트 모드에서 글자 위의 숫자열 1·2·3 을 누릅니다. 넘버패드가 아닙니다. 1 이 점, 2 가 선, 3 이 면입니다.",
-      "tags": [
-        "선택",
-        "메시편집"
-      ]
-    },
-    {
-      "id": "select_loop",
-      "ko": "한 줄 통째로 고르기",
-      "aliases": [
-        "루프 선택",
-        "한 바퀴",
-        "줄 선택",
-        "띠",
-        "에지 루프"
-      ],
-      "en": "Select Edge Loop",
-      "op": "mesh.loop_select",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Select > Select Loops > Edge Loops",
-      "shortcut": "Option + 클릭",
-      "note": "선 하나를 Option 을 누른 채 클릭하면 그 선이 이어지는 한 바퀴가 통째로 선택됩니다. 원통의 테두리를 고를 때 꼭 필요합니다.",
-      "tags": [
-        "선택"
-      ]
-    },
-    {
-      "id": "select_linked",
-      "ko": "붙어 있는 덩어리 전체 고르기",
-      "aliases": [
-        "링크드",
-        "연결",
-        "덩어리",
-        "이어진 것",
-        "통째로"
-      ],
-      "en": "Select Linked",
-      "op": "mesh.select_linked",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Select > Select Linked > Linked",
-      "shortcut": "L",
-      "note": "마우스를 덩어리 위에 올리고 L 을 누르면 그것만 선택됩니다. 한 물체 안에 떨어진 덩어리가 여럿일 때 씁니다. Cmd+L 은 이미 고른 것에서 넓혀 갑니다.",
-      "tags": [
-        "선택"
-      ]
-    },
-    {
-      "id": "select_all",
-      "ko": "전체 선택·전체 해제",
-      "aliases": [
-        "모두",
-        "전체",
-        "다 선택",
-        "해제",
-        "선택 풀기"
-      ],
-      "en": "Select All / Deselect All",
-      "op": "mesh.select_all",
-      "modes": [],
-      "where": "Select > All / None",
-      "shortcut": "A",
-      "note": "A 로 전체를 고르고, Option+A 로 모두 풉니다. A 를 두 번 빠르게 눌러도 풀리지만 확실한 것은 Option+A 입니다.",
-      "tags": [
-        "선택"
-      ]
-    },
-    {
-      "id": "select_box",
-      "ko": "상자로 쓸어 담아 고르기",
-      "aliases": [
-        "박스",
-        "드래그 선택",
-        "쓸기",
-        "범위 선택",
-        "네모"
-      ],
-      "en": "Box Select",
-      "op": "view3d.select_box",
-      "modes": [],
-      "where": "Select > Box Select",
-      "shortcut": "B",
-      "note": "B 를 누르거나 빈 곳에서 그냥 드래그해도 됩니다. 기본 상태에서는 뒤에 가려진 점이 선택되지 않습니다. 뒤까지 고르려면 X-Ray(Option+Z)를 켭니다.",
-      "tags": [
-        "선택"
-      ]
-    },
-    {
-      "id": "toggle_xray",
-      "ko": "뒷면까지 비쳐 보이게",
-      "aliases": [
-        "엑스레이",
-        "투시",
-        "뒤에",
-        "가려진",
-        "뒷면 선택",
-        "안 골라져",
-        "X-Ray"
-      ],
-      "en": "Toggle X-Ray",
-      "op": "view3d.toggle_xray",
-      "modes": [],
-      "where": "화면 오른쪽 위의 겹친 사각형 아이콘",
-      "shortcut": "Option+Z",
-      "note": "상자 선택으로 뒷면 점까지 고르려면 반드시 켜야 합니다. 맥에서는 Option+Z 입니다. 초보자가 '왜 반대쪽이 안 골라지지' 하고 막히는 지점입니다.",
-      "tags": [
-        "선택",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "hide_show",
-      "ko": "잠깐 숨기기·되돌리기",
-      "aliases": [
-        "숨기기",
-        "감추기",
-        "하이드",
-        "보이기",
-        "다시 나오게"
-      ],
-      "en": "Hide / Reveal",
-      "op": "mesh.hide",
-      "modes": [],
-      "where": "Mesh > Show/Hide",
-      "shortcut": "H",
-      "note": "H 로 숨기고 Option+H 로 모두 되돌립니다. 안쪽을 손볼 때 앞면을 잠깐 숨깁니다. 물체가 갑자기 사라졌다면 Option+H 를 눌러 봅니다.",
-      "tags": [
-        "선택",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "modifier_add",
-      "ko": "모디파이어 붙이기",
-      "aliases": [
-        "모디파이어",
-        "수정자",
-        "효과",
-        "렌치",
-        "자동 처리",
-        "모디"
-      ],
-      "en": "Add Modifier",
-      "op": "object.modifier_add",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "오른쪽 속성 패널의 파란 렌치 아이콘 > Add Modifier",
-      "shortcut": null,
-      "note": "모디파이어는 원본을 건드리지 않고 겉모습만 바꾸는 장치입니다. 언제든 끄거나 지울 수 있어서 실험하기 좋습니다.",
-      "tags": [
-        "모디파이어"
-      ]
-    },
-    {
-      "id": "modifier_mirror",
-      "ko": "좌우 대칭으로 만들기",
-      "aliases": [
-        "미러",
-        "대칭",
-        "반만",
-        "좌우",
-        "반대쪽 자동"
-      ],
-      "en": "Mirror Modifier",
-      "op": null,
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "렌치 아이콘 > Add Modifier > Generate > Mirror",
-      "shortcut": null,
-      "note": "캐릭터는 반만 만들고 미러를 걸면 반대쪽이 자동으로 생깁니다. 가운데 점들이 좌우로 벌어져 있으면 이음매가 보이므로, 가운데 점들의 X 좌표를 0 으로 맞춰 둡니다.",
-      "tags": [
-        "모디파이어"
-      ]
-    },
-    {
-      "id": "modifier_solidify",
-      "ko": "얇은 면에 두께 주기",
-      "aliases": [
-        "솔리디파이",
-        "두께",
-        "종이",
-        "얇아",
-        "두껍게"
-      ],
-      "en": "Solidify Modifier",
-      "op": null,
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "렌치 아이콘 > Add Modifier > Generate > Solidify",
-      "shortcut": null,
-      "note": "면 하나짜리 판에 두께를 붙입니다. 옷이나 벽처럼 얇은 것에 씁니다.",
-      "tags": [
-        "모디파이어"
-      ]
-    },
-    {
-      "id": "modifier_array",
-      "ko": "일정 간격으로 여러 개 늘어놓기",
-      "aliases": [
-        "어레이",
-        "반복",
-        "배열",
-        "여러개",
-        "줄지어",
-        "계단"
-      ],
-      "en": "Array Modifier",
-      "op": null,
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "렌치 아이콘 > Add Modifier > Generate > Array",
-      "shortcut": null,
-      "note": "울타리, 계단, 기둥처럼 같은 것이 반복되는 구조를 한 번에 만듭니다.",
-      "tags": [
-        "모디파이어"
-      ]
-    },
-    {
-      "id": "modifier_apply",
-      "ko": "모디파이어 결과를 실제 모양으로 굳히기",
-      "aliases": [
-        "어플라이",
-        "적용",
-        "확정",
-        "굳히기",
-        "실제로"
-      ],
-      "en": "Apply Modifier",
-      "op": "object.modifier_apply",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "모디파이어 패널의 아래 화살표 메뉴 > Apply",
-      "shortcut": "Cmd+A",
-      "note": "모디파이어 패널에 마우스를 올린 채 Cmd+A 를 누르거나, 아래 화살표 메뉴에서 Apply 를 고릅니다. 굳히면 되돌릴 수 없습니다. 내보내기 전에 하되, 미러처럼 나중에 고칠 일이 많은 것은 마지막까지 남겨 두는 편이 낫습니다.",
-      "tags": [
-        "모디파이어",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "shade_smooth_flat",
-      "ko": "표면을 매끈하게·각지게",
-      "aliases": [
-        "스무스",
-        "플랫",
-        "각지게",
-        "매끈",
-        "부드럽게",
-        "면이 이상해"
-      ],
-      "en": "Shade Smooth / Flat",
-      "op": "object.shade_smooth",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Object > Shade Smooth 또는 Shade Flat",
-      "shortcut": null,
-      "note": "로우폴리 게임 모델은 대개 Shade Flat 이 어울립니다. 각진 면이 그대로 보여서 픽셀 느낌과 맞습니다.",
-      "tags": [
-        "모디파이어",
-        "머티리얼"
-      ]
-    },
-    {
-      "id": "uv_unwrap",
-      "ko": "UV 펼치기",
-      "aliases": [
-        "언랩",
-        "펼치기",
-        "텍스처 입히기 준비",
-        "전개도",
-        "UV",
-        "언래핑"
-      ],
-      "en": "UV Unwrap",
-      "op": "uv.unwrap",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "UV > Unwrap",
-      "shortcut": "U",
-      "note": "3D 모양을 평면 전개도로 펴서 그림을 입힐 수 있게 만듭니다. 먼저 '이음선 표시'(Mark Seam)로 어디를 가위로 자를지 정해야 제대로 펴집니다.",
-      "tags": [
-        "UV"
-      ]
-    },
-    {
-      "id": "mark_seam",
-      "ko": "UV 이음선 표시하기",
-      "aliases": [
-        "심",
-        "이음선",
-        "가위",
-        "자를 선",
-        "빨간 선"
-      ],
-      "en": "Mark Seam",
-      "op": "mesh.mark_seam",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Edge > Mark Seam",
-      "shortcut": null,
-      "note": "선을 고르고 실행하면 빨갛게 표시됩니다. 종이 상자를 펼칠 때 가위로 자르는 자리를 정하는 것과 같습니다.",
-      "tags": [
-        "UV"
-      ]
-    },
-    {
-      "id": "uv_smart_project",
-      "ko": "UV 자동으로 펴기",
-      "aliases": [
-        "스마트",
-        "자동 UV",
-        "알아서",
-        "빠르게 UV"
-      ],
-      "en": "Smart UV Project",
-      "op": "uv.smart_project",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "UV > Smart UV Project",
-      "shortcut": null,
-      "note": "이음선을 직접 정하지 않고 블렌더가 알아서 자릅니다. 결과가 조각조각 나지만, 단색 팔레트 텍스처를 쓰는 로우폴리에서는 충분한 경우가 많습니다.",
-      "tags": [
-        "UV"
-      ]
-    },
-    {
-      "id": "material_new",
-      "ko": "색·재질 만들기",
-      "aliases": [
-        "머티리얼",
-        "재질",
-        "색칠",
-        "색 입히기",
-        "마테리얼"
-      ],
-      "en": "New Material",
-      "op": "material.new",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "오른쪽 속성 패널의 빨간 공 아이콘 > New",
-      "shortcut": null,
-      "note": "Base Color 를 바꾸면 색이 정해집니다. 게임 엔진으로 내보낼 때 머티리얼 이름이 그대로 따라가므로 이름을 알아보기 쉽게 짓습니다.",
-      "tags": [
-        "머티리얼",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "assign_material_slot",
-      "ko": "부분마다 다른 색 입히기",
-      "aliases": [
-        "슬롯",
-        "부분 색",
-        "여러 색",
-        "어사인",
-        "면마다"
-      ],
-      "en": "Assign Material Slot",
-      "op": "object.material_slot_assign",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "속성 패널 머티리얼 목록에서 슬롯을 고르고 Assign",
-      "shortcut": null,
-      "note": "에디트 모드에서 면을 고르고, 속성 패널에서 머티리얼 슬롯을 고른 뒤 Assign 을 누릅니다. 순서를 지켜야 합니다.",
-      "tags": [
-        "머티리얼"
-      ]
-    },
-    {
-      "id": "texture_paint",
-      "ko": "모델 위에 직접 그리기",
-      "aliases": [
-        "텍스처 페인트",
-        "칠하기",
-        "그리기",
-        "붓"
-      ],
-      "en": "Texture Paint Mode",
-      "op": null,
-      "modes": [
-        "OBJECT",
-        "PAINT_TEXTURE"
-      ],
-      "where": "화면 왼쪽 위 모드 드롭다운 > Texture Paint",
-      "shortcut": null,
-      "note": "UV 를 먼저 펴 두어야 합니다. 픽셀 느낌을 살리려면 텍스처 크기를 작게 잡고 보간을 Closest 로 둡니다.",
-      "tags": [
-        "머티리얼",
-        "UV"
-      ]
-    },
-    {
-      "id": "export_gltf",
-      "ko": "게임 엔진으로 내보내기 (glTF)",
-      "aliases": [
-        "익스포트",
-        "내보내기",
-        "게임엔진",
-        "게임으로",
-        "유니티",
-        "언리얼",
-        "엔진으로",
-        "gltf",
-        "glb"
-      ],
-      "en": "Export glTF 2.0",
-      "op": "export_scene.gltf",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "File > Export > glTF 2.0 (.glb/.gltf)",
-      "shortcut": null,
-      "note": "glTF 는 대부분의 게임 엔진이 가장 잘 읽는 형식입니다. 내보내기 전에 크기·회전 확정하기를 반드시 합니다. 옵션에서 'Selected Objects' 를 켜면 고른 것만 나갑니다. .glb 는 그림까지 한 파일에 담고, .gltf 는 따로 둡니다.",
-      "tags": [
-        "내보내기"
-      ]
-    },
-    {
-      "id": "scene_scale",
-      "ko": "크기 단위 맞추기",
-      "aliases": [
-        "단위",
-        "스케일",
-        "미터",
-        "크기가 이상",
-        "너무 커",
-        "너무 작아"
-      ],
-      "en": "Scene Units",
-      "op": null,
-      "modes": [],
-      "where": "속성 패널의 장면(원뿔+공) 아이콘 > Units",
-      "shortcut": null,
-      "note": "블렌더와 대부분의 게임 엔진은 1 단위를 1미터로 봅니다. 기본 큐브는 2미터짜리라서 처음 만들면 게임 안에서 거대하게 보입니다.",
-      "tags": [
-        "내보내기",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "recalc_normals",
-      "ko": "면 방향 바로잡기",
-      "aliases": [
-        "노멀",
-        "법선",
-        "뒤집힘",
-        "안 보여",
-        "까맣게",
-        "면 방향",
-        "구멍처럼"
-      ],
-      "en": "Recalculate Normals",
-      "op": "mesh.normals_make_consistent",
-      "modes": [
-        "EDIT_MESH"
-      ],
-      "where": "Mesh > Normals > Recalculate Outside",
-      "shortcut": "Shift+N",
-      "note": "면이 안쪽을 향하면 게임 엔진에서 그 부분이 투명하게 뚫린 것처럼 보입니다. 전체 선택(A) 후 Shift+N 을 누르면 대개 해결됩니다.",
-      "tags": [
-        "문제해결",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "undo",
-      "ko": "되돌리기",
-      "aliases": [
-        "언두",
-        "취소",
-        "실수",
-        "되돌림",
-        "전으로"
-      ],
-      "en": "Undo",
-      "op": "ed.undo",
-      "modes": [],
-      "where": "Edit > Undo",
-      "shortcut": "Cmd+Z",
-      "note": "맥에서는 Cmd+Z 입니다. 되돌릴 수 있는 횟수는 Preferences > System > Undo Steps 에서 늘릴 수 있고 기본값은 32번입니다.",
-      "tags": [
-        "문제해결"
-      ]
-    },
-    {
-      "id": "recover_last_session",
-      "ko": "저장 안 하고 닫은 파일 되살리기",
-      "aliases": [
-        "복구",
-        "날아갔어",
-        "저장 안 함",
-        "리커버",
-        "지난 작업"
-      ],
-      "en": "Recover Last Session",
-      "op": "wm.recover_last_session",
-      "modes": [],
-      "where": "File > Recover > Last Session",
-      "shortcut": null,
-      "note": "블렌더는 종료할 때 임시 파일을 남깁니다. 저장하지 않고 닫았어도 여기서 직전 상태를 되살릴 수 있습니다.",
-      "tags": [
-        "문제해결"
-      ]
-    },
-    {
-      "id": "statistics_overlay",
-      "ko": "폴리곤 개수 보기",
-      "aliases": [
-        "통계",
-        "폴리곤 수",
-        "삼각형",
-        "버텍스 수",
-        "무거워",
-        "성능"
-      ],
-      "en": "Statistics Overlay",
-      "op": null,
-      "modes": [],
-      "where": "화면 오른쪽 위 오버레이 드롭다운 > Statistics",
-      "shortcut": null,
-      "note": "만든 모델이 얼마나 무거운지 확인합니다. 로우폴리나 픽셀풍 게임에서는 폴리곤이 적어도 충분히 보기 좋으므로, 숫자를 보면서 덜어 낼 수 있습니다.",
-      "tags": [
-        "문제해결",
-        "내보내기"
-      ]
-    },
-    {
-      "id": "search_menu",
-      "ko": "블렌더 기본 기능 검색 (영어)",
-      "aliases": [
-        "검색",
-        "찾기",
-        "F3",
-        "기능 검색",
-        "메뉴 검색"
-      ],
-      "en": "Menu Search",
-      "op": "wm.search_menu",
-      "modes": [],
-      "where": "Edit > Menu Search",
-      "shortcut": "F3",
-      "note": "블렌더가 원래 갖고 있는 검색입니다. 영어 이름을 알 때는 이쪽이 빠릅니다. 이 가이드 팝업은 영어 이름을 모를 때 쓰는 것입니다.",
-      "tags": [
-        "화면조작"
-      ]
-    },
-    {
-      "id": "repeat_last",
-      "ko": "방금 한 것 한 번 더",
-      "aliases": [
-        "반복",
-        "리핏",
-        "한 번 더",
-        "다시"
-      ],
-      "en": "Repeat Last",
-      "op": "screen.repeat_last",
-      "modes": [],
-      "where": "Edit > Repeat Last",
-      "shortcut": "Shift+R",
-      "note": "같은 작업을 여러 번 할 때 씁니다. 예를 들어 루프컷을 연달아 넣을 때 편합니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "adjust_last_operation",
-      "ko": "방금 한 작업의 수치 고치기",
-      "aliases": [
-        "왼쪽 아래",
-        "패널",
-        "수치",
-        "다시 조정",
-        "F9",
-        "옵션"
-      ],
-      "en": "Adjust Last Operation",
-      "op": "screen.redo_last",
-      "modes": [],
-      "where": "화면 왼쪽 아래의 접힌 패널",
-      "shortcut": "F9",
-      "note": "초보자가 가장 많이 놓치는 기능입니다. 무언가를 실행한 직후 F9 를 누르면 그 작업의 수치를 다시 조정할 수 있습니다. 다른 작업을 하면 기회가 사라집니다.",
-      "tags": [
-        "기본조작",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "snap_toggle",
-      "ko": "격자에 딱 맞춰 움직이기",
-      "aliases": [
-        "스냅",
-        "격자",
-        "그리드",
-        "딱 맞게",
-        "정렬",
-        "자석"
-      ],
-      "en": "Snap",
-      "op": null,
-      "modes": [],
-      "where": "화면 위쪽 가운데의 자석 아이콘",
-      "shortcut": "Shift+Tab",
-      "note": "Shift+Tab 으로 켜고 끕니다. 옮기는 중에 Cmd 를 누르고 있어도 잠깐 달라붙습니다. 자석 옆 드롭다운에서 무엇에 맞출지 고릅니다. 'Increment' 는 격자에, 'Vertex' 는 다른 점에 달라붙습니다. 블록을 쌓아 만드는 픽셀풍 모델에 유용합니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "cursor_reset",
-      "ko": "3D 커서 원점으로 되돌리기",
-      "aliases": [
-        "커서",
-        "빨간 흰 동그라미",
-        "원점",
-        "가운데로",
-        "이상한 데 생겨"
-      ],
-      "en": "Snap Cursor to World Origin",
-      "op": "view3d.snap_cursor_to_center",
-      "modes": [],
-      "where": "Object > Snap > Cursor to World Origin",
-      "shortcut": "Shift+C",
-      "note": "새로 만드는 물체는 3D 커서 자리에 생깁니다. 물체가 엉뚱한 곳에 생긴다면 커서가 옮겨져 있는 것입니다. Shift+C 는 시점도 함께 되돌립니다.",
-      "tags": [
-        "기본조작",
-        "문제해결"
-      ]
-    },
-    {
-      "id": "add_mesh",
-      "ko": "새 물체 만들기",
-      "aliases": [
-        "추가",
-        "만들기",
-        "큐브",
-        "구",
-        "실린더",
-        "생성"
-      ],
-      "en": "Add Mesh",
-      "op": "mesh.primitive_cube_add",
-      "modes": [
-        "OBJECT",
-        "EDIT_MESH"
-      ],
-      "where": "Add > Mesh",
-      "shortcut": "Shift+A",
-      "note": "3D 커서 자리에 생깁니다. 만든 직후 F9 를 누르면 크기와 분할 수를 정할 수 있습니다.",
-      "tags": [
-        "기본조작"
-      ]
-    },
-    {
-      "id": "keyframe_insert",
-      "ko": "움직임 기록하기 (키프레임)",
-      "aliases": [
-        "키프레임",
-        "키 프레임",
-        "움직이게",
-        "애니메이션",
-        "기록",
-        "키 넣기",
-        "움직임 만들기",
-        "애니",
-        "키프레임 삽입",
-        "인서트 키"
-      ],
-      "en": "Insert Keyframe",
-      "op": "anim.keyframe_insert_menu",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "Object > Animation > Insert Keyframe",
-      "shortcut": "I",
-      "note": "애니메이션의 시작입니다. 아래 타임라인에서 프레임을 옮긴 뒤 물체를 움직이고 다시 I 를 누르면, 그 사이가 저절로 이어집니다. 아무 일도 안 일어난 것 같으면 물체를 골랐는지 확인하세요.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "keyframe_delete",
-      "ko": "기록한 움직임 지우기",
-      "aliases": [
-        "키프레임 지우기",
-        "키 지우기",
-        "움직임 취소",
-        "애니메이션 지우기"
-      ],
-      "en": "Delete Keyframe",
-      "op": "anim.keyframe_delete_v3d",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "Object > Animation > Delete Keyframe",
-      "shortcut": "Option+I",
-      "note": "지금 프레임의 기록만 지웁니다. 그 물체의 움직임을 통째로 없애려면 Remove Animation 을 씁니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "anim_play",
-      "ko": "움직여 보기 (재생)",
-      "aliases": [
-        "재생",
-        "플레이",
-        "돌려보기",
-        "움직여봐",
-        "미리보기",
-        "플레이백"
-      ],
-      "en": "Play Animation",
-      "op": "screen.animation_play",
-      "modes": [],
-      "where": "화면 아래 타임라인의 삼각형 단추",
-      "shortcut": "Space",
-      "note": "Space 를 한 번 더 누르면 멈춥니다. 재생해도 아무 변화가 없으면 키프레임이 두 개 이상 있어야 한다는 것을 기억하세요. 하나만으로는 움직이지 않습니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "frame_jump",
-      "ko": "처음이나 끝으로 가기",
-      "aliases": [
-        "처음으로",
-        "끝으로",
-        "맨 앞",
-        "맨 뒤",
-        "프레임 이동"
-      ],
-      "en": "Jump to Endpoint",
-      "op": "screen.frame_jump",
-      "modes": [],
-      "where": "화면 아래 타임라인의 화살표 단추",
-      "shortcut": "Shift+Left",
-      "note": "Shift+Left 는 처음으로, Shift+Right 는 끝으로 갑니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "keyframe_jump",
-      "ko": "다음 기록으로 건너뛰기",
-      "aliases": [
-        "키프레임 이동",
-        "다음 키",
-        "이전 키",
-        "키 사이 이동"
-      ],
-      "en": "Jump to Keyframe",
-      "op": "screen.keyframe_jump",
-      "modes": [],
-      "where": "Up·Down 화살표",
-      "shortcut": "Up / Down",
-      "note": "기록해 둔 지점으로만 건너뜁니다. 어디에 기록했는지 찾을 때 씁니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "anim_remove",
-      "ko": "애니메이션 통째로 없애기",
-      "aliases": [
-        "애니메이션 삭제",
-        "움직임 전부 지우기",
-        "되돌리기",
-        "다시 시작"
-      ],
-      "en": "Remove Animation",
-      "op": "anim.keyframe_clear_v3d",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "Object > Animation > Clear Keyframes",
-      "shortcut": "Option+Shift+I",
-      "note": "그 물체에 기록한 모든 움직임이 사라집니다. 한 프레임만 지우려면 '기록한 움직임 지우기' 를 쓰세요.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "interpolation_type",
-      "ko": "움직임이 뚝뚝 끊길 때 (보간 방식)",
-      "aliases": [
-        "부드럽게",
-        "뚝뚝",
-        "끊겨",
-        "가속",
-        "등속",
-        "리니어",
-        "베지어",
-        "보간"
-      ],
-      "en": "Set Keyframe Interpolation",
-      "op": "graph.interpolation_type",
-      "modes": [],
-      "where": "그래프 에디터에서 키를 고르고 T",
-      "shortcut": "T",
-      "note": "기본은 천천히 시작했다 천천히 멈추는 방식입니다. 일정한 속도로 움직이게 하려면 Linear 를 고릅니다. 기계나 회전에 어울립니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "armature_add",
-      "ko": "뼈대 넣기",
-      "aliases": [
-        "뼈",
-        "아마추어",
-        "리깅",
-        "본",
-        "관절",
-        "캐릭터 움직이기"
-      ],
-      "en": "Add Armature",
-      "op": "object.armature_add",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "Add > Armature",
-      "shortcut": null,
-      "note": "캐릭터처럼 구부러지는 것을 움직이려면 뼈대가 필요합니다. 뼈대를 넣은 뒤 에디트 모드에서 E 로 뼈를 늘려 가며 이어 붙입니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "parent_armature",
-      "ko": "뼈대에 물체 매달기",
-      "aliases": [
-        "본에 붙이기",
-        "스키닝",
-        "웨이트",
-        "연결",
-        "따라 움직이게"
-      ],
-      "en": "Parent to Armature",
-      "op": "object.parent_set",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "물체를 고르고 뼈대를 나중에 고른 뒤 Object > Parent > Armature Deform",
-      "shortcut": "Cmd+P",
-      "note": "순서가 중요합니다. 움직일 물체를 먼저 고르고 뼈대를 나중에 골라야 합니다. With Automatic Weights 를 고르면 어느 뼈가 어디를 움직일지 알아서 나눕니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "pose_mode",
-      "ko": "포즈 잡기 모드",
-      "aliases": [
-        "포즈",
-        "자세",
-        "뼈 움직이기",
-        "포즈모드"
-      ],
-      "en": "Pose Mode",
-      "op": "object.posemode_toggle",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "화면 왼쪽 위 모드 드롭다운 > Pose Mode",
-      "shortcut": "Ctrl+Tab",
-      "note": "뼈대를 고른 상태에서만 들어갈 수 있습니다. 여기서 뼈를 돌려 자세를 잡고 I 로 기록합니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "pose_clear",
-      "ko": "잡은 자세 되돌리기",
-      "aliases": [
-        "포즈 초기화",
-        "자세 풀기",
-        "원래대로",
-        "T포즈"
-      ],
-      "en": "Clear Pose Transforms",
-      "op": "pose.transforms_clear",
-      "modes": [
-        "POSE"
-      ],
-      "where": "Pose > Clear Transform > All",
-      "shortcut": "Option+G / Option+R",
-      "note": "Option+G 는 위치만, Option+R 은 회전만 되돌립니다. 자세가 엉켰을 때 처음으로 돌아가는 길입니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "shape_key_add",
-      "ko": "모양 자체를 바꿔 가며 섞기 (셰이프키)",
-      "aliases": [
-        "셰이프키",
-        "표정",
-        "모프",
-        "입모양",
-        "블렌드셰이프",
-        "모양 바꾸기",
-        "셰이프 키",
-        "쉐이프키"
-      ],
-      "en": "Add Shape Key",
-      "op": "object.shape_key_add",
-      "modes": [
-        "OBJECT"
-      ],
-      "where": "속성 패널의 초록 역삼각형 아이콘 > Shape Keys",
-      "shortcut": null,
-      "note": "표정처럼 뼈대로는 어려운 변형에 씁니다. Basis 를 먼저 만들고, 새 키를 더한 뒤 에디트 모드에서 모양을 고칩니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "constraint_add",
-      "ko": "다른 것을 따라가게 하기 (제약)",
-      "aliases": [
-        "컨스트레인트",
-        "따라가기",
-        "제약",
-        "바라보기",
-        "묶기",
-        "추적"
-      ],
-      "en": "Add Constraint",
-      "op": "object.constraint_add",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "속성 패널의 뼈와 사슬 모양 아이콘",
-      "shortcut": null,
-      "note": "카메라가 물체를 늘 바라보게 하려면 Track To 를 씁니다. 손으로 일일이 돌리는 것보다 훨씬 편합니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    },
-    {
-      "id": "motion_path",
-      "ko": "지나간 길 보기",
-      "aliases": [
-        "모션패스",
-        "궤적",
-        "경로",
-        "움직인 자리"
-      ],
-      "en": "Calculate Object Motion Paths",
-      "op": "object.paths_calculate",
-      "modes": [
-        "OBJECT",
-        "POSE"
-      ],
-      "where": "Object > Motion Paths > Calculate",
-      "shortcut": null,
-      "note": "물체가 어떤 길로 움직이는지 선으로 보여 줍니다. 움직임이 어색할 때 어디가 문제인지 눈으로 찾을 수 있습니다.",
-      "tags": [
-        "애니메이션"
-      ]
-    }
-  ]
+  {
+   "id": "view_pan",
+   "ko": "시점 옮기기",
+   "aliases": [
+    "이동",
+    "패닝",
+    "화면 밀기",
+    "옆으로",
+    "시점 이동"
+   ],
+   "en": "Pan View",
+   "op": "view3d.move",
+   "modes": [],
+   "where": "Shift + 마우스 가운데 버튼 드래그",
+   "shortcut": "Shift + 가운데 드래그",
+   "note": "시점이 어디로 갔는지 모르겠으면 Home 키를 눌러 전체가 보이는 위치로 되돌립니다.",
+   "tags": [
+    "화면조작"
+   ],
+   "prefer_manual": true
+  },
+  {
+   "id": "view_selected",
+   "ko": "선택한 것을 화면 가운데로",
+   "aliases": [
+    "줌",
+    "확대",
+    "찾기",
+    "가운데",
+    "포커스",
+    "안 보여",
+    "어디갔지"
+   ],
+   "en": "Frame Selected",
+   "op": "view3d.view_selected",
+   "modes": [],
+   "where": "View > Frame Selected",
+   "shortcut": "Numpad .",
+   "note": "물체를 놓쳤을 때 제일 먼저 씁니다. 넘버패드가 없는 키보드라면 Preferences > Input 에서 'Emulate Numpad' 를 켜고 글자 위의 숫자열을 씁니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "view_all",
+   "ko": "전체가 보이게",
+   "aliases": [
+    "전체",
+    "다 보기",
+    "홈",
+    "리셋",
+    "초기화"
+   ],
+   "en": "Frame All",
+   "op": "view3d.view_all",
+   "modes": [],
+   "where": "View > Frame All",
+   "shortcut": "Home",
+   "note": "시점이 완전히 엉켰을 때의 탈출구입니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "view_axis",
+   "ko": "정면·측면·윗면에서 보기",
+   "aliases": [
+    "정면",
+    "측면",
+    "윗면",
+    "정투영",
+    "직교",
+    "각도 고정",
+    "축"
+   ],
+   "en": "View Axis (Front/Side/Top)",
+   "op": "view3d.view_axis",
+   "modes": [],
+   "where": "View > Viewpoint > Front / Side / Top",
+   "shortcut": "Numpad 1 · 3 · 7",
+   "note": "넘버패드 1 이 정면, 3 이 오른쪽, 7 이 위에서 본 모습입니다. 쿼터뷰처럼 시점 각도가 정해진 게임을 만든다면 정면과 윗면을 자주 오가게 됩니다. Ctrl 을 같이 누르면 반대쪽에서 봅니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "view_persp_ortho",
+   "ko": "원근·직교 전환",
+   "aliases": [
+    "직교",
+    "원근",
+    "투영",
+    "퍼스펙티브",
+    "오쏘",
+    "왜곡"
+   ],
+   "en": "Perspective/Orthographic",
+   "op": "view3d.view_persportho",
+   "modes": [],
+   "where": "View > Perspective/Orthographic",
+   "shortcut": "Numpad 5",
+   "note": "직교로 두면 멀고 가까움에 따른 왜곡이 사라져서 크기를 정확히 비교할 수 있습니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "shading_wireframe",
+   "ko": "표시 방식 바꾸기 (와이어프레임·솔리드)",
+   "aliases": [
+    "와이어",
+    "선만",
+    "투명",
+    "표시",
+    "쉐이딩",
+    "속이 안 보여"
+   ],
+   "en": "Toggle Wireframe / Shading",
+   "op": "view3d.toggle_shading",
+   "modes": [],
+   "where": "화면 오른쪽 위의 공 모양 아이콘 네 개",
+   "shortcut": "Z",
+   "note": "Z 를 누르면 원형 메뉴가 뜨고, 마우스를 원하는 방향으로 움직여 고릅니다. Shift+Z 를 누르면 와이어프레임으로 바로 넘어갑니다. 가려진 뒷면을 골라야 할 때 씁니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "local_view",
+   "ko": "선택한 것만 따로 보기",
+   "aliases": [
+    "혼자",
+    "격리",
+    "나머지 숨기기",
+    "로컬",
+    "집중",
+    "다른게 가려"
+   ],
+   "en": "Local View",
+   "op": "view3d.localview",
+   "modes": [],
+   "where": "View > Local View > Toggle Local View",
+   "shortcut": "Numpad /",
+   "note": "복잡한 장면에서 하나만 손볼 때 씁니다. 같은 키를 다시 누르면 원래대로 돌아옵니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "transform_move",
+   "ko": "옮기기",
+   "aliases": [
+    "이동",
+    "움직이기",
+    "위치",
+    "끌기",
+    "옮김"
+   ],
+   "en": "Move",
+   "op": "transform.translate",
+   "modes": [],
+   "where": "Object > Transform > Move",
+   "shortcut": "G",
+   "note": "G 를 누른 뒤 X·Y·Z 를 누르면 그 축으로만 움직입니다. 숫자를 치면 정확한 거리만큼 갑니다. 예를 들어 G 다음 Z 다음 2 를 치면 위로 2미터 올라갑니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "transform_rotate",
+   "ko": "돌리기",
+   "aliases": [
+    "회전",
+    "각도",
+    "틀기",
+    "돌림"
+   ],
+   "en": "Rotate",
+   "op": "transform.rotate",
+   "modes": [],
+   "where": "Object > Transform > Rotate",
+   "shortcut": "R",
+   "note": "R 다음 Z 다음 45 를 치면 Z축으로 정확히 45도 돕니다. 각도를 눈대중으로 맞추지 말고 숫자로 치면 나중에 어긋나지 않습니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "transform_scale",
+   "ko": "크기 바꾸기",
+   "aliases": [
+    "크기",
+    "스케일",
+    "확대",
+    "축소",
+    "키우기",
+    "줄이기"
+   ],
+   "en": "Scale",
+   "op": "transform.resize",
+   "modes": [],
+   "where": "Object > Transform > Scale",
+   "shortcut": "S",
+   "note": "오브젝트 모드에서 크기를 바꾸면 실제 크기가 아니라 배율만 바뀝니다. 게임 엔진으로 내보내기 전에 반드시 '크기 확정하기'(Apply Scale)를 해야 합니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "apply_transform",
+   "ko": "크기·회전 확정하기",
+   "aliases": [
+    "어플라이",
+    "적용",
+    "확정",
+    "스케일 초기화",
+    "1로",
+    "내보내기 전에"
+   ],
+   "en": "Apply Transform",
+   "op": "object.transform_apply",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Apply > All Transforms",
+   "shortcut": "Cmd+A",
+   "note": "매우 중요합니다. 이것을 안 하면 게임 엔진에서 크기와 회전이 엉뚱하게 들어갑니다. 맥에서는 Cmd+A 입니다. 내보내기 직전에 습관처럼 합니다.",
+   "tags": [
+    "기본조작",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "duplicate",
+   "ko": "복제하기",
+   "aliases": [
+    "복사",
+    "붙여넣기",
+    "하나 더",
+    "똑같은거",
+    "중복"
+   ],
+   "en": "Duplicate Objects",
+   "op": "object.duplicate_move",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Duplicate Objects",
+   "shortcut": "Shift+D",
+   "note": "복제한 직후 바로 이동 상태가 되므로, 제자리에 두려면 우클릭이나 Esc 를 누릅니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "duplicate_linked",
+   "ko": "연결된 복제 (원본을 고치면 같이 바뀐다)",
+   "aliases": [
+    "링크 복제",
+    "연결 복사",
+    "같이 바뀌는",
+    "인스턴스"
+   ],
+   "en": "Duplicate Linked",
+   "op": "object.duplicate_move_linked",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Duplicate Linked",
+   "shortcut": "Option+D",
+   "note": "같은 모양을 여러 개 놓을 때 씁니다. 하나를 고치면 전부 같이 바뀌므로 나무나 기둥처럼 반복되는 것에 알맞습니다. 맥에서는 Option+D 입니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "delete_object",
+   "ko": "지우기",
+   "aliases": [
+    "삭제",
+    "제거",
+    "없애기",
+    "지움"
+   ],
+   "en": "Delete",
+   "op": "object.delete",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Delete",
+   "shortcut": "X",
+   "note": "X 를 누르면 확인 메뉴가 뜨고, Delete 키는 묻지 않고 바로 지웁니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "set_origin",
+   "ko": "중심점 옮기기",
+   "aliases": [
+    "오리진",
+    "원점",
+    "중심",
+    "축",
+    "피벗",
+    "회전 중심"
+   ],
+   "en": "Set Origin",
+   "op": "object.origin_set",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Set Origin",
+   "shortcut": null,
+   "note": "물체가 회전하는 기준점을 정합니다. 게임 엔진에서 그 물체의 위치가 되는 지점이므로, 캐릭터는 보통 발밑에 둡니다. 'Origin to 3D Cursor' 를 쓰려면 먼저 3D 커서를 원하는 자리에 놓습니다.",
+   "tags": [
+    "기본조작",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "join_objects",
+   "ko": "여러 물체를 하나로 합치기",
+   "aliases": [
+    "합치기",
+    "조인",
+    "병합",
+    "하나로",
+    "묶기"
+   ],
+   "en": "Join",
+   "op": "object.join",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Join",
+   "shortcut": "Cmd+J",
+   "note": "마지막으로 선택한 것(밝은 테두리)이 기준이 되고 나머지가 거기에 흡수됩니다. 순서를 헷갈리면 결과가 달라집니다. 맥에서는 Cmd+J 입니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "separate",
+   "ko": "하나를 여러 물체로 쪼개기",
+   "aliases": [
+    "분리",
+    "떼기",
+    "나누기",
+    "쪼개기",
+    "세퍼레이트"
+   ],
+   "en": "Separate",
+   "op": "mesh.separate",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Separate",
+   "shortcut": "P",
+   "note": "에디트 모드에서 면을 고른 다음 P 를 눌러 'Selection' 을 고르면 그 부분만 새 물체가 됩니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "toggle_editmode",
+   "ko": "에디트 모드 들어가기·나가기",
+   "aliases": [
+    "에디트",
+    "편집",
+    "모드",
+    "탭",
+    "점 편집",
+    "안 눌려"
+   ],
+   "en": "Toggle Edit Mode",
+   "op": "object.editmode_toggle",
+   "modes": [
+    "OBJECT",
+    "EDIT_MESH"
+   ],
+   "where": "화면 왼쪽 위의 모드 드롭다운",
+   "shortcut": "Tab",
+   "note": "블렌더에서 가장 자주 쓰는 키입니다. 오브젝트 모드는 물체를 통째로 다루고, 에디트 모드는 점·선·면을 다룹니다. 기능이 회색으로 눌리지 않으면 대개 모드가 틀린 것입니다.",
+   "tags": [
+    "기본조작",
+    "메시편집"
+   ]
+  },
+  {
+   "id": "extrude",
+   "ko": "면 밀어내기",
+   "aliases": [
+    "돌출",
+    "익스트루드",
+    "뽑기",
+    "늘리기",
+    "튀어나오게",
+    "밀어내기"
+   ],
+   "en": "Extrude Region",
+   "op": "mesh.extrude_region_and_move",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Extrude",
+   "shortcut": "E",
+   "note": "모델링의 기본입니다. 면을 고르고 E 를 누르면 그 면이 바깥으로 뽑혀 나옵니다. E 다음 Z 를 누르면 위로만 뽑힙니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "inset",
+   "ko": "면 안쪽으로 테두리 만들기",
+   "aliases": [
+    "인셋",
+    "안쪽",
+    "테두리",
+    "액자",
+    "면 안에 면",
+    "축소 면"
+   ],
+   "en": "Inset Faces",
+   "op": "mesh.inset",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Face > Inset Faces",
+   "shortcut": "I",
+   "note": "면 안쪽에 한 겹 작은 면을 만듭니다. 창문이나 버튼처럼 파인 부분을 만들 때 인셋으로 테두리를 만들고 밀어내기로 밀어 넣습니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "bevel",
+   "ko": "모서리 둥글게 깎기",
+   "aliases": [
+    "베벨",
+    "둥글게",
+    "깎기",
+    "모따기",
+    "각 없애기",
+    "부드럽게"
+   ],
+   "en": "Bevel",
+   "op": "mesh.bevel",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Edge > Bevel Edges",
+   "shortcut": "Cmd+B",
+   "note": "Cmd+B 를 누르고 마우스를 움직여 폭을 정합니다. 그 상태에서 마우스 휠을 굴리면 깎는 단 수가 늘어납니다. 로우폴리에서는 1~2단으로 충분합니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "loopcut",
+   "ko": "가로줄·세로줄 넣기",
+   "aliases": [
+    "루프컷",
+    "선 추가",
+    "자르기",
+    "분할선",
+    "면 늘리기",
+    "가로줄",
+    "엣지 루프",
+    "루프 컷",
+    "엣지루프"
+   ],
+   "en": "Loop Cut and Slide",
+   "op": "mesh.loopcut_slide",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Edge > Loop Cut and Slide",
+   "shortcut": "Cmd+R",
+   "note": "Cmd+R 을 누르고 면 위에 마우스를 올리면 노란 선이 미리 보입니다. 휠을 굴리면 선 개수가 늘고, 클릭하면 확정, 우클릭하면 가운데에 고정됩니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "subdivide",
+   "ko": "면 잘게 나누기",
+   "aliases": [
+    "세분화",
+    "섭디바이드",
+    "쪼개기",
+    "잘게",
+    "폴리곤 늘리기",
+    "면 나누기",
+    "서브디비전",
+    "서브디비젼",
+    "섭디"
+   ],
+   "en": "Subdivide",
+   "op": "mesh.subdivide",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "면 위에서 우클릭 > Subdivide",
+   "shortcut": null,
+   "note": "실행한 뒤 화면 왼쪽 아래에 접힌 패널이 생기는데, 그것을 펴서 'Number of Cuts' 를 올리면 더 잘게 나뉩니다. 이 패널은 다른 작업을 하면 사라집니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "knife",
+   "ko": "칼로 자유롭게 자르기",
+   "aliases": [
+    "나이프",
+    "칼",
+    "자르기",
+    "선 긋기",
+    "자유 분할"
+   ],
+   "en": "Knife Topology Tool",
+   "op": "mesh.knife_tool",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Knife",
+   "shortcut": "K",
+   "note": "K 를 누르고 클릭해 가며 자를 선을 긋습니다. 다 그었으면 Enter 로 확정하고 Esc 로 취소합니다. 확정을 안 하면 아무 일도 일어나지 않습니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "merge",
+   "ko": "점 합치기",
+   "aliases": [
+    "머지",
+    "병합",
+    "합치기",
+    "붙이기",
+    "점 합침",
+    "구멍 메우기"
+   ],
+   "en": "Merge Vertices",
+   "op": "mesh.merge",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Merge",
+   "shortcut": "M",
+   "note": "'At Center' 는 고른 점들을 가운데로 모으고, 'By Distance' 는 겹쳐 있는 점들을 자동으로 합칩니다. 모델이 이상하게 갈라져 보일 때 By Distance 가 자주 해결책이 됩니다.",
+   "tags": [
+    "메시편집",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "fill_face",
+   "ko": "구멍 막기 (면 만들기)",
+   "aliases": [
+    "면 만들기",
+    "구멍",
+    "막기",
+    "채우기",
+    "페이스",
+    "뚫려있어"
+   ],
+   "en": "Make Edge/Face",
+   "op": "mesh.edge_face_add",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Vertex > New Edge/Face from Vertices",
+   "shortcut": "F",
+   "note": "점이나 선을 고르고 F 를 누르면 그 사이가 면으로 채워집니다. 네 점을 고르면 사각형 면이 하나 생깁니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "delete_mesh",
+   "ko": "점·선·면 지우기",
+   "aliases": [
+    "삭제",
+    "지우기",
+    "제거",
+    "면 지우기",
+    "선 지우기"
+   ],
+   "en": "Delete Mesh Elements",
+   "op": "mesh.delete",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Delete",
+   "shortcut": "X",
+   "note": "무엇을 지울지 고르는 메뉴가 뜹니다. 'Faces' 는 면만 지우고 테두리 선을 남기며, 'Vertices' 는 딸린 것까지 전부 지웁니다. 헷갈리면 Vertices 가 가장 깔끔합니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "dissolve",
+   "ko": "선만 없애고 면은 남기기",
+   "aliases": [
+    "디졸브",
+    "녹이기",
+    "선 없애기",
+    "정리",
+    "합치되 구멍 안 내기"
+   ],
+   "en": "Dissolve Edges",
+   "op": "mesh.dissolve_edges",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Delete > Dissolve Edges",
+   "shortcut": "X > Dissolve Edges",
+   "note": "그냥 지우면 구멍이 뚫리지만, 디졸브는 양옆 면을 하나로 합치면서 선만 없앱니다. X 를 누른 뒤 메뉴에서 'Dissolve Edges' 를 고릅니다. 폴리곤 수를 줄일 때 씁니다.",
+   "tags": [
+    "메시편집"
+   ]
+  },
+  {
+   "id": "mesh_select_mode",
+   "ko": "점·선·면 선택 방식 바꾸기",
+   "aliases": [
+    "버텍스",
+    "엣지",
+    "페이스",
+    "선택 모드",
+    "점 선택",
+    "면 선택",
+    "1 2 3"
+   ],
+   "en": "Mesh Select Mode",
+   "op": "mesh.select_mode",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "화면 왼쪽 위의 점·선·면 아이콘 세 개",
+   "shortcut": "1 · 2 · 3",
+   "note": "에디트 모드에서 글자 위의 숫자열 1·2·3 을 누릅니다. 넘버패드가 아닙니다. 1 이 점, 2 가 선, 3 이 면입니다.",
+   "tags": [
+    "선택",
+    "메시편집"
+   ]
+  },
+  {
+   "id": "select_loop",
+   "ko": "한 줄 통째로 고르기",
+   "aliases": [
+    "루프 선택",
+    "한 바퀴",
+    "줄 선택",
+    "띠",
+    "에지 루프"
+   ],
+   "en": "Select Edge Loop",
+   "op": "mesh.loop_select",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Select > Select Loops > Edge Loops",
+   "shortcut": "Option + 클릭",
+   "note": "선 하나를 Option 을 누른 채 클릭하면 그 선이 이어지는 한 바퀴가 통째로 선택됩니다. 원통의 테두리를 고를 때 꼭 필요합니다.",
+   "tags": [
+    "선택"
+   ]
+  },
+  {
+   "id": "select_linked",
+   "ko": "붙어 있는 덩어리 전체 고르기",
+   "aliases": [
+    "링크드",
+    "연결",
+    "덩어리",
+    "이어진 것",
+    "통째로"
+   ],
+   "en": "Select Linked",
+   "op": "mesh.select_linked",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Select > Select Linked > Linked",
+   "shortcut": "L",
+   "note": "마우스를 덩어리 위에 올리고 L 을 누르면 그것만 선택됩니다. 한 물체 안에 떨어진 덩어리가 여럿일 때 씁니다. Cmd+L 은 이미 고른 것에서 넓혀 갑니다.",
+   "tags": [
+    "선택"
+   ]
+  },
+  {
+   "id": "select_all",
+   "ko": "전체 선택·전체 해제",
+   "aliases": [
+    "모두",
+    "전체",
+    "다 선택",
+    "해제",
+    "선택 풀기"
+   ],
+   "en": "Select All / Deselect All",
+   "op": "mesh.select_all",
+   "modes": [],
+   "where": "Select > All / None",
+   "shortcut": "A",
+   "note": "A 로 전체를 고르고, Option+A 로 모두 풉니다. A 를 두 번 빠르게 눌러도 풀리지만 확실한 것은 Option+A 입니다.",
+   "tags": [
+    "선택"
+   ]
+  },
+  {
+   "id": "select_box",
+   "ko": "상자로 쓸어 담아 고르기",
+   "aliases": [
+    "박스",
+    "드래그 선택",
+    "쓸기",
+    "범위 선택",
+    "네모"
+   ],
+   "en": "Box Select",
+   "op": "view3d.select_box",
+   "modes": [],
+   "where": "Select > Box Select",
+   "shortcut": "B",
+   "note": "B 를 누르거나 빈 곳에서 그냥 드래그해도 됩니다. 기본 상태에서는 뒤에 가려진 점이 선택되지 않습니다. 뒤까지 고르려면 X-Ray(Option+Z)를 켭니다.",
+   "tags": [
+    "선택"
+   ]
+  },
+  {
+   "id": "toggle_xray",
+   "ko": "뒷면까지 비쳐 보이게",
+   "aliases": [
+    "엑스레이",
+    "투시",
+    "뒤에",
+    "가려진",
+    "뒷면 선택",
+    "안 골라져",
+    "X-Ray"
+   ],
+   "en": "Toggle X-Ray",
+   "op": "view3d.toggle_xray",
+   "modes": [],
+   "where": "화면 오른쪽 위의 겹친 사각형 아이콘",
+   "shortcut": "Option+Z",
+   "note": "상자 선택으로 뒷면 점까지 고르려면 반드시 켜야 합니다. 맥에서는 Option+Z 입니다. 초보자가 '왜 반대쪽이 안 골라지지' 하고 막히는 지점입니다.",
+   "tags": [
+    "선택",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "hide_show",
+   "ko": "잠깐 숨기기·되돌리기",
+   "aliases": [
+    "숨기기",
+    "감추기",
+    "하이드",
+    "보이기",
+    "다시 나오게"
+   ],
+   "en": "Hide / Reveal",
+   "op": "mesh.hide",
+   "modes": [],
+   "where": "Mesh > Show/Hide",
+   "shortcut": "H",
+   "note": "H 로 숨기고 Option+H 로 모두 되돌립니다. 안쪽을 손볼 때 앞면을 잠깐 숨깁니다. 물체가 갑자기 사라졌다면 Option+H 를 눌러 봅니다.",
+   "tags": [
+    "선택",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "modifier_add",
+   "ko": "모디파이어 붙이기",
+   "aliases": [
+    "모디파이어",
+    "수정자",
+    "효과",
+    "렌치",
+    "자동 처리",
+    "모디"
+   ],
+   "en": "Add Modifier",
+   "op": "object.modifier_add",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "오른쪽 속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "shortcut": null,
+   "note": "모디파이어는 원본을 건드리지 않고 겉모습만 바꾸는 장치입니다. 언제든 끄거나 지울 수 있어서 실험하기 좋습니다.",
+   "tags": [
+    "모디파이어"
+   ]
+  },
+  {
+   "id": "modifier_mirror",
+   "ko": "좌우 대칭으로 만들기",
+   "aliases": [
+    "미러",
+    "대칭",
+    "반만",
+    "좌우",
+    "반대쪽 자동"
+   ],
+   "en": "Mirror Modifier",
+   "op": null,
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "렌치 아이콘 > Add Modifier > Generate > Mirror",
+   "shortcut": null,
+   "note": "캐릭터는 반만 만들고 미러를 걸면 반대쪽이 자동으로 생깁니다. 가운데 점들이 좌우로 벌어져 있으면 이음매가 보이므로, 가운데 점들의 X 좌표를 0 으로 맞춰 둡니다.",
+   "tags": [
+    "모디파이어"
+   ]
+  },
+  {
+   "id": "modifier_solidify",
+   "ko": "얇은 면에 두께 주기",
+   "aliases": [
+    "솔리디파이",
+    "두께",
+    "종이",
+    "얇아",
+    "두껍게"
+   ],
+   "en": "Solidify Modifier",
+   "op": null,
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "렌치 아이콘 > Add Modifier > Generate > Solidify",
+   "shortcut": null,
+   "note": "면 하나짜리 판에 두께를 붙입니다. 옷이나 벽처럼 얇은 것에 씁니다.",
+   "tags": [
+    "모디파이어"
+   ]
+  },
+  {
+   "id": "modifier_array",
+   "ko": "일정 간격으로 여러 개 늘어놓기",
+   "aliases": [
+    "어레이",
+    "반복",
+    "배열",
+    "여러개",
+    "줄지어",
+    "계단"
+   ],
+   "en": "Array Modifier",
+   "op": null,
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "렌치 아이콘 > Add Modifier > Generate > Array",
+   "shortcut": null,
+   "note": "울타리, 계단, 기둥처럼 같은 것이 반복되는 구조를 한 번에 만듭니다.",
+   "tags": [
+    "모디파이어"
+   ]
+  },
+  {
+   "id": "modifier_apply",
+   "ko": "모디파이어 결과를 실제 모양으로 굳히기",
+   "aliases": [
+    "어플라이",
+    "적용",
+    "확정",
+    "굳히기",
+    "실제로"
+   ],
+   "en": "Apply Modifier",
+   "op": "object.modifier_apply",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "모디파이어 패널의 아래 화살표 메뉴 > Apply",
+   "shortcut": "Cmd+A",
+   "note": "모디파이어 패널에 마우스를 올린 채 Cmd+A 를 누르거나, 아래 화살표 메뉴에서 Apply 를 고릅니다. 굳히면 되돌릴 수 없습니다. 내보내기 전에 하되, 미러처럼 나중에 고칠 일이 많은 것은 마지막까지 남겨 두는 편이 낫습니다.",
+   "tags": [
+    "모디파이어",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "shade_smooth_flat",
+   "ko": "표면을 매끈하게·각지게",
+   "aliases": [
+    "스무스",
+    "플랫",
+    "각지게",
+    "매끈",
+    "부드럽게",
+    "면이 이상해"
+   ],
+   "en": "Shade Smooth / Flat",
+   "op": "object.shade_smooth",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Shade Smooth 또는 Shade Flat",
+   "shortcut": null,
+   "note": "로우폴리 게임 모델은 대개 Shade Flat 이 어울립니다. 각진 면이 그대로 보여서 픽셀 느낌과 맞습니다.",
+   "tags": [
+    "모디파이어",
+    "머티리얼"
+   ]
+  },
+  {
+   "id": "uv_unwrap",
+   "ko": "UV 펼치기",
+   "aliases": [
+    "언랩",
+    "펼치기",
+    "텍스처 입히기 준비",
+    "전개도",
+    "UV",
+    "언래핑"
+   ],
+   "en": "UV Unwrap",
+   "op": "uv.unwrap",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "UV > Unwrap",
+   "shortcut": "U",
+   "note": "3D 모양을 평면 전개도로 펴서 그림을 입힐 수 있게 만듭니다. 먼저 '이음선 표시'(Mark Seam)로 어디를 가위로 자를지 정해야 제대로 펴집니다.",
+   "tags": [
+    "UV"
+   ]
+  },
+  {
+   "id": "mark_seam",
+   "ko": "UV 이음선 표시하기",
+   "aliases": [
+    "심",
+    "이음선",
+    "가위",
+    "자를 선",
+    "빨간 선"
+   ],
+   "en": "Mark Seam",
+   "op": "mesh.mark_seam",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Edge > Mark Seam",
+   "shortcut": null,
+   "note": "선을 고르고 실행하면 빨갛게 표시됩니다. 종이 상자를 펼칠 때 가위로 자르는 자리를 정하는 것과 같습니다.",
+   "tags": [
+    "UV"
+   ]
+  },
+  {
+   "id": "uv_smart_project",
+   "ko": "UV 자동으로 펴기",
+   "aliases": [
+    "스마트",
+    "자동 UV",
+    "알아서",
+    "빠르게 UV"
+   ],
+   "en": "Smart UV Project",
+   "op": "uv.smart_project",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "UV > Smart UV Project",
+   "shortcut": null,
+   "note": "이음선을 직접 정하지 않고 블렌더가 알아서 자릅니다. 결과가 조각조각 나지만, 단색 팔레트 텍스처를 쓰는 로우폴리에서는 충분한 경우가 많습니다.",
+   "tags": [
+    "UV"
+   ]
+  },
+  {
+   "id": "material_new",
+   "ko": "색·재질 만들기",
+   "aliases": [
+    "머티리얼",
+    "재질",
+    "색칠",
+    "색 입히기",
+    "마테리얼"
+   ],
+   "en": "New Material",
+   "op": "material.new",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "오른쪽 속성 패널의 빨간 공 아이콘 > New",
+   "shortcut": null,
+   "note": "Base Color 를 바꾸면 색이 정해집니다. 게임 엔진으로 내보낼 때 머티리얼 이름이 그대로 따라가므로 이름을 알아보기 쉽게 짓습니다.",
+   "tags": [
+    "머티리얼",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "assign_material_slot",
+   "ko": "부분마다 다른 색 입히기",
+   "aliases": [
+    "슬롯",
+    "부분 색",
+    "여러 색",
+    "어사인",
+    "면마다"
+   ],
+   "en": "Assign Material Slot",
+   "op": "object.material_slot_assign",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "속성 패널 머티리얼 목록에서 슬롯을 고르고 Assign",
+   "shortcut": null,
+   "note": "에디트 모드에서 면을 고르고, 속성 패널에서 머티리얼 슬롯을 고른 뒤 Assign 을 누릅니다. 순서를 지켜야 합니다.",
+   "tags": [
+    "머티리얼"
+   ]
+  },
+  {
+   "id": "texture_paint",
+   "ko": "모델 위에 직접 그리기",
+   "aliases": [
+    "텍스처 페인트",
+    "칠하기",
+    "그리기",
+    "붓"
+   ],
+   "en": "Texture Paint Mode",
+   "op": null,
+   "modes": [
+    "OBJECT",
+    "PAINT_TEXTURE"
+   ],
+   "where": "화면 왼쪽 위 모드 드롭다운 > Texture Paint",
+   "shortcut": null,
+   "note": "UV 를 먼저 펴 두어야 합니다. 픽셀 느낌을 살리려면 텍스처 크기를 작게 잡고 보간을 Closest 로 둡니다.",
+   "tags": [
+    "머티리얼",
+    "UV"
+   ]
+  },
+  {
+   "id": "export_gltf",
+   "ko": "게임 엔진으로 내보내기 (glTF)",
+   "aliases": [
+    "익스포트",
+    "내보내기",
+    "게임엔진",
+    "게임으로",
+    "유니티",
+    "언리얼",
+    "엔진으로",
+    "gltf",
+    "glb"
+   ],
+   "en": "Export glTF 2.0",
+   "op": "export_scene.gltf",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "File > Export > glTF 2.0 (.glb/.gltf)",
+   "shortcut": null,
+   "note": "glTF 는 대부분의 게임 엔진이 가장 잘 읽는 형식입니다. 내보내기 전에 크기·회전 확정하기를 반드시 합니다. 옵션에서 'Selected Objects' 를 켜면 고른 것만 나갑니다. .glb 는 그림까지 한 파일에 담고, .gltf 는 따로 둡니다.",
+   "tags": [
+    "내보내기"
+   ]
+  },
+  {
+   "id": "scene_scale",
+   "ko": "크기 단위 맞추기",
+   "aliases": [
+    "단위",
+    "스케일",
+    "미터",
+    "크기가 이상",
+    "너무 커",
+    "너무 작아"
+   ],
+   "en": "Scene Units",
+   "op": null,
+   "modes": [],
+   "where": "속성 패널의 장면(원뿔+공) 아이콘 > Units",
+   "shortcut": null,
+   "note": "블렌더와 대부분의 게임 엔진은 1 단위를 1미터로 봅니다. 기본 큐브는 2미터짜리라서 처음 만들면 게임 안에서 거대하게 보입니다.",
+   "tags": [
+    "내보내기",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "recalc_normals",
+   "ko": "면 방향 바로잡기",
+   "aliases": [
+    "노멀",
+    "법선",
+    "뒤집힘",
+    "안 보여",
+    "까맣게",
+    "면 방향",
+    "구멍처럼"
+   ],
+   "en": "Recalculate Normals",
+   "op": "mesh.normals_make_consistent",
+   "modes": [
+    "EDIT_MESH"
+   ],
+   "where": "Mesh > Normals > Recalculate Outside",
+   "shortcut": "Shift+N",
+   "note": "면이 안쪽을 향하면 게임 엔진에서 그 부분이 투명하게 뚫린 것처럼 보입니다. 전체 선택(A) 후 Shift+N 을 누르면 대개 해결됩니다.",
+   "tags": [
+    "문제해결",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "undo",
+   "ko": "되돌리기",
+   "aliases": [
+    "언두",
+    "취소",
+    "실수",
+    "되돌림",
+    "전으로"
+   ],
+   "en": "Undo",
+   "op": "ed.undo",
+   "modes": [],
+   "where": "Edit > Undo",
+   "shortcut": "Cmd+Z",
+   "note": "맥에서는 Cmd+Z 입니다. 되돌릴 수 있는 횟수는 Preferences > System > Undo Steps 에서 늘릴 수 있고 기본값은 32번입니다.",
+   "tags": [
+    "문제해결"
+   ]
+  },
+  {
+   "id": "recover_last_session",
+   "ko": "저장 안 하고 닫은 파일 되살리기",
+   "aliases": [
+    "복구",
+    "날아갔어",
+    "저장 안 함",
+    "리커버",
+    "지난 작업"
+   ],
+   "en": "Recover Last Session",
+   "op": "wm.recover_last_session",
+   "modes": [],
+   "where": "File > Recover > Last Session",
+   "shortcut": null,
+   "note": "블렌더는 종료할 때 임시 파일을 남깁니다. 저장하지 않고 닫았어도 여기서 직전 상태를 되살릴 수 있습니다.",
+   "tags": [
+    "문제해결"
+   ]
+  },
+  {
+   "id": "statistics_overlay",
+   "ko": "폴리곤 개수 보기",
+   "aliases": [
+    "통계",
+    "폴리곤 수",
+    "삼각형",
+    "버텍스 수",
+    "무거워",
+    "성능"
+   ],
+   "en": "Statistics Overlay",
+   "op": null,
+   "modes": [],
+   "where": "화면 오른쪽 위 오버레이 드롭다운 > Statistics",
+   "shortcut": null,
+   "note": "만든 모델이 얼마나 무거운지 확인합니다. 로우폴리나 픽셀풍 게임에서는 폴리곤이 적어도 충분히 보기 좋으므로, 숫자를 보면서 덜어 낼 수 있습니다.",
+   "tags": [
+    "문제해결",
+    "내보내기"
+   ]
+  },
+  {
+   "id": "search_menu",
+   "ko": "블렌더 기본 기능 검색 (영어)",
+   "aliases": [
+    "검색",
+    "찾기",
+    "F3",
+    "기능 검색",
+    "메뉴 검색"
+   ],
+   "en": "Menu Search",
+   "op": "wm.search_menu",
+   "modes": [],
+   "where": "Edit > Menu Search",
+   "shortcut": "F3",
+   "note": "블렌더가 원래 갖고 있는 검색입니다. 영어 이름을 알 때는 이쪽이 빠릅니다. 이 가이드 팝업은 영어 이름을 모를 때 쓰는 것입니다.",
+   "tags": [
+    "화면조작"
+   ]
+  },
+  {
+   "id": "repeat_last",
+   "ko": "방금 한 것 한 번 더",
+   "aliases": [
+    "반복",
+    "리핏",
+    "한 번 더",
+    "다시"
+   ],
+   "en": "Repeat Last",
+   "op": "screen.repeat_last",
+   "modes": [],
+   "where": "Edit > Repeat Last",
+   "shortcut": "Shift+R",
+   "note": "같은 작업을 여러 번 할 때 씁니다. 예를 들어 루프컷을 연달아 넣을 때 편합니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "adjust_last_operation",
+   "ko": "방금 한 작업의 수치 고치기",
+   "aliases": [
+    "왼쪽 아래",
+    "패널",
+    "수치",
+    "다시 조정",
+    "F9",
+    "옵션"
+   ],
+   "en": "Adjust Last Operation",
+   "op": "screen.redo_last",
+   "modes": [],
+   "where": "화면 왼쪽 아래의 접힌 패널",
+   "shortcut": "F9",
+   "note": "초보자가 가장 많이 놓치는 기능입니다. 무언가를 실행한 직후 F9 를 누르면 그 작업의 수치를 다시 조정할 수 있습니다. 다른 작업을 하면 기회가 사라집니다.",
+   "tags": [
+    "기본조작",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "snap_toggle",
+   "ko": "격자에 딱 맞춰 움직이기",
+   "aliases": [
+    "스냅",
+    "격자",
+    "그리드",
+    "딱 맞게",
+    "정렬",
+    "자석"
+   ],
+   "en": "Snap",
+   "op": null,
+   "modes": [],
+   "where": "화면 위쪽 가운데의 자석 아이콘",
+   "shortcut": "Shift+Tab",
+   "note": "Shift+Tab 으로 켜고 끕니다. 옮기는 중에 Cmd 를 누르고 있어도 잠깐 달라붙습니다. 자석 옆 드롭다운에서 무엇에 맞출지 고릅니다. 'Increment' 는 격자에, 'Vertex' 는 다른 점에 달라붙습니다. 블록을 쌓아 만드는 픽셀풍 모델에 유용합니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "cursor_reset",
+   "ko": "3D 커서 원점으로 되돌리기",
+   "aliases": [
+    "커서",
+    "빨간 흰 동그라미",
+    "원점",
+    "가운데로",
+    "이상한 데 생겨"
+   ],
+   "en": "Snap Cursor to World Origin",
+   "op": "view3d.snap_cursor_to_center",
+   "modes": [],
+   "where": "Object > Snap > Cursor to World Origin",
+   "shortcut": "Shift+C",
+   "note": "새로 만드는 물체는 3D 커서 자리에 생깁니다. 물체가 엉뚱한 곳에 생긴다면 커서가 옮겨져 있는 것입니다. Shift+C 는 시점도 함께 되돌립니다.",
+   "tags": [
+    "기본조작",
+    "문제해결"
+   ]
+  },
+  {
+   "id": "add_mesh",
+   "ko": "새 물체 만들기",
+   "aliases": [
+    "추가",
+    "만들기",
+    "큐브",
+    "구",
+    "실린더",
+    "생성"
+   ],
+   "en": "Add Mesh",
+   "op": "mesh.primitive_cube_add",
+   "modes": [
+    "OBJECT",
+    "EDIT_MESH"
+   ],
+   "where": "Add > Mesh",
+   "shortcut": "Shift+A",
+   "note": "3D 커서 자리에 생깁니다. 만든 직후 F9 를 누르면 크기와 분할 수를 정할 수 있습니다.",
+   "tags": [
+    "기본조작"
+   ]
+  },
+  {
+   "id": "keyframe_insert",
+   "ko": "움직임 기록하기 (키프레임)",
+   "aliases": [
+    "키프레임",
+    "키 프레임",
+    "움직이게",
+    "애니메이션",
+    "기록",
+    "키 넣기",
+    "움직임 만들기",
+    "애니",
+    "키프레임 삽입",
+    "인서트 키"
+   ],
+   "en": "Insert Keyframe",
+   "op": "anim.keyframe_insert_menu",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "Object > Animation > Insert Keyframe",
+   "shortcut": "I",
+   "note": "애니메이션의 시작입니다. 아래 타임라인에서 프레임을 옮긴 뒤 물체를 움직이고 다시 I 를 누르면, 그 사이가 저절로 이어집니다. 아무 일도 안 일어난 것 같으면 물체를 골랐는지 확인하세요.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "keyframe_delete",
+   "ko": "기록한 움직임 지우기",
+   "aliases": [
+    "키프레임 지우기",
+    "키 지우기",
+    "움직임 취소",
+    "애니메이션 지우기"
+   ],
+   "en": "Delete Keyframe",
+   "op": "anim.keyframe_delete_v3d",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "Object > Animation > Delete Keyframe",
+   "shortcut": "Option+I",
+   "note": "지금 프레임의 기록만 지웁니다. 그 물체의 움직임을 통째로 없애려면 Remove Animation 을 씁니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "anim_play",
+   "ko": "움직여 보기 (재생)",
+   "aliases": [
+    "재생",
+    "플레이",
+    "돌려보기",
+    "움직여봐",
+    "미리보기",
+    "플레이백"
+   ],
+   "en": "Play Animation",
+   "op": "screen.animation_play",
+   "modes": [],
+   "where": "화면 아래 타임라인의 삼각형 단추",
+   "shortcut": "Space",
+   "note": "Space 를 한 번 더 누르면 멈춥니다. 재생해도 아무 변화가 없으면 키프레임이 두 개 이상 있어야 한다는 것을 기억하세요. 하나만으로는 움직이지 않습니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "frame_jump",
+   "ko": "처음이나 끝으로 가기",
+   "aliases": [
+    "처음으로",
+    "끝으로",
+    "맨 앞",
+    "맨 뒤",
+    "프레임 이동"
+   ],
+   "en": "Jump to Endpoint",
+   "op": "screen.frame_jump",
+   "modes": [],
+   "where": "화면 아래 타임라인의 화살표 단추",
+   "shortcut": "Shift+Left",
+   "note": "Shift+Left 는 처음으로, Shift+Right 는 끝으로 갑니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "keyframe_jump",
+   "ko": "다음 기록으로 건너뛰기",
+   "aliases": [
+    "키프레임 이동",
+    "다음 키",
+    "이전 키",
+    "키 사이 이동"
+   ],
+   "en": "Jump to Keyframe",
+   "op": "screen.keyframe_jump",
+   "modes": [],
+   "where": "Up·Down 화살표",
+   "shortcut": "Up / Down",
+   "note": "기록해 둔 지점으로만 건너뜁니다. 어디에 기록했는지 찾을 때 씁니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "anim_remove",
+   "ko": "애니메이션 통째로 없애기",
+   "aliases": [
+    "애니메이션 삭제",
+    "움직임 전부 지우기",
+    "되돌리기",
+    "다시 시작"
+   ],
+   "en": "Remove Animation",
+   "op": "anim.keyframe_clear_v3d",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "Object > Animation > Clear Keyframes",
+   "shortcut": "Option+Shift+I",
+   "note": "그 물체에 기록한 모든 움직임이 사라집니다. 한 프레임만 지우려면 '기록한 움직임 지우기' 를 쓰세요.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "interpolation_type",
+   "ko": "움직임이 뚝뚝 끊길 때 (보간 방식)",
+   "aliases": [
+    "부드럽게",
+    "뚝뚝",
+    "끊겨",
+    "가속",
+    "등속",
+    "리니어",
+    "베지어",
+    "보간"
+   ],
+   "en": "Set Keyframe Interpolation",
+   "op": "graph.interpolation_type",
+   "modes": [],
+   "where": "그래프 에디터에서 키를 고르고 T",
+   "shortcut": "T",
+   "note": "기본은 천천히 시작했다 천천히 멈추는 방식입니다. 일정한 속도로 움직이게 하려면 Linear 를 고릅니다. 기계나 회전에 어울립니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "armature_add",
+   "ko": "뼈대 넣기",
+   "aliases": [
+    "뼈",
+    "아마추어",
+    "리깅",
+    "본",
+    "관절",
+    "캐릭터 움직이기"
+   ],
+   "en": "Add Armature",
+   "op": "object.armature_add",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Add > Armature",
+   "shortcut": null,
+   "note": "캐릭터처럼 구부러지는 것을 움직이려면 뼈대가 필요합니다. 뼈대를 넣은 뒤 에디트 모드에서 E 로 뼈를 늘려 가며 이어 붙입니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "parent_armature",
+   "ko": "뼈대에 물체 매달기",
+   "aliases": [
+    "본에 붙이기",
+    "스키닝",
+    "웨이트",
+    "연결",
+    "따라 움직이게"
+   ],
+   "en": "Parent to Armature",
+   "op": "object.parent_set",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "Object > Parent > Armature Deform",
+   "shortcut": "Cmd+P",
+   "note": "순서가 중요합니다. 움직일 물체를 먼저 고르고 뼈대를 나중에 골라야 합니다. With Automatic Weights 를 고르면 어느 뼈가 어디를 움직일지 알아서 나눕니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "pose_mode",
+   "ko": "포즈 잡기 모드",
+   "aliases": [
+    "포즈",
+    "자세",
+    "뼈 움직이기",
+    "포즈모드"
+   ],
+   "en": "Pose Mode",
+   "op": "object.posemode_toggle",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "화면 왼쪽 위 모드 드롭다운 > Pose Mode",
+   "shortcut": "Ctrl+Tab",
+   "note": "뼈대를 고른 상태에서만 들어갈 수 있습니다. 여기서 뼈를 돌려 자세를 잡고 I 로 기록합니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "pose_clear",
+   "ko": "잡은 자세 되돌리기",
+   "aliases": [
+    "포즈 초기화",
+    "자세 풀기",
+    "원래대로",
+    "T포즈"
+   ],
+   "en": "Clear Pose Transforms",
+   "op": "pose.transforms_clear",
+   "modes": [
+    "POSE"
+   ],
+   "where": "Pose > Clear Transform > All",
+   "shortcut": "Option+G / Option+R",
+   "note": "Option+G 는 위치만, Option+R 은 회전만 되돌립니다. 자세가 엉켰을 때 처음으로 돌아가는 길입니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "shape_key_add",
+   "ko": "모양 자체를 바꿔 가며 섞기 (셰이프키)",
+   "aliases": [
+    "셰이프키",
+    "표정",
+    "모프",
+    "입모양",
+    "블렌드셰이프",
+    "모양 바꾸기",
+    "셰이프 키",
+    "쉐이프키"
+   ],
+   "en": "Add Shape Key",
+   "op": "object.shape_key_add",
+   "modes": [
+    "OBJECT"
+   ],
+   "where": "속성 패널의 초록 역삼각형 아이콘 > Shape Keys",
+   "shortcut": null,
+   "note": "표정처럼 뼈대로는 어려운 변형에 씁니다. Basis 를 먼저 만들고, 새 키를 더한 뒤 에디트 모드에서 모양을 고칩니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "constraint_add",
+   "ko": "다른 것을 따라가게 하기 (제약)",
+   "aliases": [
+    "컨스트레인트",
+    "따라가기",
+    "제약",
+    "바라보기",
+    "묶기",
+    "추적"
+   ],
+   "en": "Add Constraint",
+   "op": "object.constraint_add",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "속성 패널의 뼈와 사슬 모양 아이콘",
+   "shortcut": null,
+   "note": "카메라가 물체를 늘 바라보게 하려면 Track To 를 씁니다. 손으로 일일이 돌리는 것보다 훨씬 편합니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  },
+  {
+   "id": "motion_path",
+   "ko": "지나간 길 보기",
+   "aliases": [
+    "모션패스",
+    "궤적",
+    "경로",
+    "움직인 자리"
+   ],
+   "en": "Calculate Object Motion Paths",
+   "op": "object.paths_calculate",
+   "modes": [
+    "OBJECT",
+    "POSE"
+   ],
+   "where": "Object > Motion Paths > Calculate",
+   "shortcut": null,
+   "note": "물체가 어떤 길로 움직이는지 선으로 보여 줍니다. 움직임이 어색할 때 어디가 문제인지 눈으로 찾을 수 있습니다.",
+   "tags": [
+    "애니메이션"
+   ]
+  }
+ ]
 }
