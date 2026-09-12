@@ -13,6 +13,7 @@
 #   focus.py      — 안내: 기능이 화면 어디에 있는지 짚어 주기
 #   history.py    — 골라 본 항목을 기억해서 다음에 빨리 찾게 하기
 #   nl.py         — 문장으로 쳐도 찾기 (규칙, 블렌더 없이도 시험할 수 있다)
+#   similar.py    — 오타나 소리대로 적은 말도 닿게 하기 (글자 조각 겹침)
 #   agent.py      — 규칙으로 못 찾았을 때 바깥 에이전트에게 물어보기
 #   guide_data.py — 항목 읽기 · 단축키 조회 · 지금 쓸 수 있는지 판단
 #   popup.py      — 팝업 화면
@@ -38,13 +39,13 @@ import bpy
 # 이것이 없으면 파일을 고쳐도 블렌더를 껐다 켜기 전까지 바뀌지 않는다.
 if "guide_data" in locals():
     import importlib
-    for _name in ("search", "nl", "guide_data", "history", "agent", "focus",
-                  "popup", "sidebar", "prefs", "keymaps"):
+    for _name in ("search", "nl", "similar", "guide_data", "history", "agent",
+                  "focus", "popup", "sidebar", "prefs", "keymaps"):
         if _name in locals():
             importlib.reload(locals()[_name])
 
 from . import (agent, focus, guide_data, history, keymaps, nl, popup, prefs,
-               search, sidebar)
+               search, sidebar, similar)
 
 
 def register():
@@ -133,6 +134,7 @@ def unregister():
         bpy.utils.unregister_class(cls)
 
     guide_data.invalidate_caches()
+    similar.invalidate()
     popup.reset_favorites_restored()
 
 

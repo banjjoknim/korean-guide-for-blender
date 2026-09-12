@@ -29,6 +29,8 @@ def _on_pack_dir_changed(context) -> None:
     """
     guide_data.invalidate_caches(drop_entries=True)
     guide_data.load_entries(force=True)
+    from . import similar
+    similar.invalidate()
     popup.rebuild_tag_items()
     try:
         popup.sync_states(context)
@@ -87,6 +89,13 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         name="문장으로 쳐도 찾는다",
         description=("'면을 둘로 나누고 싶어' 처럼 문장으로 쳐도 찾아 줍니다. "
                      "군더더기를 걷어내고 핵심 낱말로 찾습니다"),
+        default=True,
+    )
+    use_similar: bpy.props.BoolProperty(
+        name="못 찾으면 비슷한 것을 보여 준다",
+        description=("오타나 소리대로 적은 말도 닿게 합니다. '모서라' 를 쳐도 "
+                     "'모서리 둥글게 깎기' 가 나옵니다. 정확히 찾은 것이 있으면 "
+                     "끼어들지 않습니다"),
         default=True,
     )
     use_agent: bpy.props.BoolProperty(
@@ -213,6 +222,7 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
 
         col.separator()
         col.prop(self, "use_natural")
+        col.prop(self, "use_similar")
         col.prop(self, "use_agent")
 
         from . import agent
@@ -390,6 +400,7 @@ class _FallbackPrefs:
     focus_search_on_open = True
     use_op_index = True
     use_natural = True
+    use_similar = True
     use_agent = False
     agent_command = ""
     agent_timeout = 30.0
@@ -462,8 +473,10 @@ class BLENDERGUIDE_OT_reload_data(bpy.types.Operator):
     bl_options = {'REGISTER'}
 
     def execute(self, context):
+        from . import similar
         guide_data.invalidate_caches(drop_entries=True)
         guide_data.load_entries(force=True)
+        similar.invalidate()
         popup.rebuild_tag_items()
         popup.sync_states(context)
 

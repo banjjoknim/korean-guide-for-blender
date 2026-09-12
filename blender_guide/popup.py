@@ -20,7 +20,7 @@
 
 import bpy
 
-from . import agent, focus, guide_data, history, nl, search
+from . import agent, focus, guide_data, history, nl, search, similar
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -530,6 +530,11 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         none.label(text=f"'{query}' 에 맞는 한국어 항목이 없습니다.",
                    icon=safe_icon('QUESTION', fallback='NONE'))
 
+        # 정확히 못 찾았을 때 비슷한 것을 보여 준다.
+        # 여기서 찾아지면 에이전트를 부를 일이 없다.
+        if _draw_similar(layout, context, entries, query, availability, p):
+            return
+
         _draw_agent_ask(layout, context, query)
 
         if not p.use_op_index:
@@ -701,6 +706,36 @@ def _draw_agent_ask(layout, context, query: str) -> None:
 
     row.operator("blender_guide.ask_agent",
                  icon=safe_icon('COMMUNITY', fallback='NONE')).question = query
+
+
+def _draw_similar(layout, context, entries, query, availability, p) -> bool:
+    """정확히 못 찾았을 때 비슷한 것을 보여 준다. 하나라도 그렸으면 참이다.
+
+    ⚠️ 정확히 걸린 것이 있을 때는 부르지 않는다. 유사도는 틀려도 그럴듯해
+    보여서, 정확한 답 위에 놓으면 오히려 헷갈린다.
+    """
+    if not getattr(p, "use_similar", True):
+        return False
+
+    found = similar.search(entries, query, limit=3)
+    if not found:
+        return False
+
+    head = layout.row()
+    head.label(text=f"'{query}' 과(와) 비슷한 것",
+               icon=safe_icon('VIEWZOOM', fallback='NONE'))
+
+    text_width = max(30, int(p.popup_width / 7) - 8)
+    for entry, close in found:
+        _draw_entry(layout, context, entry,
+                    bool(availability.get(entry.get("id"))),
+                    text_width, p=p)
+
+    hint = layout.column(align=True)
+    hint.active = False
+    hint.label(text="정확히 맞는 것을 못 찾아 글자가 닮은 것을 보여 드렸습니다.")
+    layout.separator()
+    return True
 
 
 def _draw_history(layout, context, entries, availability, p) -> None:

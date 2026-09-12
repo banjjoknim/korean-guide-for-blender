@@ -328,6 +328,63 @@ check("낱말로 친 것은 문장으로 보지 않는다",
               and blender_guide.nl.looks_like_sentence("면을 둘로 나누고 싶어"))
 
 
+def check_similar():
+    """오타를 유사도가 잡는지 본다. 자세한 것은 blender_guide/similar.py 에 있다."""
+    entries = blender_guide.guide_data.load_entries()
+    lines = []
+    for text, want in (("모서라 둥글게", "bevel"), ("키프래임", "keyframe_insert")):
+        got = blender_guide.similar.search(entries, text, limit=3)
+        head = got[0][0].get("id") if got else None
+        if head != want:
+            raise AssertionError(
+                f"{text!r} → {want} 이어야 하는데 "
+                f"{[(e.get('id'), s) for e, s in got[:3]]}")
+        lines.append(f"{text!r} → {want} ({got[0][1]})")
+    return " · ".join(lines)
+
+
+check("오타를 비슷한 것으로 잡는다", check_similar)
+
+
+def check_similar_quiet():
+    """뜻 없는 말에는 아무것도 안 내놓는지 본다.
+
+    이것이 더 중요하다. 유사도는 언제나 뭔가를 내놓으려 하는데, 그것을 그대로
+    보여 주면 '비슷한 것' 이 아니라 '아무거나' 가 된다. 실제로 재어 보니
+    뜻 없는 'asdfgh' 가 0.085 까지 올라왔다. 문턱을 0.12 로 둔 까닭이다.
+    """
+    entries = blender_guide.guide_data.load_entries()
+    for junk in ("asdfgh", "zzzzzz", "ㅋㅋㅋㅋ", "1234567"):
+        got = blender_guide.similar.search(entries, junk)
+        if got:
+            raise AssertionError(
+                f"{junk!r} 에 엉뚱한 것이 나왔다: "
+                f"{[(e.get('id'), s) for e, s in got[:2]]}")
+    return f"뜻 없는 말 4가지에 아무것도 안 나온다 (문턱 {blender_guide.similar.MIN_SCORE})"
+
+
+check("뜻 없는 말에는 비슷한 것도 안 내놓는다", check_similar_quiet)
+
+
+def check_similar_scale():
+    """가까움이 0과 1 사이에 들어오는지 본다.
+
+    무게를 곱한 뒤에 길이를 재지 않으면 1을 넘는 값이 나온다. 그러면 문턱이
+    아무 뜻이 없어진다. 실제로 한 번 그렇게 만들어서 6.2 가 나왔다.
+    """
+    entries = blender_guide.guide_data.load_entries()
+    worst = 0.0
+    for text in ("모서리", "면 나누기", "bevel", "키프레임", "모서라 둥글게"):
+        for _, close in blender_guide.similar.search(entries, text, min_score=0.0):
+            worst = max(worst, close)
+    if worst > 1.0001:
+        raise AssertionError(f"가까움이 1을 넘었다: {worst}")
+    return f"가장 높은 가까움 {round(worst, 3)}"
+
+
+check("가까움이 0과 1 사이에 들어온다", check_similar_scale)
+
+
 def check_agent_guard():
     """에이전트가 기본으로 꺼져 있고, 꺼진 채로는 아무것도 실행하지 않는지 본다.
 
