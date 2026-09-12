@@ -20,7 +20,7 @@
 
 import bpy
 
-from . import focus, guide_data, history, search
+from . import agent, focus, guide_data, history, nl, search
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -495,9 +495,25 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
     # ── 검색어가 있을 때 ──
     def _draw_search_results(self, layout, context, entries, query,
                              availability, text_width, p):
-        results = search.search(entries, query, availability,
-                                limit=p.max_results,
-                                boosts=history.boosts(context))
+        # 문장으로 쳤으면 군더더기를 걷어내고 핵심 낱말로 찾는다.
+        # 낱말로 친 것까지 손대면 멀쩡하던 검색이 틀어지므로, 문장일 때만 그렇게 한다.
+        words = []
+        if getattr(p, "use_natural", True) and nl.looks_like_sentence(query):
+            results, words = nl.search(entries, query, availability,
+                                       limit=p.max_results,
+                                       boosts=history.boosts(context))
+        else:
+            results = search.search(entries, query, availability,
+                                    limit=p.max_results,
+                                    boosts=history.boosts(context))
+
+        # 에이전트가 찾아 준 것이 있으면 먼저 보여 준다.
+        _draw_agent_answer(layout, context, query)
+
+        if words and results:
+            hint = layout.row()
+            hint.active = False
+            hint.label(text="이렇게 알아들었습니다: " + " · ".join(words))
 
         if results:
             for i, entry in enumerate(results):
@@ -513,6 +529,8 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         none = layout.column(align=True)
         none.label(text=f"'{query}' 에 맞는 한국어 항목이 없습니다.",
                    icon=safe_icon('QUESTION', fallback='NONE'))
+
+        _draw_agent_ask(layout, context, query)
 
         if not p.use_op_index:
             none.active = False
@@ -612,6 +630,77 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             more.active = False
             more.label(text=f"…그 밖에 {len(usable) - p.max_browse}개. "
                             f"검색창에 치면 찾을 수 있습니다.")
+
+
+def _draw_agent_answer(layout, context, query: str) -> None:
+    """에이전트가 찾아 준 것을 보여 준다.
+
+    왜 팝업이 다시 열릴 때 보여 주는가: 물어보는 데 몇 초가 걸리는데, 그동안
+    팝업은 이미 닫힌다. 블렌더에는 팝업을 다시 띄워 알릴 방법이 마땅치 않아서,
+    답을 담아 두었다가 다음에 열 때 보여 준다. 사이드바에서도 볼 수 있다.
+    """
+    state = agent.get_state()
+    if state["status"] == "idle":
+        return
+    # 지금 친 말과 물어본 말이 다르면 남의 답이므로 보여 주지 않는다.
+    if query and state["question"] and query.strip() != state["question"]:
+        return
+
+    if state["status"] == "asking":
+        row = layout.row()
+        row.label(text=f"'{state['question']}' 을(를) 에이전트에게 물어보는 중입니다.",
+                  icon=safe_icon('SORTTIME', fallback='NONE'))
+        layout.separator()
+        return
+
+    if state["status"] == "failed":
+        warn = layout.column(align=True)
+        warn.alert = True
+        warn.label(text=f"에이전트에게 묻지 못했습니다 — {state['error']}",
+                   icon=safe_icon('ERROR', fallback='NONE'))
+        layout.separator()
+        return
+
+    found = agent.found_entries()
+    if not found:
+        return
+
+    head = layout.row()
+    head.label(text=f"에이전트가 찾은 것 ({state['took']}초)",
+               icon=safe_icon('COMMUNITY', fallback='NONE'))
+    from . import prefs as _prefs
+    p = _prefs.get_prefs(context)
+    availability = guide_data.get_availability(context)
+    for entry in found:
+        _draw_entry(layout, context, entry,
+                    bool(availability.get(entry.get("id"))),
+                    max(30, int(p.popup_width / 7) - 8), p=p)
+    layout.separator()
+
+
+def _draw_agent_ask(layout, context, query: str) -> None:
+    """규칙으로 못 찾았을 때 에이전트에게 넘기는 단추를 그린다."""
+    from . import prefs as _prefs
+
+    p = _prefs.get_prefs(context)
+    state = agent.get_state()
+    if state["status"] == "asking":
+        return
+
+    row = layout.row()
+    if not getattr(p, "use_agent", False):
+        row.active = False
+        row.label(text="설정에서 '못 찾으면 에이전트에게 물어본다' 를 켜면 "
+                       "여기서 물어볼 수 있습니다.")
+        return
+
+    if not agent.available(p):
+        row.active = False
+        row.label(text="물어볼 도구를 못 찾았습니다. 설정에 명령을 적어 주세요.")
+        return
+
+    row.operator("blender_guide.ask_agent",
+                 icon=safe_icon('COMMUNITY', fallback='NONE')).question = query
 
 
 def _draw_history(layout, context, entries, availability, p) -> None:

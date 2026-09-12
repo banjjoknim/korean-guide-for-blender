@@ -9,6 +9,7 @@
 | `find_free_key.py` | 팝업 단축키로 쓸 수 있는, 겹치지 않는 조합을 찾는다 | 그렇다 |
 | `gui_shot.py` | 팝업을 실제로 띄우고 화면을 찍는다 | 그렇다 |
 | `check_focus.py` | 안내 기능이 실제 창에서 도는지 본다. 그리기 손잡이 · 강조 오버레이 · 모드 바꾸기를 모두 확인한다 | 그렇다 |
+| `check_agent.py` | 에이전트에게 실제로 물어보고 답이 돌아오는지 본다. ⚠️ 바깥 프로그램을 실행한다 | 그렇다 |
 | `check_click.py` | 팝업 안의 단추가 첫 클릭에 닿는지 본다. 이벤트를 흉내 내어 실제로 누른다 | 그렇다 |
 
 ```bash
@@ -25,6 +26,9 @@ GUIDE_SHOT_MODE=edit   $BL --factory-startup --python probe/gui_shot.py
 # 안내 기능 점검. GUIDE_FOCUS_SHOT=1 을 붙이면 강조 표시를 찍은 화면도 남는다.
 $BL --factory-startup --python probe/check_focus.py
 GUIDE_FOCUS_SHOT=1 $BL --factory-startup --python probe/check_focus.py
+
+# 에이전트 점검. ⚠️ 바깥 프로그램을 실제로 실행한다.
+$BL --python probe/check_agent.py
 
 # 팝업 첫 클릭 점검. 조건마다 따로 띄워야 한다.
 for c in none plain focus; do
@@ -49,6 +53,10 @@ done
 
 ⚠️ **이벤트 흉내는 창이 다 뜬 뒤에야 붙는다.** 스크립트를 읽는 시점에 `Window.event_simulate`
 유무를 확인하면 아직 없어서 잘못 판단한다. 타이머 안에서 확인해야 한다.
+
+⚠️ **바깥 프로그램을 부를 때 `stdin` 을 막아야 한다.** 막지 않으면 부른 프로그램이
+블렌더의 입력을 물려받아 기다린다. `claude` 는 3초를 기다린 뒤 경고를 내고 진행하는데,
+그 사이에 답이 비어서 돌아왔다. `stdin=subprocess.DEVNULL` 로 막는다.
 
 ⚠️ **`hasattr(bpy.ops.…)` 로는 오퍼레이터 등록 여부를 알 수 없다.** `bpy.ops` 는 없는 이름에도
 껍데기를 돌려주므로 언제나 참이다. `bpy.types` 로 찾는 것도 안 된다. 블렌더가 `bl_idname` 에서

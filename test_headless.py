@@ -282,6 +282,80 @@ def check_history_boost():
 
 check("기록이 순위를 바꾸되 검색을 흐리지 않는다", check_history_boost)
 
+# ── 자연어와 에이전트 ─────────────────────────────────────────────────
+
+def check_natural():
+    """문장으로 쳐도 찾는지 본다. 자세한 것은 blender_guide/nl.py 자체 시험에 있다."""
+    entries = blender_guide.guide_data.load_entries()
+    cases = [("면을 둘로 나누고 싶어", "subdivide"),
+             ("물체를 복제하는 방법 알려줘", "duplicate"),
+             ("구멍을 막고 싶어", "fill_face")]
+    lines = []
+    for text, want in cases:
+        got, words = blender_guide.nl.search(entries, text)
+        head = got[0].get("id") if got else None
+        if head != want:
+            raise AssertionError(
+                f"{text!r} → {want} 이어야 하는데 {[e.get('id') for e in got[:3]]}")
+        lines.append(f"{text!r} → {want}")
+    return " · ".join(lines)
+
+
+check("문장으로 쳐도 찾는다", check_natural)
+
+check("낱말로 친 것은 문장으로 보지 않는다",
+      lambda: not blender_guide.nl.looks_like_sentence("면나누기")
+              and blender_guide.nl.looks_like_sentence("면을 둘로 나누고 싶어"))
+
+
+def check_agent_guard():
+    """에이전트가 기본으로 꺼져 있고, 꺼진 채로는 아무것도 실행하지 않는지 본다.
+
+    바깥 프로그램을 실행하는 일이므로 이것이 지켜지지 않으면 안 된다.
+    """
+    p = blender_guide.prefs.get_prefs(bpy.context)
+    if getattr(p, "use_agent", False):
+        raise AssertionError("에이전트가 기본으로 켜져 있다")
+    problem = blender_guide.agent.ask(bpy.context, "아무 말")
+    if not problem:
+        raise AssertionError("꺼져 있는데도 물어보려 했다")
+    if blender_guide.agent.get_state()["status"] != "idle":
+        raise AssertionError("꺼져 있는데 상태가 바뀌었다")
+    return f"기본 꺼짐 · 막은 까닭: {problem}"
+
+
+check("에이전트는 기본으로 꺼져 있고 켜야만 돈다", check_agent_guard)
+
+
+def check_agent_parse():
+    """에이전트가 엉뚱한 답을 줘도 걸러내는지 본다."""
+    entries = blender_guide.guide_data.load_entries()
+    parse = blender_guide.agent.parse_answer
+    cases = [
+        ("subdivide", ["subdivide"]),
+        ("subdivide, bevel", ["subdivide", "bevel"]),
+        ("답은 subdivide 입니다.", ["subdivide"]),
+        ("없는항목, subdivide", ["subdivide"]),
+        ("NONE", []),
+        ("", []),
+        ("a, b, c, d, e", []),
+    ]
+    for text, want in cases:
+        got = parse(text, entries)
+        if got != want:
+            raise AssertionError(f"{text!r} → {want} 이어야 하는데 {got}")
+    long = parse("subdivide, bevel, extrude, merge, knife", entries)
+    if len(long) > blender_guide.agent.MAX_ANSWERS:
+        raise AssertionError(f"최대 개수를 넘겼다: {long}")
+    return f"{len(cases)}가지 답을 걸러 냈다 · 최대 {blender_guide.agent.MAX_ANSWERS}개"
+
+
+check("에이전트의 엉뚱한 답을 걸러 낸다", check_agent_parse)
+
+check("에이전트 기능이 등록됐다",
+      lambda: "BLENDERGUIDE_OT_ask_agent" in
+              [c.__name__ for c in bpy.types.Operator.__subclasses__()])
+
 check("기록 지우기 기능이 등록됐다",
       lambda: "BLENDERGUIDE_OT_clear_history" in
               [c.__name__ for c in bpy.types.Operator.__subclasses__()])

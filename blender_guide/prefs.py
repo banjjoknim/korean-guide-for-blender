@@ -79,6 +79,31 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         default=True,
     )
 
+    # ── 자연어와 에이전트 ──
+    use_natural: bpy.props.BoolProperty(
+        name="문장으로 쳐도 찾는다",
+        description=("'면을 둘로 나누고 싶어' 처럼 문장으로 쳐도 찾아 줍니다. "
+                     "군더더기를 걷어내고 핵심 낱말로 찾습니다"),
+        default=True,
+    )
+    use_agent: bpy.props.BoolProperty(
+        name="못 찾으면 에이전트에게 물어본다",
+        description=("규칙으로 아무것도 못 찾았을 때만, 컴퓨터에 깔린 에이전트에게 "
+                     "물어봅니다. 바깥 프로그램을 실행하는 일이므로 기본은 꺼져 있습니다"),
+        default=False,
+    )
+    agent_command: bpy.props.StringProperty(
+        name="물어볼 명령",
+        description=("비워 두면 claude 명령줄 도구를 찾아서 씁니다. "
+                     "다른 것을 쓰려면 명령을 적으십시오. {prompt} 자리에 질문이 들어갑니다"),
+        default="",
+    )
+    agent_timeout: bpy.props.FloatProperty(
+        name="기다릴 시간",
+        description="이 시간 안에 답이 없으면 그만둡니다. 단위는 초입니다",
+        default=30.0, min=5.0, max=180.0,
+    )
+
     # ── 검색 기록 ──
     # 즐겨찾기는 일부러 남기는 것이고, 기록은 쓰다 보면 저절로 쌓이는 것이다.
     # 초보자는 무엇을 즐겨찾기할지 판단할 만큼 알지 못하므로 기록이 먼저 돕는다.
@@ -173,6 +198,27 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         sub = col.column(align=True)
         sub.active = self.use_op_index
         sub.prop(self, "max_fallback")
+
+        col.separator()
+        col.prop(self, "use_natural")
+        col.prop(self, "use_agent")
+
+        from . import agent
+        sub = col.column(align=True)
+        sub.active = self.use_agent
+        sub.prop(self, "agent_command")
+        sub.prop(self, "agent_timeout")
+
+        tool = agent.available(self)
+        note = box.column(align=True)
+        note.active = False
+        if not self.use_agent:
+            note.label(text="에이전트는 규칙으로 아무것도 못 찾았을 때만 부릅니다.")
+        elif tool:
+            note.label(text=f"쓸 도구를 찾았습니다: {tool}")
+        else:
+            note.alert = True
+            note.label(text="물어볼 도구를 못 찾았습니다. 위에 명령을 적어 주세요.")
 
         col.separator()
         col.prop(self, "use_history")
@@ -322,6 +368,10 @@ class _FallbackPrefs:
     auto_expand_first = True
     focus_search_on_open = True
     use_op_index = True
+    use_natural = True
+    use_agent = False
+    agent_command = ""
+    agent_timeout = 30.0
     use_history = True
     max_history = 10
     history_json = "[]"

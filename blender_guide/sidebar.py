@@ -42,6 +42,35 @@ class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
             toggle.prop(p, "learner_mode", text="안내 모드", toggle=True,
                         icon=popup.safe_icon('QUESTION', fallback='NONE'))
 
+        # ── 에이전트에게 물어본 것 ──
+        # 팝업은 몇 초 뒤에 닫히지만 여기는 남아 있으므로, 답을 여기서 본다.
+        from . import agent
+        state = agent.get_state()
+        if state["status"] == "asking":
+            box = layout.box()
+            box.label(text="에이전트에게 물어보는 중",
+                      icon=popup.safe_icon('SORTTIME', fallback='NONE'))
+            inner = box.column(align=True)
+            inner.active = False
+            inner.label(text=state["question"])
+        elif state["status"] == "done" and agent.found_entries():
+            box = layout.box()
+            box.label(text=f"에이전트가 찾은 것 ({state['took']}초)",
+                      icon=popup.safe_icon('COMMUNITY', fallback='NONE'))
+            col = box.column(align=True)
+            for entry in agent.found_entries():
+                row = col.row(align=True)
+                popup._draw_entry_name(row, context, entry, True,
+                                       bool(getattr(p, "learner_mode", True)))
+        elif state["status"] == "failed":
+            box = layout.box()
+            box.alert = True
+            box.label(text="에이전트에게 묻지 못했습니다",
+                      icon=popup.safe_icon('ERROR', fallback='NONE'))
+            inner = box.column(align=True)
+            inner.active = False
+            inner.label(text=state["error"])
+
         # ── 지금 상황 ──
         box = layout.box()
         box.label(text=popup._mode_label(context),

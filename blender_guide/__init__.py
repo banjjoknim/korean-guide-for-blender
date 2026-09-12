@@ -12,6 +12,8 @@
 #   search.py     — 한국어 검색 (블렌더 없이도 시험할 수 있다)
 #   focus.py      — 안내: 기능이 화면 어디에 있는지 짚어 주기
 #   history.py    — 골라 본 항목을 기억해서 다음에 빨리 찾게 하기
+#   nl.py         — 문장으로 쳐도 찾기 (규칙, 블렌더 없이도 시험할 수 있다)
+#   agent.py      — 규칙으로 못 찾았을 때 바깥 에이전트에게 물어보기
 #   guide_data.py — 항목 읽기 · 단축키 조회 · 지금 쓸 수 있는지 판단
 #   popup.py      — 팝업 화면
 #   sidebar.py    — N 패널의 '가이드' 탭
@@ -36,13 +38,13 @@ import bpy
 # 이것이 없으면 파일을 고쳐도 블렌더를 껐다 켜기 전까지 바뀌지 않는다.
 if "guide_data" in locals():
     import importlib
-    for _name in ("search", "guide_data", "history", "focus", "popup",
-                  "sidebar", "prefs", "keymaps"):
+    for _name in ("search", "nl", "guide_data", "history", "agent", "focus",
+                  "popup", "sidebar", "prefs", "keymaps"):
         if _name in locals():
             importlib.reload(locals()[_name])
 
-from . import (focus, guide_data, history, keymaps, popup, prefs, search,
-               sidebar)
+from . import (agent, focus, guide_data, history, keymaps, nl, popup, prefs,
+               search, sidebar)
 
 
 def register():
@@ -51,6 +53,8 @@ def register():
     for cls in popup.classes:
         bpy.utils.register_class(cls)
     for cls in focus.classes:
+        bpy.utils.register_class(cls)
+    for cls in agent.classes:
         bpy.utils.register_class(cls)
     for cls in prefs.classes:
         bpy.utils.register_class(cls)
@@ -108,6 +112,7 @@ def unregister():
     # 화면에 계속 그려지고, 블렌더를 껐다 켜기 전까지 지울 방법이 없다.
     focus.stop()
     focus.unregister_handlers()
+    agent.stop()
 
     wm = bpy.types.WindowManager
     for prop_name in ("blender_guide_query", "blender_guide_tag",
@@ -119,6 +124,8 @@ def unregister():
     for cls in reversed(sidebar.classes):
         bpy.utils.unregister_class(cls)
     for cls in reversed(prefs.classes):
+        bpy.utils.unregister_class(cls)
+    for cls in reversed(agent.classes):
         bpy.utils.unregister_class(cls)
     for cls in reversed(focus.classes):
         bpy.utils.unregister_class(cls)
