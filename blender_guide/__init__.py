@@ -42,18 +42,20 @@ import bpy
 if "guide_data" in locals():
     import importlib
     for _name in ("search", "nl", "similar", "catalog", "guide_data",
-                  "history", "agent", "focus", "popup", "sidebar", "prefs",
-                  "keymaps"):
+                  "history", "agent", "focus", "results", "popup", "sidebar",
+                  "prefs", "keymaps"):
         if _name in locals():
             importlib.reload(locals()[_name])
 
 from . import (agent, catalog, focus, guide_data, history, keymaps, nl,
-               popup, prefs, search, sidebar, similar)
+               popup, prefs, results, search, sidebar, similar)
 
 
 def register():
     # ① 클래스를 등록한다. 항목 상태(PropertyGroup)가 먼저여야
     #    아래의 CollectionProperty 가 그것을 가리킬 수 있다.
+    for cls in results.classes:
+        bpy.utils.register_class(cls)
     for cls in popup.classes:
         bpy.utils.register_class(cls)
     for cls in focus.classes:
@@ -77,16 +79,24 @@ def register():
         description="하고 싶은 일을 한국어로 칩니다. 예: 면 나누기, 대칭, 뒤집힘",
         default="",
         options={'TEXTEDIT_UPDATE'},   # 한 글자 칠 때마다 결과가 바뀐다.
+        update=popup.on_query_changed,
     )
+    # 검색 결과 목록이다. 그리는 도중에는 채울 수 없어서 따로 들고 있는다.
+    wm.blender_guide_results = bpy.props.CollectionProperty(
+        type=results.BLENDERGUIDE_result)
+    wm.blender_guide_result_index = bpy.props.IntProperty(
+        name="고른 줄", default=0)
     wm.blender_guide_tag = bpy.props.EnumProperty(
         name="분류",
         description="분류로 걸러 본다",
         items=popup._tag_items,
+        update=popup.on_query_changed,
     )
     wm.blender_guide_only_available = bpy.props.BoolProperty(
         name="지금 쓸 수 있는 것만",
         description="지금 모드에서 바로 쓸 수 있는 기능만 보여 준다",
         default=False,
+        update=popup.on_query_changed,
     )
     wm.blender_guide_states = bpy.props.CollectionProperty(
         type=popup.BLENDERGUIDE_PG_entry_state,
@@ -120,7 +130,8 @@ def unregister():
 
     wm = bpy.types.WindowManager
     for prop_name in ("blender_guide_query", "blender_guide_tag",
-                      "blender_guide_only_available", "blender_guide_states"):
+                      "blender_guide_only_available", "blender_guide_states",
+                      "blender_guide_results", "blender_guide_result_index"):
         if hasattr(wm, prop_name):
             delattr(wm, prop_name)
 
@@ -134,6 +145,8 @@ def unregister():
     for cls in reversed(focus.classes):
         bpy.utils.unregister_class(cls)
     for cls in reversed(popup.classes):
+        bpy.utils.unregister_class(cls)
+    for cls in reversed(results.classes):
         bpy.utils.unregister_class(cls)
 
     guide_data.invalidate_caches()

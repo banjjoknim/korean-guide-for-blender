@@ -50,8 +50,10 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
     )
     max_results: bpy.props.IntProperty(
         name="검색 결과 개수",
-        description="검색했을 때 한 번에 보여 줄 항목 수이다",
-        default=8, min=1, max=30,
+        description=("검색했을 때 목록에 담을 항목 수입니다. 목록은 여덟 줄만 "
+                     "보이고 나머지는 스크롤로 넘어가므로, 늘려도 화면을 "
+                     "덮지 않습니다"),
+        default=20, min=1, max=60,
     )
     max_browse: bpy.props.IntProperty(
         name="상황별 추천 개수",
@@ -61,15 +63,10 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
     max_fallback: bpy.props.IntProperty(
         name="영어 검색 결과 개수",
         description="한국어 항목에서 못 찾았을 때 블렌더 전체에서 찾아 보여 줄 수이다",
-        default=5, min=1, max=20,
+        default=12, min=1, max=40,
     )
 
     # ── 동작 ──
-    auto_expand_first: bpy.props.BoolProperty(
-        name="첫 결과를 펼쳐서 보여 준다",
-        description="검색 결과 중 첫 번째의 설명을 자동으로 펼친다",
-        default=True,
-    )
     focus_search_on_open: bpy.props.BoolProperty(
         name="팝업을 열면 바로 칠 수 있게 한다",
         description=("팝업이 뜨자마자 검색창에 커서를 넣습니다. 단축키를 누르고 곧바로 "
@@ -221,7 +218,6 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         box.label(text="동작")
         col = box.column(align=True)
         col.prop(self, "focus_search_on_open")
-        col.prop(self, "auto_expand_first")
         col.prop(self, "use_op_index")
         sub = col.column(align=True)
         sub.active = self.use_op_index
@@ -414,10 +410,9 @@ class _FallbackPrefs:
     팝업은 떠야 한다.
     """
     popup_width = 560
-    max_results = 8
+    max_results = 20
     max_browse = 14
-    max_fallback = 5
-    auto_expand_first = True
+    max_fallback = 12
     focus_search_on_open = True
     use_op_index = True
     use_natural = True

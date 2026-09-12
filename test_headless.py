@@ -550,6 +550,66 @@ def check_focus_reaches_catalog():
 check("모디파이어와 설정값도 안내한다", check_focus_reaches_catalog)
 
 
+def check_summarize():
+    """사용 방법을 목록 한 줄에 들어갈 만큼 줄이는지 본다.
+
+    목록은 한 줄이라 긴 설명이 그대로 들어가면 잘려서 뜻이 끊긴다.
+    첫 문장만 남긴다. '무엇을 누른다' 가 대개 첫 문장에 있기 때문이다.
+    """
+    summarize = blender_guide.results.summarize
+    got = summarize("Cmd+B 를 누르고 마우스를 움직여 폭을 정합니다. "
+                    "그 상태에서 휠을 굴리면 단 수가 늘어납니다.")
+    if "휠" in got:
+        raise AssertionError(f"둘째 문장까지 남았다: {got}")
+    if not got.endswith("니다"):
+        raise AssertionError(f"첫 문장이 온전하지 않다: {got}")
+    if len(summarize("가" * 200)) > 34:
+        raise AssertionError("긴 글이 안 잘렸다")
+    if summarize("") or summarize(None):
+        raise AssertionError("빈 글에 무언가 나왔다")
+    return f"{got!r} 로 줄인다"
+
+
+check("사용 방법을 한 줄로 줄인다", check_summarize)
+
+
+def check_collect_layers():
+    """목록을 모을 때 층이 지켜지는지 본다.
+
+    정리된 항목에서 또렷이 걸리면 그것만 보여 준다. 1,567가지가 같은
+    자격으로 끼어들면 하나의 답을 주던 검색이 수십 개를 쏟아낸다.
+    """
+    popup = blender_guide.popup
+    entries = blender_guide.guide_data.load_entries()
+    availability = {e["id"]: True for e in entries}
+    p = blender_guide.prefs.get_prefs(bpy.context)
+
+    rows, words, source = popup.collect(bpy.context, entries, "면 나누기",
+                                        availability, p)
+    if not rows:
+        raise AssertionError("'면 나누기' 가 아무것도 안 걸린다")
+    mixed = [r for r in rows if r["kind"] != "entry"]
+    if mixed:
+        raise AssertionError(f"또렷이 걸렸는데 카탈로그가 섞였다: {mixed[:2]}")
+
+    # 설정값은 정리된 항목에 없다. 카탈로그까지 내려가야 한다.
+    rows, _, _ = popup.collect(bpy.context, entries, "그림자 끄기",
+                               availability, p)
+    if not any(r["kind"] == "catalog" for r in rows):
+        raise AssertionError(f"설정값까지 못 내려갔다: {[r['ko'] for r in rows[:3]]}")
+
+    # 아무 데도 없는 말에는 빈 목록이 나와야 한다.
+    rows, _, _ = popup.collect(bpy.context, entries, "asdfghjkl",
+                               availability, p)
+    if rows:
+        raise AssertionError(f"뜻 없는 말에 무언가 나왔다: {[r['ko'] for r in rows[:3]]}")
+
+    return "또렷이 걸리면 그것만 · 없으면 설정값까지 내려간다"
+
+
+check("목록을 모을 때 층을 지킨다", check_collect_layers)
+
+
 def builtin_entries():
     """애드온에 딸린 항목만 읽는다.
 

@@ -20,7 +20,8 @@
 
 import bpy
 
-from . import agent, catalog, focus, guide_data, history, nl, search, similar
+from . import (agent, catalog, focus, guide_data, history, nl, results,
+               search, similar)
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -255,7 +256,12 @@ def _draw_entry(layout, context, entry: dict, available: bool,
 
     tri = safe_icon('DISCLOSURE_TRI_DOWN' if expanded else 'DISCLOSURE_TRI_RIGHT',
                     fallback='NONE')
-    head.prop(state, "expanded", text="", icon=tri, emboss=False)
+    if force_expand:
+        # 목록에서 고른 것 하나를 보여 주는 자리이다. 접을 일이 없으므로
+        # 눌러도 안 접히는 토글을 두지 않는다. 눌리는데 안 바뀌면 고장으로 보인다.
+        head.label(text="", icon=tri)
+    else:
+        head.prop(state, "expanded", text="", icon=tri, emboss=False)
 
     name_row = head.row(align=True)
     # 지금 쓸 수 없는 기능은 흐리게 보여 준다. 숨기지는 않는다.
@@ -417,6 +423,9 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         from . import prefs
         p = prefs.get_prefs(context)
         sync_states(context)
+        # 검색어가 남아 있을 수 있다. 그리는 도중에는 목록을 채울 수 없으므로
+        # 여는 이 자리에서 채워 둔다.
+        refill(context)
         # 팝업을 열 때마다 커서를 검색창에 넣기 위한 표시이다.
         self._needs_focus = True
         return context.window_manager.invoke_popup(self, width=p.popup_width)
@@ -504,119 +513,58 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
     # ── 검색어가 있을 때 ──
     def _draw_search_results(self, layout, context, entries, query,
                              availability, text_width, p):
-        # 문장으로 쳤으면 군더더기를 걷어내고 핵심 낱말로 찾는다.
-        # 낱말로 친 것까지 손대면 멀쩡하던 검색이 틀어지므로, 문장일 때만 그렇게 한다.
-        words = []
-        if getattr(p, "use_natural", True) and nl.looks_like_sentence(query):
-            results, words = nl.search(entries, query, availability,
-                                       limit=p.max_results,
-                                       boosts=history.boosts(context))
-        else:
-            results = search.search(entries, query, availability,
-                                    limit=p.max_results,
-                                    boosts=history.boosts(context))
+        """찾은 것을 목록 한 줄씩 보여 주고, 고른 것만 아래에 펼친다.
+
+        ⚠️ 여기서는 찾지 않는다. 찾는 일은 collect() 가 검색어가 바뀔 때
+           미리 해 둔다. 그리는 도중에는 목록을 채울 수 없기 때문이다.
+        """
+        wm = context.window_manager
 
         # 에이전트가 찾아 준 것이 있으면 먼저 보여 준다.
         _draw_agent_answer(layout, context, query)
 
-        if words and results:
+        words = _last_search.get("words") or []
+        if words:
             hint = layout.row()
             hint.active = False
             hint.label(text="이렇게 알아들었습니다: " + " · ".join(words))
 
-        # 설명문에만 스쳐 걸린 답도 '찾았다' 로 치면, 정작 찾던 설정값까지
-        # 내려가지 못한다. 그래서 걸린 세기를 재어 둔다.
-        probes = words or [query]
-        weak = not results or _strength(results[0], probes) < search.SCORE_TAG
+        rows = getattr(wm, "blender_guide_results", None)
+        count = len(rows) if rows is not None else 0
 
-        if results and not weak:
-            # 검색창에 커서가 들어가 있으면 팝업 안의 첫 클릭이 글자 입력을
-            # 빠져나오는 데 쓰여서 단추까지 닿지 않는다. 블렌더 UI 의 성질이라
-            # 우리가 막을 수 없으므로, 무엇을 하면 되는지 한 줄로 알린다.
-            if p.focus_search_on_open and bool(getattr(p, "learner_mode", True)):
-                tip = layout.row()
-                tip.active = False
-                tip.label(text="Enter 를 한 번 누르면 그다음부터는 클릭이 바로 닿습니다.")
-            for i, entry in enumerate(results):
-                _draw_entry(layout, context, entry,
-                            bool(availability.get(entry.get("id"))),
-                            text_width,
-                            # 첫 번째 결과는 펼쳐서 보여 준다. 대개 그것을 찾고 있다.
-                            force_expand=(i == 0 and p.auto_expand_first),
-                            p=p)
+        if not count:
+            self._draw_nothing(layout, context, query, p)
             return
 
-        if results:
-            # 약하게 걸렸을 뿐이다. 이름으로 또렷이 걸리는 설정값이나 도구가
-            # 있으면 그쪽이 답일 때가 많으므로 먼저 보여 주고, 정리된 항목은
-            # 그 아래에 덧붙인다.
-            drew = _draw_catalog(layout, context, query, p, probes=probes)
-            if drew:
-                head = layout.row()
-                head.active = False
-                head.label(text="한국어 항목 중에서는 이런 것이 가까웠습니다")
-            for i, entry in enumerate(results):
-                _draw_entry(layout, context, entry,
-                            bool(availability.get(entry.get("id"))),
-                            text_width,
-                            force_expand=(i == 0 and p.auto_expand_first
-                                          and not drew),
-                            p=p)
-            return
+        title = _SOURCE_TITLE.get(_last_search.get("source") or "")
+        if title:
+            head = layout.row()
+            head.active = False
+            head.label(text=title, icon=safe_icon('VIEWZOOM', fallback='NONE'))
 
-        # ── 한국어 항목에서 못 찾았을 때: 블렌더 전체에서 영어로 찾아본다 ──
+        if count > 1:
+            # 길어도 화면을 덮지 않게 한다. 정해진 줄만 보이고 나머지는
+            # 스크롤로 넘어간다. 팝업 자체에는 스크롤이 없기 때문이다.
+            layout.template_list(
+                "BLENDERGUIDE_UL_results", "",
+                wm, "blender_guide_results",
+                wm, "blender_guide_result_index",
+                rows=min(count, results.MAX_ROWS))
+
+        chosen = results.picked(context)
+        if chosen is not None:
+            _draw_detail(layout, context, chosen, availability, text_width, p)
+
+    def _draw_nothing(self, layout, context, query, p):
+        """아무 데서도 못 찾았을 때 무엇을 하면 되는지 알린다."""
         none = layout.column(align=True)
-        none.label(text=f"'{query}' 에 맞는 한국어 항목이 없습니다.",
+        none.label(text=f"'{query}' 에 맞는 것을 못 찾았습니다.",
                    icon=safe_icon('QUESTION', fallback='NONE'))
-
-        # 모디파이어·노드·브러시·도구에서 찾아본다. 기능이 아니라서 색인에
-        # 안 들어가지만, 사용자에게는 이것도 '블렌더의 도구' 이다.
-        if _draw_catalog(layout, context, query, p):
-            return
-
-        # 그래도 못 찾았을 때 비슷한 것을 보여 준다.
-        # 여기서 찾아지면 에이전트를 부를 일이 없다.
-        if _draw_similar(layout, context, entries, query, availability, p):
-            return
-
         _draw_agent_ask(layout, context, query)
-
-        if not p.use_op_index:
-            none.active = False
-            none.label(text="다른 말로 바꿔서 쳐 보세요. 예: 둥글게, 대칭, 뒤집힘")
-            return
-
-        fallback = guide_data.search_op_index(query, limit=p.max_fallback)
-        if not fallback:
-            hint = layout.column(align=True)
-            hint.active = False
-            hint.label(text="다른 말로 바꿔서 쳐 보세요. 예: 둥글게, 대칭, 뒤집힘")
-            hint.label(text="영어 이름을 안다면 영어로 쳐도 찾습니다.")
-            return
-
-        layout.separator()
-        head = layout.row()
-        head.active = False
-        head.label(text="블렌더 전체에서 찾은 것 (설명이 영어입니다)")
-
-        for item in fallback:
-            box = layout.box()
-            col = box.column(align=True)
-            row = col.row(align=True)
-            row.label(text=item["label"])
-            key = guide_data.build_shortcut_map().get(item["idname"])
-            if key:
-                kr = row.row()
-                kr.alignment = 'RIGHT'
-                kr.label(text=key)
-            idrow = col.row()
-            idrow.active = False
-            idrow.label(text=item["idname"])
-            if item["desc"]:
-                for line in wrap_text(item["desc"], text_width)[:3]:
-                    dr = col.row()
-                    dr.active = False
-                    dr.label(text=line)
+        hint = layout.column(align=True)
+        hint.active = False
+        hint.label(text="다른 말로 바꿔서 쳐 보세요. 예: 둥글게, 대칭, 뒤집힘")
+        hint.label(text="영어 이름을 안다면 영어로 쳐도 찾습니다.")
 
     # ── 검색어가 없을 때: 즐겨찾기와 지금 쓸 수 있는 것 ──
     def _draw_browse(self, layout, context, entries, availability,
@@ -752,6 +700,186 @@ def _draw_agent_ask(layout, context, query: str) -> None:
                  icon=safe_icon('COMMUNITY', fallback='NONE')).question = query
 
 
+# 무엇을 보고 찾았는지 화면에 적어 주기 위해 지난 검색을 기억해 둔다.
+# 그리는 도중에는 다시 찾을 수 없으므로, 찾을 때 함께 적어 둔다.
+_last_search = {"query": "", "words": [], "source": ""}
+
+_SOURCE_TITLE = {
+    "catalog": "블렌더의 다른 도구와 설정값에서 찾았습니다",
+    "similar": "정확히 맞는 것은 없어서, 비슷한 것을 보여 줍니다",
+    "index": "블렌더 전체에서 찾았습니다 (설명이 영어입니다)",
+}
+
+
+def _entry_row(entry, availability) -> dict:
+    return {
+        "id": entry.get("id", ""),
+        "ko": entry.get("ko", ""),
+        "en": entry.get("en", ""),
+        # 단축키가 있으면 그것이 가장 쓸모 있다. 없으면 분류라도 적어
+        # 오른쪽 끝이 비지 않게 한다.
+        "right": entry.get("shortcut") or (entry.get("tags") or [""])[0],
+        "how": results.summarize(entry.get("note", "")),
+        "desc": entry.get("note", ""),
+        "kind": "entry",
+        "available": bool(availability.get(entry.get("id"))),
+    }
+
+
+def _catalog_row(entry) -> dict:
+    return {
+        "id": entry.get("id", ""),
+        "ko": entry.get("ko", ""),
+        "en": entry.get("en", ""),
+        "right": entry.get("_kind_ko", ""),
+        # 음차로 이름을 삼은 것은 뜻이 곧 사용 방법보다 먼저 알아야 할 말이다.
+        "how": results.summarize(entry.get("_gloss") or entry.get("note", "")),
+        "desc": entry.get("note", ""),
+        "kind": "catalog",
+        "available": True,
+    }
+
+
+def _index_row(item) -> dict:
+    return {
+        "id": item.get("idname", ""),
+        "ko": item.get("label", ""),
+        "en": item.get("idname", ""),
+        "right": guide_data.build_shortcut_map().get(item.get("idname"), ""),
+        "how": results.summarize(item.get("desc", "")),
+        "desc": item.get("desc", ""),
+        "kind": "index",
+        "available": True,
+    }
+
+
+def collect(context, entries, query, availability, p) -> tuple:
+    """층층이 찾아 한 목록으로 모은다. (목록, 알아들은 낱말, 어디서 찾았는지).
+
+    층을 나누는 까닭은 정확도와 넓이를 함께 잡기 위해서이다. 정리된 항목에서
+    또렷이 걸리면 그것만 보여 주고, 못 찾을수록 더 넓은 곳으로 내려간다.
+    """
+    words = []
+    if getattr(p, "use_natural", True) and nl.looks_like_sentence(query):
+        found, words = nl.search(entries, query, availability,
+                                 limit=p.max_results,
+                                 boosts=history.boosts(context))
+    else:
+        found = search.search(entries, query, availability,
+                              limit=p.max_results,
+                              boosts=history.boosts(context))
+
+    # 설명문에만 스쳐 걸린 답도 '찾았다' 로 치면, 정작 찾던 설정값까지
+    # 내려가지 못한다. 그래서 걸린 세기를 재어 둔다.
+    probes = words or [query]
+    weak = not found or _strength(found[0], probes) < search.SCORE_TAG
+
+    if found and not weak:
+        return [_entry_row(e, availability) for e in found], words, ""
+
+    catalogged = (catalog.search(query, limit=p.max_results)
+                  if getattr(p, "use_catalog", True) else [])
+
+    if found:
+        # 약하게 걸렸을 뿐이다. 이름으로 또렷이 걸리는 설정값이나 도구가
+        # 있으면 그쪽이 답일 때가 많으므로 앞에 세운다.
+        strong = [e for e in catalogged
+                  if _strength(e, probes) >= search.SCORE_TAG]
+        rows = ([_catalog_row(e) for e in strong]
+                + [_entry_row(e, availability) for e in found])
+        return rows, words, ""
+
+    if catalogged:
+        return [_catalog_row(e) for e in catalogged], words, "catalog"
+
+    if getattr(p, "use_similar", True):
+        close = similar.search(entries, query, limit=3)
+        if close:
+            return ([_entry_row(e, availability) for e, _ in close],
+                    words, "similar")
+
+    if getattr(p, "use_op_index", True):
+        fallback = guide_data.search_op_index(query, limit=p.max_fallback)
+        if fallback:
+            return [_index_row(i) for i in fallback], words, "index"
+
+    return [], words, ""
+
+
+def refill(context) -> None:
+    """검색 결과 목록을 다시 채운다.
+
+    ⚠️ 그리는 도중에는 부르면 안 된다. 블렌더가 draw 안에서 데이터를 바꾸는
+       것을 막기 때문이다. 검색어가 바뀔 때와 팝업을 열 때만 부른다.
+    """
+    from . import prefs
+    wm = getattr(context, "window_manager", None)
+    if wm is None or not hasattr(wm, "blender_guide_results"):
+        return
+
+    query = (getattr(wm, "blender_guide_query", "") or "").strip()
+    if not query:
+        results.clear(context)
+        _last_search.update(query="", words=[], source="")
+        return
+
+    p = prefs.get_prefs(context)
+    availability = guide_data.get_availability(context)
+    entries = guide_data.load_entries()
+
+    tag = getattr(wm, "blender_guide_tag", "ALL")
+    if tag != "ALL":
+        entries = [e for e in entries if tag in e.get("tags", [])]
+    if getattr(wm, "blender_guide_only_available", False):
+        entries = [e for e in entries if availability.get(e.get("id"))]
+
+    rows, words, source = collect(context, entries, query, availability, p)
+    results.fill(context, rows)
+    _last_search.update(query=query, words=words, source=source)
+
+
+def on_query_changed(self, context) -> None:
+    """검색어(또는 거르개)가 바뀌면 목록을 다시 채운다."""
+    refill(context)
+
+
+def _draw_detail(layout, context, row, availability, text_width, p) -> None:
+    """목록에서 고른 한 줄을 자세히 보여 준다."""
+    if row.kind == "entry":
+        entry = guide_data.find_entry(row.entry_id)
+        if entry is not None:
+            _draw_entry(layout, context, entry,
+                        bool(availability.get(entry.get("id"))),
+                        text_width, force_expand=True, p=p)
+            return
+    elif row.kind == "catalog":
+        entry = focus.find_anywhere(row.entry_id)
+        if entry is not None:
+            _draw_catalog_one(layout, context, entry, text_width, p)
+            return
+    _draw_index_one(layout, row, text_width)
+
+
+def _draw_index_one(layout, row, text_width) -> None:
+    """블렌더 전체 색인에서 찾은 것 하나를 보여 준다. 설명이 영어이다."""
+    box = layout.box()
+    col = box.column(align=True)
+    line = col.row(align=True)
+    line.label(text=row.ko)
+    if row.right:
+        tail = line.row()
+        tail.alignment = 'RIGHT'
+        tail.label(text=row.right)
+    sub = col.row()
+    sub.active = False
+    sub.label(text=row.en)
+    if row.desc:
+        for line_text in wrap_text(row.desc, text_width)[:3]:
+            note = col.row()
+            note.active = False
+            note.label(text=line_text)
+
+
 def _strength(entry, probes) -> int:
     """항목이 얼마나 또렷이 걸렸는지 잰다.
 
@@ -764,117 +892,64 @@ def _strength(entry, probes) -> int:
                default=0)
 
 
-def _draw_catalog(layout, context, query: str, p, probes=None) -> bool:
-    """모디파이어·제약·노드·브러시·도구·설정값에서 찾은 것을 보여 준다.
+def _draw_catalog_one(layout, context, entry, text_width, p) -> None:
+    """모디파이어·노드·브러시·도구·설정값 하나를 자세히 보여 준다.
 
-    누를 수 있는 단추는 두지 않는다. 이것들은 실행하는 기능이 아니라 어디에
-    가서 고르거나 고쳐야 하는 것이라, 어디에 있는지 알려 주는 것까지가 할 일이다.
+    누를 수 있는 실행 단추는 두지 않는다. 이것들은 실행하는 기능이 아니라
+    어디에 가서 고르거나 고쳐야 하는 것이기 때문이다. 대신 그 자리를
+    실제로 열어 주는 안내 단추를 둔다.
     """
-    if not getattr(p, "use_catalog", True):
-        return False
+    box = layout.box()
+    col = box.column(align=True)
 
-    found = catalog.search(query, limit=p.max_results)
-    if probes is not None:
-        # 정리된 항목이 약하게만 걸렸을 때 불린 경우이다. 이때는 카탈로그도
-        # 이름으로 또렷이 걸린 것만 내놓는다. 약한 것 위에 약한 것을 얹으면
-        # 고르는 사람만 더 헷갈린다.
-        found = [e for e in found
-                 if _strength(e, probes) >= search.SCORE_TAG]
-    if not found:
-        return False
+    line = col.row(align=True)
+    name = line.row(align=True)
+    name.alignment = 'LEFT'
+    name.label(text=entry.get("ko", ""))
+    kind = line.row()
+    kind.alignment = 'RIGHT'
+    kind.active = False
+    kind.label(text=entry.get("_kind_ko", ""))
 
-    # 설정값만 걸렸을 때까지 '다른 도구' 라고 하면 무엇을 찾았는지 흐려진다.
-    only_setting = all(e.get("_kind_ko", "").startswith("설정값") for e in found)
-    head = layout.row()
-    head.label(text="블렌더 설정값에서 찾았습니다" if only_setting
-               else "블렌더의 다른 도구에서 찾았습니다",
-               icon=safe_icon('TOOL_SETTINGS', fallback='NONE'))
+    sub = col.row()
+    sub.active = False
+    sub.label(text=entry.get("en", ""))
 
-    text_width = max(30, int(p.popup_width / 7) - 8)
-    for entry in found:
-        box = layout.box()
-        col = box.column(align=True)
+    # 블렌더에 번역이 없어 음차를 이름으로 쓴 것이다. '스네이크 훅' 만
+    # 보고는 무엇인지 알 수 없으므로 뜻을 한 줄 덧붙인다.
+    gloss = entry.get("_gloss")
+    if gloss:
+        row = col.row()
+        row.active = False
+        row.label(text=f"뜻: {gloss}")
 
-        line = col.row(align=True)
-        name = line.row(align=True)
-        name.alignment = 'LEFT'
-        name.label(text=entry.get("ko", ""))
-        kind = line.row()
-        kind.alignment = 'RIGHT'
-        kind.active = False
-        kind.label(text=entry.get("_kind_ko", ""))
+    where = entry.get("where")
+    if where:
+        col.separator()
+        for i, line_text in enumerate(wrap_text(where, text_width)):
+            row = col.row()
+            row.label(text=line_text,
+                      icon=safe_icon('KEYINGSET', fallback='NONE')
+                      if i == 0 else 'BLANK1')
 
-        sub = col.row()
-        sub.active = False
-        sub.label(text=entry.get("en", ""))
-
-        # 블렌더에 번역이 없어 음차를 이름으로 쓴 것이다. '스네이크 훅' 만
-        # 보고는 무엇인지 알 수 없으므로 뜻을 한 줄 덧붙인다.
-        gloss = entry.get("_gloss")
-        if gloss:
+    note = entry.get("note")
+    if note:
+        col.separator()
+        for i, line_text in enumerate(wrap_text(note, text_width)[:3]):
             row = col.row()
             row.active = False
-            row.label(text=f"뜻: {gloss}")
+            row.label(text=line_text,
+                      icon=safe_icon('INFO', fallback='NONE')
+                      if i == 0 else 'BLANK1')
 
-        where = entry.get("where")
-        if where:
-            row = col.row()
-            row.label(text=where,
-                      icon=safe_icon('KEYINGSET', fallback='NONE'))
-
-        note = entry.get("note")
-        if note:
-            for i, line_text in enumerate(wrap_text(note, text_width)[:2]):
-                row = col.row()
-                row.active = False
-                row.label(text=line_text,
-                          icon=safe_icon('INFO', fallback='NONE')
-                          if i == 0 else 'BLANK1')
-
-        # 모디파이어나 설정값이야말로 어디 있는지 짚어 주어야 한다. 기능은
-        # 단축키라도 있지만, 이것들은 탭을 찾아 들어가는 수밖에 없다.
-        if bool(getattr(p, "learner_mode", True)):
-            act = col.row(align=True)
-            act.operator("blender_guide.focus", text="어디에 있는지 보기",
-                         icon=safe_icon('VIEWZOOM', fallback='NONE')
-                         ).entry_id = entry.get("id", "")
-
-    hint = layout.column(align=True)
-    hint.active = False
-    hint.label(text="이것들은 눌러서 바로 쓰는 기능이 아니라, 적힌 자리에 가서 "
-                    + ("고치는 값입니다." if only_setting else "고르는 것입니다."))
-    layout.separator()
-    return True
-
-
-def _draw_similar(layout, context, entries, query, availability, p) -> bool:
-    """정확히 못 찾았을 때 비슷한 것을 보여 준다. 하나라도 그렸으면 참이다.
-
-    ⚠️ 정확히 걸린 것이 있을 때는 부르지 않는다. 유사도는 틀려도 그럴듯해
-    보여서, 정확한 답 위에 놓으면 오히려 헷갈린다.
-    """
-    if not getattr(p, "use_similar", True):
-        return False
-
-    found = similar.search(entries, query, limit=3)
-    if not found:
-        return False
-
-    head = layout.row()
-    head.label(text=f"'{query}' 과(와) 비슷한 것",
-               icon=safe_icon('VIEWZOOM', fallback='NONE'))
-
-    text_width = max(30, int(p.popup_width / 7) - 8)
-    for entry, close in found:
-        _draw_entry(layout, context, entry,
-                    bool(availability.get(entry.get("id"))),
-                    text_width, p=p)
-
-    hint = layout.column(align=True)
-    hint.active = False
-    hint.label(text="정확히 맞는 것을 못 찾아 글자가 닮은 것을 보여 드렸습니다.")
-    layout.separator()
-    return True
+    # 모디파이어나 설정값이야말로 어디 있는지 짚어 주어야 한다. 기능은
+    # 단축키라도 있지만, 이것들은 탭을 찾아 들어가는 수밖에 없다.
+    if bool(getattr(p, "learner_mode", True)):
+        col.separator()
+        act = col.row(align=True)
+        act.operator("blender_guide.focus", text="어디에 있는지 보기",
+                     icon=safe_icon('VIEWZOOM', fallback='NONE')
+                     ).entry_id = entry.get("id", "")
 
 
 def _draw_history(layout, context, entries, availability, p) -> None:

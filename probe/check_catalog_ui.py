@@ -1,4 +1,4 @@
-# 카탈로그와 설정값이 실제 창에서 그려지는지 본다.
+# 검색 결과 목록이 실제 창에서 도는지 본다.
 #
 #     /Applications/Blender.app/Contents/MacOS/Blender --factory-startup \
 #         --python probe/check_catalog_ui.py
@@ -9,7 +9,7 @@ import bpy
 
 lines = []
 fail = {"n": 0}
-draws = {"popup": 0, "catalog": 0, "rows": []}
+drew = {"popup": 0}
 
 
 def ok(name, detail=""):
@@ -35,10 +35,12 @@ def view3d():
     return None
 
 
+def rows():
+    return list(bpy.context.window_manager.blender_guide_results)
+
+
 def ask(query):
-    """팝업에 글을 넣고 연다."""
-    draws["catalog"] = 0
-    draws["rows"] = []
+    """검색어를 넣고 팝업을 연다. 목록은 검색어가 바뀔 때 채워진다."""
     bpy.context.window_manager.blender_guide_query = query
     with bpy.context.temp_override(**view3d()):
         bpy.ops.blender_guide.popup('INVOKE_DEFAULT')
@@ -47,23 +49,11 @@ def ask(query):
 def start():
     bpy.ops.preferences.addon_enable(module="blender_guide")
     import blender_guide.popup as popup
-    from blender_guide import catalog
-
-    original = popup._draw_catalog
-
-    def spy(layout, context, query, prefs, probes=None):
-        drew = original(layout, context, query, prefs, probes=probes)
-        if drew:
-            draws["catalog"] += 1
-            draws["rows"] = catalog.search(query, limit=prefs.max_results)
-        return drew
-
-    popup._draw_catalog = spy
 
     draw = popup.BLENDERGUIDE_OT_popup.draw
 
     def watch(self, context):
-        draws["popup"] += 1
+        drew["popup"] += 1
         return draw(self, context)
 
     popup.BLENDERGUIDE_OT_popup.draw = watch
@@ -74,38 +64,69 @@ def start():
 
 
 def step_catalog():
-    check("카탈로그를 친 팝업이 그려진다", draws["popup"] > 0,
-          f"{draws['popup']}번")
-    check("'다른 도구' 자리가 그려진다", draws["catalog"] > 0)
+    check("팝업이 그려진다", drew["popup"] > 0, f"{drew['popup']}번")
+    got = rows()
+    check("카탈로그가 목록에 담긴다",
+          any(r.kind == "catalog" for r in got),
+          " · ".join(f"{r.ko}({r.kind})" for r in got[:3]))
     ask("그림자 끄기")
     bpy.app.timers.register(step_setting, first_interval=1.0)
     return None
 
 
 def step_setting():
+    got = rows()
     # '그림자 끄기' 는 정리된 항목의 설명문에 스쳐 걸린다. 그 약한 답에
     # 막히지 않고 설정값까지 내려와야 한다.
-    check("약하게 걸렸을 때 설정값이 함께 그려진다", draws["catalog"] > 0)
-    kinds = [r.get("_kind_ko", "") for r in draws["rows"]]
+    check("약하게 걸렸을 때 설정값이 함께 담긴다",
+          any(r.kind == "catalog" for r in got),
+          " · ".join(f"{r.ko}({r.right})" for r in got[:3]))
     check("설정값에 어느 묶음인지 붙는다",
-          any(k.startswith("설정값 · ") for k in kinds), " · ".join(kinds[:3]))
+          any(r.right.startswith("설정값 · ") for r in got),
+          " · ".join(r.right for r in got[:3]))
     ask("스네이크 훅")
     bpy.app.timers.register(step_translit, first_interval=1.0)
     return None
 
 
 def step_translit():
-    names = [r.get("en") for r in draws["rows"]]
-    check("음차로 친 것이 그려진다", "Snake Hook" in names, " · ".join(names[:3]))
+    got = rows()
+    check("음차로 친 것이 담긴다", any(r.en == "Snake Hook" for r in got),
+          " · ".join(r.ko for r in got[:3]))
+    check("사용 방법이 한 줄로 붙는다", any(r.how for r in got),
+          " · ".join(f"{r.ko}: {r.how}" for r in got[:2]))
     ask("면 나누기")
     bpy.app.timers.register(step_clean, first_interval=1.0)
     return None
 
 
 def step_clean():
-    check("정리된 항목을 찾으면 카탈로그가 안 끼어든다", draws["catalog"] == 0,
-          f"{draws['catalog']}번")
-    print("\n── 카탈로그·설정값 화면 점검 ──")
+    got = rows()
+    check("정리된 항목을 찾으면 카탈로그가 안 끼어든다",
+          all(r.kind == "entry" for r in got),
+          " · ".join(f"{r.ko}({r.kind})" for r in got[:3]))
+    check("단축키가 오른쪽에 붙는다", any(r.right for r in got),
+          " · ".join(f"{r.ko} {r.right}" for r in got[:3]))
+    ask("점")
+    bpy.app.timers.register(step_long, first_interval=1.0)
+    return None
+
+
+def step_long():
+    import blender_guide.results as results
+    got = rows()
+    # 목록이 길어도 보이는 줄은 정해진 만큼이다. 그래야 화면을 안 덮는다.
+    check("결과가 많아도 목록에 담긴다", len(got) > 1, f"{len(got)}개")
+    check("한 번에 보이는 줄은 정해져 있다", results.MAX_ROWS <= 8,
+          f"{results.MAX_ROWS}줄까지 보이고 나머지는 스크롤")
+    ask("")
+    bpy.app.timers.register(step_empty, first_interval=1.0)
+    return None
+
+
+def step_empty():
+    check("검색어를 지우면 목록도 빈다", not rows(), f"{len(rows())}개")
+    print("\n── 검색 결과 목록 점검 ──")
     print("\n".join(lines))
     print("점검 통과" if fail["n"] == 0 else f"실패 {fail['n']}건")
     bpy.ops.wm.quit_blender()

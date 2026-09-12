@@ -11,7 +11,7 @@
 | `check_focus.py` | 안내 기능이 실제 창에서 도는지 본다. 그리기 손잡이 · 강조 오버레이 · 모드 바꾸기를 모두 확인한다 | 그렇다 |
 | `check_agent.py` | 에이전트에게 실제로 물어보고 답이 돌아오는지 본다. ⚠️ 바깥 프로그램을 실행한다 | 그렇다 |
 | `check_click.py` | 팝업 안의 단추가 첫 클릭에 닿는지 본다. 이벤트를 흉내 내어 실제로 누른다 | 그렇다 |
-| `check_catalog_ui.py` | 카탈로그와 설정값이 실제 팝업에 그려지는지 본다 | 그렇다 |
+| `check_catalog_ui.py` | 검색 결과 목록이 실제 팝업에서 도는지 본다. 카탈로그·설정값·음차·사용 방법을 모두 확인한다 | 그렇다 |
 | `build_catalog.py` | 점검이 아니라 만드는 스크립트다. `catalog_ko.json` 을 새로 쓴다 | 아니다 |
 
 ```bash
@@ -32,7 +32,7 @@ GUIDE_FOCUS_SHOT=1 $BL --factory-startup --python probe/check_focus.py
 # 에이전트 점검. ⚠️ 바깥 프로그램을 실제로 실행한다.
 $BL --python probe/check_agent.py
 
-# 카탈로그·설정값 화면 점검
+# 검색 결과 목록 점검
 $BL --factory-startup --python probe/check_catalog_ui.py
 
 # 카탈로그를 다시 만든다. 블렌더 판이 올라갔을 때 돌린다.
