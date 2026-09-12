@@ -8,11 +8,19 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BLENDER_APP="${BLENDER_APP:-/Applications/Blender.app/Contents/MacOS/Blender}"
+# 환경변수를 먼저 보고, 그다음 PATH, 그다음 맥의 흔한 자리를 본다.
+# 맥 경로 하나만 두면 다른 기기에서는 시작도 못 한다.
+if [[ -z "${BLENDER_APP:-}" ]]; then
+  BLENDER_APP="$(command -v blender 2>/dev/null || true)"
+fi
+if [[ -z "${BLENDER_APP:-}" && -x "/Applications/Blender.app/Contents/MacOS/Blender" ]]; then
+  BLENDER_APP="/Applications/Blender.app/Contents/MacOS/Blender"
+fi
 
-if [[ ! -x "$BLENDER_APP" ]]; then
-  echo "블렌더를 찾지 못했습니다: $BLENDER_APP" >&2
-  echo "다른 자리에 설치했다면 BLENDER_APP 환경변수로 알려 주세요." >&2
+if [[ -z "${BLENDER_APP:-}" || ! -x "$BLENDER_APP" ]]; then
+  echo "블렌더를 찾지 못했습니다." >&2
+  echo "설치한 자리를 BLENDER_APP 환경변수로 알려 주세요. 예:" >&2
+  echo "  BLENDER_APP=/path/to/blender ./build_extension.sh" >&2
   exit 1
 fi
 

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 
 import bpy
 
@@ -223,6 +224,26 @@ def _modifier_count(kmi) -> int:
     return count
 
 
+IS_MAC = sys.platform == "darwin"
+
+
+def fit_platform(text: str, is_mac: bool | None = None) -> str:
+    """손으로 적어 둔 단축키를 이 기기의 표기로 바꾼다.
+
+    항목 파일의 예비 값은 맥 기준으로 적혀 있다. 맥이 아닌 기기에서 'Cmd+B' 를
+    그대로 보여 주면 없는 글쇠를 누르라는 말이 된다. 블렌더에서 직접 읽은 값은
+    이미 그 기기의 것이므로 손대지 않는다.
+    """
+    if is_mac is None:
+        is_mac = IS_MAC
+    if is_mac or not text:
+        return text
+    for mac, other in (("Cmd+", "Ctrl+"), ("⌘", "Ctrl+"),
+                       ("Option+", "Alt+"), ("⌥", "Alt+")):
+        text = text.replace(mac, other)
+    return text
+
+
 def get_shortcut(entry: dict) -> tuple[str, bool]:
     """항목의 단축키를 돌려준다.
 
@@ -236,7 +257,7 @@ def get_shortcut(entry: dict) -> tuple[str, bool]:
     # 왜: '시점 돌리기'의 자동 조회 값이 'Mouse/Trackpad Rotate' 로 나왔는데,
     #     이것으로는 무엇을 눌러야 하는지 알 수 없다. 실제 화면에서 보고 잡은 흠이다.
     if entry.get("prefer_manual") and manual:
-        return manual, False
+        return fit_platform(manual), False
 
     op = entry.get("op")
     if op:
@@ -244,7 +265,7 @@ def get_shortcut(entry: dict) -> tuple[str, bool]:
         if auto:
             return auto, True
     if manual:
-        return manual, False
+        return fit_platform(manual), False
     return "", False
 
 

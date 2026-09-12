@@ -610,6 +610,39 @@ def check_collect_layers():
 check("목록을 모을 때 층을 지킨다", check_collect_layers)
 
 
+def check_platform_shortcuts():
+    """손으로 적어 둔 단축키가 기기에 맞게 나오는지 본다.
+
+    항목 파일의 예비 값은 맥 기준으로 적혀 있다. 맥이 아닌 기기에서 'Cmd+B' 를
+    그대로 보여 주면 없는 글쇠를 누르라는 말이 된다.
+    """
+    fit = blender_guide.guide_data.fit_platform
+    if fit("Cmd+B", is_mac=False) != "Ctrl+B":
+        raise AssertionError(f"맥이 아닌 기기에서 {fit('Cmd+B', is_mac=False)!r}")
+    if fit("Cmd+B", is_mac=True) != "Cmd+B":
+        raise AssertionError("맥에서 표기가 바뀌었다")
+    if fit("Option+Z", is_mac=False) != "Alt+Z":
+        raise AssertionError(f"{fit('Option+Z', is_mac=False)!r}")
+    # 이미 그 기기의 말로 적힌 것은 건드리지 않는다.
+    if fit("Ctrl+B", is_mac=False) != "Ctrl+B":
+        raise AssertionError("멀쩡한 표기를 건드렸다")
+    if fit("", is_mac=False):
+        raise AssertionError("빈 글자에 무언가 나왔다")
+
+    # 항목 파일에 남아 있는 맥 표기가 모두 op 를 갖고 있어야 한다.
+    # op 가 있으면 블렌더에서 그 기기의 실제 단축키를 읽어 오기 때문이다.
+    entries, _ = blender_guide.guide_data._read_entry_file(
+        blender_guide.guide_data._BUILTIN_PATH)
+    orphan = [e["id"] for e in entries
+              if e.get("shortcut") and "Cmd" in e["shortcut"] and not e.get("op")]
+    if orphan:
+        raise AssertionError(f"블렌더에서 읽어 올 길이 없는 맥 표기: {orphan}")
+    return "Cmd → Ctrl · Option → Alt 로 바꿔서 보여 준다"
+
+
+check("단축키가 기기에 맞게 나온다", check_platform_shortcuts)
+
+
 def builtin_entries():
     """애드온에 딸린 항목만 읽는다.
 

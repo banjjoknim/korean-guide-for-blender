@@ -16,13 +16,50 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="$REPO_ROOT/blender_guide"
 ADDON_NAME="blender_guide"
 
-BLENDER_APP="/Applications/Blender.app/Contents/MacOS/Blender"
-if [[ ! -x "$BLENDER_APP" ]]; then
-  echo "블렌더를 찾지 못했습니다: $BLENDER_APP" >&2
-  echo "다른 자리에 설치했다면 BLENDER_APP 환경변수로 알려 주세요." >&2
+# 블렌더를 찾는다. 환경변수를 먼저 보고, 그다음 PATH, 그다음 판마다 흔한 자리를
+# 차례로 뒤진다.
+# ⚠️ 맥 경로 하나만 두면 다른 기기에서는 시작도 못 한다. 환경변수로 알려 달라고
+#    적어 두고서 정작 그것을 검사보다 나중에 읽던 흠이 있었다.
+find_blender() {
+  if [[ -n "${BLENDER_APP:-}" ]]; then
+    [[ -x "$BLENDER_APP" ]] && { echo "$BLENDER_APP"; return 0; }
+    echo "BLENDER_APP 이 가리키는 자리에 실행할 수 있는 블렌더가 없습니다: $BLENDER_APP" >&2
+    return 1
+  fi
+
+  local found
+  for name in blender Blender; do
+    found="$(command -v "$name" 2>/dev/null || true)"
+    [[ -n "$found" ]] && { echo "$found"; return 0; }
+  done
+
+  local candidates=(
+    "/Applications/Blender.app/Contents/MacOS/Blender"
+    "$HOME/Applications/Blender.app/Contents/MacOS/Blender"
+    "/usr/bin/blender"
+    "/usr/local/bin/blender"
+    "/var/lib/flatpak/exports/bin/org.blender.Blender"
+    "$HOME/.local/share/flatpak/exports/bin/org.blender.Blender"
+    "/snap/bin/blender"
+  )
+  # 윈도우에서 Git Bash 로 돌릴 때의 자리이다. 판 번호가 붙으므로 넓혀서 찾는다.
+  while IFS= read -r path; do
+    candidates+=("$path")
+  done < <(ls -d "/c/Program Files/Blender Foundation/Blender "*/blender.exe 2>/dev/null || true)
+
+  for path in "${candidates[@]}"; do
+    [[ -x "$path" ]] && { echo "$path"; return 0; }
+  done
+  return 1
+}
+
+if ! BLENDER_APP="$(find_blender)"; then
+  echo "블렌더를 찾지 못했습니다." >&2
+  echo "설치한 자리를 BLENDER_APP 환경변수로 알려 주세요. 예:" >&2
+  echo "  BLENDER_APP=/path/to/blender ./install.sh" >&2
   exit 1
 fi
-BLENDER_APP="${BLENDER_APP_OVERRIDE:-$BLENDER_APP}"
+echo "블렌더: $BLENDER_APP"
 
 # 애드온 폴더는 블렌더에게 직접 물어본다.
 # 왜: 블렌더 판이 올라가면 폴더 이름이 바뀌는데, 손으로 적어 두면 그때 깨진다.
@@ -77,4 +114,8 @@ echo "  블렌더: $TARGET"
 echo
 echo "이제 블렌더에서 이렇게 켭니다:"
 echo "  Edit > Preferences > Add-ons 에서 '가이드' 로 찾아 체크를 켭니다."
-echo "  켠 뒤 3D 화면에서 Ctrl+Shift+H 를 누르면 팝업이 뜹니다."
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  echo "  켠 뒤 3D 화면에서 Cmd+Shift+H 를 누르면 팝업이 뜹니다."
+else
+  echo "  켠 뒤 3D 화면에서 Ctrl+Shift+H 를 누르면 팝업이 뜹니다."
+fi

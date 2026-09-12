@@ -16,7 +16,8 @@
 | `build_catalog.py` | 점검이 아니라 만드는 스크립트다. `catalog_ko.json` 을 새로 쓴다 | 아니다 |
 
 ```bash
-BL=/Applications/Blender.app/Contents/MacOS/Blender
+# 자기 기기의 블렌더 자리를 넣는다. PATH 에 있으면 이름만으로 된다.
+BL=blender
 
 # 창 없이
 $BL --background --python probe/check_api.py

@@ -4,7 +4,7 @@
 팝업을 HTML 로 재현해 두고, 설명에 마우스를 올리면 해당 부분이 밝아진다.
 
 ```bash
-BL=/Applications/Blender.app/Contents/MacOS/Blender
+BL=blender   # 자기 기기의 블렌더 자리
 
 # ① 실제 화면을 찍는다 (블렌더 창이 필요하다)
 GUIDE_SHOT_MODE=search $BL --factory-startup --python probe/gui_shot.py
