@@ -178,6 +178,14 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         box = layout.box()
         box.label(text="팝업을 여는 단축키",
                   icon=popup.safe_icon('EVENT_TAB', fallback='NONE'))
+
+        from . import keymaps as km
+        why = box.column(align=True)
+        why.active = False
+        why.label(text=f"두 개인 까닭: 한글 입력 중에는 글자 글쇠가 듣지 않습니다.")
+        why.label(text=f"{km.default_shortcut_text()} 는 영문 입력일 때, "
+                       f"{km.ime_safe_shortcut_text()} 는 언제나 듣습니다.")
+
         _draw_keymap_ui(box, context)
 
         # ── 모양 ──

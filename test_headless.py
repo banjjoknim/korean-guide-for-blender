@@ -200,6 +200,26 @@ def check_default_shortcut():
 check("기본 단축키가 운영체제에 맞는다", check_default_shortcut)
 
 
+def check_ime_safe_key():
+    """한글 입력 중에도 듣는 단축키가 따로 있는지 본다.
+
+    ⚠️ 한글 입력 상태에서는 글자 글쇠를 쓸 수 없다. 입력기가 글쇠를 자모로
+    바꿔 넘기는데 블렌더에는 자모에 해당하는 글쇠가 없어서, 종류가 빈 사건이
+    된다. 블렌더가 받는 사건을 직접 기록해서 확인한 사실이다.
+    그래서 기호 글쇠로 된 단축키를 하나 더 둔다.
+    """
+    km = blender_guide.keymaps
+    if km.IME_SAFE_KEY == km.DEFAULT_KEY:
+        raise AssertionError("두 단축키가 같으면 한글 입력 중에 열 수 없다")
+    if len(km.IME_SAFE_KEY) == 1 and km.IME_SAFE_KEY.isalpha():
+        raise AssertionError(
+            f"'{km.IME_SAFE_KEY}' 는 글자 글쇠라서 한글 입력 중에 안 듣는다")
+    return f"{km.ime_safe_shortcut_text()} (글자 글쇠가 아니다)"
+
+
+check("한글 입력 중에도 듣는 단축키가 따로 있다", check_ime_safe_key)
+
+
 # ── 검색 기록 ────────────────────────────────────────────────────────
 
 def check_history_record():

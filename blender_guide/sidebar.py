@@ -27,12 +27,17 @@ class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
 
         # ── 팝업 열기 ──
         # 단축키를 같이 적어 두어, 다음부터는 이 패널을 거치지 않게 한다.
-        shortcut = _popup_shortcut()
+        keys = keymaps.shortcut_texts()
         col = layout.column(align=True)
         col.scale_y = 1.5
         col.operator("blender_guide.popup",
-                     text="기능 찾기" + (f"   ({shortcut})" if shortcut else ""),
+                     text="기능 찾기" + (f"   ({keys[0]})" if keys else ""),
                      icon=popup.safe_icon('VIEWZOOM', fallback='NONE'))
+        if len(keys) > 1:
+            # 한글 입력 중에는 글자 글쇠가 안 듣는다. 두 번째 단축키를 알려 준다.
+            hint = layout.column(align=True)
+            hint.active = False
+            hint.label(text=f"한글 입력 중에는  {keys[1]}")
 
         # ── 안내 모드 ──
         # 팝업 안에도 같은 토글이 있지만, 팝업을 열지 않고도 껐다 켤 수 있어야
@@ -115,12 +120,8 @@ class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
 
 def _popup_shortcut() -> str:
     """팝업을 여는 단축키를 글자로 만든다. 사용자가 바꿨으면 바꾼 것이 나온다."""
-    for _, kmi in keymaps.addon_keymaps:
-        try:
-            return kmi.to_string()
-        except Exception:
-            continue
-    return ""
+    keys = keymaps.shortcut_texts()
+    return keys[0] if keys else ""
 
 
 def draw_help_menu(self, context):

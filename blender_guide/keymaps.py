@@ -12,24 +12,35 @@ import sys
 
 import bpy
 
-# 맥에서는 Command 를, 그 밖에서는 Control 을 쓴다.
-#
-# 왜 갈라 두는가: 맥에서 한글 입력 상태일 때 Control 조합은 글자 입력 단계를
-# 먼저 거치면서 글쇠가 한글 자모로 바뀌어 버린다. 그래서 단축키가 아예 안 듣는다.
-# Command 조합은 운영체제가 명령으로 먼저 가로채므로 입력기를 거치지 않는다.
-# 맥에서 Command+S 가 어떤 입력기에서도 저장으로 도는 것과 같은 까닭이다.
-#
-# 덤으로 맥 사용자에게는 Command 쪽이 손에 익은 자리이기도 하다.
+# 맥에서는 Command 를, 그 밖에서는 Control 을 쓴다. 맥 사용자에게 익은 자리이다.
 IS_MAC = sys.platform == "darwin"
 
-# 팝업을 여는 기본 단축키이다. 설정 화면에서 바꿀 수 있다.
+# 팝업을 여는 단축키를 둘 등록한다. 하나만으로는 한글 입력 중에 열 수 없다.
+#
+# ⚠️ 한글 입력 상태에서는 글자 글쇠를 쓸 수 없다. 블렌더가 받는 사건을 직접
+# 기록해서 확인했다. 한글 입력기가 H 를 자모로 바꿔 넘기는데, 블렌더에는 자모에
+# 해당하는 글쇠가 없어서 '종류가 빈 사건' 이 된다. 맞출 대상이 없으므로 어떤
+# 수식키를 붙여도 소용없다. Command 로 바꾸는 것도 도움이 되지 않았다.
+#
+#     한글 상태에서 Cmd+Shift+H  →  type=''            (쓸 수 없다)
+#     글쇠를 뗄 때               →  unicode='ㅗ'       (자모로 바뀌어 있다)
+#     한글 상태에서 Cmd+Shift+;  →  type='SEMI_COLON'  (그대로 들어온다)
+#     한글 상태에서 Cmd+Shift+F9 →  type='F9'          (그대로 들어온다)
+#
+# 기호와 기능키는 자모로 바뀌지 않아서 입력기를 타지 않는다. 그래서 글자 글쇠
+# 하나와 기호 글쇠 하나를 같이 등록한다. 영문으로 칠 때는 H 가 기억하기 쉽고,
+# 한글로 칠 때는 세미콜론이 언제나 듣는다.
 #
 # 왜 H 인가: 블렌더 5.1 의 키맵 7,726개를 훑어서 비어 있는 조합을 찾았다.
 # 처음에 고른 Ctrl+Shift+G 는 이미 collection.objects_add_active 가 쓰고 있었다.
 # H 는 Help 를 떠올리게 해서 기억하기도 낫다.
-# Cmd+Shift+H 와 Ctrl+Shift+H 모두 쓰는 기능이 없는 것을 확인했다.
+#
+# 왜 세미콜론인가: 비어 있는 후보 중에서 macOS 가 가로채지 않는 것을 골랐다.
+# Cmd+Shift+/ 는 도움말, Cmd+Shift+4 는 화면 찍기, Cmd+Shift+` 는 창 넘기기로
+# 운영체제가 먼저 가져가서 블렌더까지 오지도 않았다. 세미콜론은 그대로 들어온다.
 # 다시 확인하려면: probe/find_free_key.py
 DEFAULT_KEY = 'H'
+IME_SAFE_KEY = 'SEMI_COLON'
 DEFAULT_SHIFT = True
 DEFAULT_ALT = False
 DEFAULT_CTRL = not IS_MAC
@@ -54,16 +65,16 @@ def register_keymaps() -> None:
         return
 
     km = kc.keymaps.new(name=KEYMAP_NAME, space_type=KEYMAP_SPACE)
-    kmi = km.keymap_items.new(
-        "blender_guide.popup", DEFAULT_KEY, 'PRESS',
-        ctrl=DEFAULT_CTRL, shift=DEFAULT_SHIFT, alt=DEFAULT_ALT,
-        oskey=DEFAULT_OSKEY,
-    )
-    addon_keymaps.append((km, kmi))
+    for key in (DEFAULT_KEY, IME_SAFE_KEY):
+        kmi = km.keymap_items.new(
+            "blender_guide.popup", key, 'PRESS',
+            ctrl=DEFAULT_CTRL, shift=DEFAULT_SHIFT, alt=DEFAULT_ALT,
+            oskey=DEFAULT_OSKEY,
+        )
+        addon_keymaps.append((km, kmi))
 
 
-def default_shortcut_text() -> str:
-    """기본 단축키를 사람이 읽는 글자로 만든다. 설명에 쓴다."""
+def _text_for(key: str) -> str:
     parts = []
     if DEFAULT_OSKEY:
         parts.append("Cmd")
@@ -73,8 +84,31 @@ def default_shortcut_text() -> str:
         parts.append("Shift")
     if DEFAULT_ALT:
         parts.append("Alt")
-    parts.append(DEFAULT_KEY)
+    parts.append(";" if key == 'SEMI_COLON' else key)
     return "+".join(parts)
+
+
+def default_shortcut_text() -> str:
+    """기본 단축키를 사람이 읽는 글자로 만든다. 설명에 쓴다."""
+    return _text_for(DEFAULT_KEY)
+
+
+def ime_safe_shortcut_text() -> str:
+    """한글 입력 중에도 듣는 단축키를 사람이 읽는 글자로 만든다."""
+    return _text_for(IME_SAFE_KEY)
+
+
+def shortcut_texts() -> list:
+    """지금 등록된 단축키를 사람이 읽는 글자로 모두 돌려준다."""
+    found = []
+    for _, kmi in addon_keymaps:
+        try:
+            text = kmi.to_string()
+        except Exception:
+            continue
+        if text and text not in found:
+            found.append(text)
+    return found
 
 
 def unregister_keymaps() -> None:
