@@ -176,18 +176,24 @@ def score_entry(entry: dict, query: str, available_now: bool = False) -> int:
 
 
 def search(entries: list, query: str, availability: dict | None = None,
-           limit: int = 12) -> list:
+           limit: int = 12, boosts: dict | None = None) -> list:
     """검색어에 맞는 항목을 점수가 높은 순으로 돌려준다.
 
     availability: 항목 id 를 키로, 지금 쓸 수 있는지를 참·거짓으로 담은 사전이다.
                   넘기지 않으면 상황을 따지지 않고 점수만으로 줄을 세운다.
+    boosts:       항목 id 를 키로, 얹어 줄 점수를 담은 사전이다. 검색 기록에서 온다.
+
+    ⚠️ 얹는 점수는 이미 걸린 항목에만 더한다. 안 걸린 항목을 기록만으로 끌어올리면,
+    검색어와 상관없는 것이 결과에 끼어들어서 검색이 못 미더워진다.
     """
     availability = availability or {}
+    boosts = boosts or {}
     scored = []
     for e in entries:
         now = bool(availability.get(e.get("id"), False))
         s = score_entry(e, query, available_now=now)
         if s > 0:
+            s += boosts.get(e.get("id"), 0)
             scored.append((s, e))
     # 점수가 같으면 한국어 이름이 짧은 것을 앞에 둔다. 짧은 이름이 대개 더 기본적인 기능이다.
     scored.sort(key=lambda pair: (-pair[0], len(pair[1].get("ko", ""))))

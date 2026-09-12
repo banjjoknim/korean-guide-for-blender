@@ -472,12 +472,15 @@ class BLENDERGUIDE_OT_focus(bpy.types.Operator):
     entry_id: bpy.props.StringProperty(name="항목 id", default="")
 
     def execute(self, context):
-        from . import guide_data, prefs
+        from . import guide_data, history, prefs
 
         entry = guide_data.find_entry(self.entry_id)
         if entry is None:
             self.report({'WARNING'}, "항목을 찾지 못했습니다.")
             return {'CANCELLED'}
+
+        # 안내를 띄웠다는 것은 그 항목을 고른 것이다. 기록에 남긴다.
+        history.record(context, self.entry_id)
 
         p = prefs.get_prefs(context)
 

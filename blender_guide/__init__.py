@@ -2,7 +2,7 @@
 # 블렌더 가이드 (한국어) — 애드온 입구.
 #
 # 무엇을 하는 애드온인가:
-#   Ctrl+Shift+H 를 누르면 팝업이 뜨고, 하고 싶은 일을 한국어로 치면
+#   Cmd+Shift+H(맥) 또는 Ctrl+Shift+H 를 누르면 팝업이 뜨고, 한국어로 치면
 #   그에 해당하는 블렌더 기능 이름과 단축키, 메뉴 위치를 알려 준다.
 #   검색어를 치지 않으면 지금 모드에서 바로 쓸 수 있는 기능을 늘어놓는다.
 #
@@ -11,6 +11,7 @@
 # 파일 구성:
 #   search.py     — 한국어 검색 (블렌더 없이도 시험할 수 있다)
 #   focus.py      — 안내: 기능이 화면 어디에 있는지 짚어 주기
+#   history.py    — 골라 본 항목을 기억해서 다음에 빨리 찾게 하기
 #   guide_data.py — 항목 읽기 · 단축키 조회 · 지금 쓸 수 있는지 판단
 #   popup.py      — 팝업 화면
 #   sidebar.py    — N 패널의 '가이드' 탭
@@ -24,7 +25,7 @@ bl_info = {
     "author": "banjjoknim",
     "version": (0, 1, 0),
     "blender": (4, 2, 0),
-    "location": "Ctrl+Shift+H · View3D > Sidebar(N) > 가이드 · Help 메뉴",
+    "location": "Cmd/Ctrl+Shift+H · View3D > Sidebar(N) > 가이드 · Help 메뉴",
     "description": "하고 싶은 일을 한국어로 치면 블렌더 기능과 단축키를 알려 주는 팝업",
     "category": "Interface",
 }
@@ -35,12 +36,13 @@ import bpy
 # 이것이 없으면 파일을 고쳐도 블렌더를 껐다 켜기 전까지 바뀌지 않는다.
 if "guide_data" in locals():
     import importlib
-    for _name in ("search", "guide_data", "focus", "popup", "sidebar",
-                  "prefs", "keymaps"):
+    for _name in ("search", "guide_data", "history", "focus", "popup",
+                  "sidebar", "prefs", "keymaps"):
         if _name in locals():
             importlib.reload(locals()[_name])
 
-from . import focus, guide_data, keymaps, popup, prefs, search, sidebar
+from . import (focus, guide_data, history, keymaps, popup, prefs, search,
+               sidebar)
 
 
 def register():

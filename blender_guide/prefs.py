@@ -79,6 +79,21 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         default=True,
     )
 
+    # ── 검색 기록 ──
+    # 즐겨찾기는 일부러 남기는 것이고, 기록은 쓰다 보면 저절로 쌓이는 것이다.
+    # 초보자는 무엇을 즐겨찾기할지 판단할 만큼 알지 못하므로 기록이 먼저 돕는다.
+    use_history: bpy.props.BoolProperty(
+        name="골라 본 것을 기억한다",
+        description=("한 번 고른 항목을 기억해 두었다가, 다음에 검색할 때 위로 올려 주고 "
+                     "검색어가 없을 때 '최근에 본 것' 으로 보여 줍니다"),
+        default=True,
+    )
+    max_history: bpy.props.IntProperty(
+        name="기억할 개수",
+        description="이보다 많아지면 오래된 것부터 잊습니다",
+        default=10, min=1, max=50,
+    )
+
     # ── 안내 모드 ──
     # 왜 토글로 두는가: 익숙해지면 '어디에 있는지'는 이미 알고 있어서, 단축키만
     # 확인하고 바로 닫는다. 그때 안내가 계속 끼어들면 오히려 느려진다.
@@ -125,6 +140,11 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         description="즐겨찾기한 항목 id 목록이다. 직접 고칠 일은 없다",
         default="[]",
     )
+    history_json: bpy.props.StringProperty(
+        name="검색 기록 저장소",
+        description="골라 본 항목과 횟수를 담아 둔다. 직접 고칠 일은 없다",
+        default="[]",
+    )
 
     def draw(self, context):
         layout = self.layout
@@ -153,6 +173,12 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         sub = col.column(align=True)
         sub.active = self.use_op_index
         sub.prop(self, "max_fallback")
+
+        col.separator()
+        col.prop(self, "use_history")
+        sub = col.column(align=True)
+        sub.active = self.use_history
+        sub.prop(self, "max_history")
 
         # ── 안내 모드 ──
         box = layout.box()
@@ -216,6 +242,14 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
             row = box.row()
             row.label(text=f"즐겨찾기 {len(favorites)}개")
             row.operator("blender_guide.clear_favorites",
+                         icon=popup.safe_icon('X', fallback='NONE'))
+
+        from . import history
+        kept = history.load(self)
+        if kept:
+            row = box.row()
+            row.label(text=f"검색 기록 {len(kept)}개")
+            row.operator("blender_guide.clear_history",
                          icon=popup.safe_icon('X', fallback='NONE'))
 
 
@@ -288,6 +322,9 @@ class _FallbackPrefs:
     auto_expand_first = True
     focus_search_on_open = True
     use_op_index = True
+    use_history = True
+    max_history = 10
+    history_json = "[]"
     learner_mode = True
     focus_open_menu = True
     focus_highlight = True
@@ -386,8 +423,24 @@ class BLENDERGUIDE_OT_clear_favorites(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class BLENDERGUIDE_OT_clear_history(bpy.types.Operator):
+    """골라 본 기록을 모두 지운다"""
+
+    bl_idname = "blender_guide.clear_history"
+    bl_label = "기록 지우기"
+    bl_options = {'REGISTER'}
+
+    def execute(self, context):
+        from . import history
+        count = len(history.load(get_prefs(context)))
+        history.clear(context)
+        self.report({'INFO'}, f"검색 기록 {count}개를 지웠습니다.")
+        return {'FINISHED'}
+
+
 classes = (
     BLENDERGUIDE_OT_reload_data,
     BLENDERGUIDE_OT_clear_favorites,
+    BLENDERGUIDE_OT_clear_history,
     BLENDERGUIDE_AddonPreferences,
 )

@@ -174,6 +174,118 @@ def check_entry_quality():
 
 check("항목 데이터에 흠이 없다", check_entry_quality)
 
+# ── 단축키 ───────────────────────────────────────────────────────────
+
+def check_default_shortcut():
+    """기본 단축키가 운영체제에 맞게 정해지는지 본다.
+
+    맥에서 Control 조합을 쓰면 한글 입력 상태에서 글쇠가 자모로 바뀌어
+    단축키가 아예 안 듣는다. Command 조합은 운영체제가 먼저 가로채므로
+    입력기를 거치지 않는다. 그래서 맥에서만 Command 를 쓴다.
+    """
+    km = blender_guide.keymaps
+    if sys.platform == "darwin":
+        if not km.DEFAULT_OSKEY or km.DEFAULT_CTRL:
+            raise AssertionError(
+                f"맥인데 Command 가 아니다 (oskey={km.DEFAULT_OSKEY}, "
+                f"ctrl={km.DEFAULT_CTRL})")
+    else:
+        if km.DEFAULT_OSKEY or not km.DEFAULT_CTRL:
+            raise AssertionError(
+                f"맥이 아닌데 Control 이 아니다 (oskey={km.DEFAULT_OSKEY}, "
+                f"ctrl={km.DEFAULT_CTRL})")
+    return f"{sys.platform} → {km.default_shortcut_text()}"
+
+
+check("기본 단축키가 운영체제에 맞는다", check_default_shortcut)
+
+
+# ── 검색 기록 ────────────────────────────────────────────────────────
+
+def check_history_record():
+    history = blender_guide.history
+    history.clear(bpy.context)
+    for entry_id in ("bevel", "subdivide", "bevel"):
+        history.record(bpy.context, entry_id)
+    got = history.recent(bpy.context)
+    if got[0] != "bevel":
+        raise AssertionError(f"가장 최근에 고른 것이 앞에 와야 하는데 {got} 이다")
+    if len(got) != 2:
+        raise AssertionError(f"같은 것을 두 번 골랐으면 한 칸이어야 하는데 {got} 이다")
+    times = history.pick_count(bpy.context, "bevel")
+    if times != 2:
+        raise AssertionError(f"두 번 골랐는데 {times}번으로 세어졌다")
+    return f"기록 {got} · bevel {times}번"
+
+
+check("골라 본 것을 기억한다", check_history_record)
+
+
+def check_history_limit():
+    """개수 제한을 넘으면 오래된 것부터 잊는지 본다."""
+    history = blender_guide.history
+    prefs_obj = blender_guide.prefs.get_prefs(bpy.context)
+    history.clear(bpy.context)
+    prefs_obj.max_history = 3
+    for entry_id in ("a", "b", "c", "d", "e"):
+        history.record(bpy.context, entry_id)
+    got = history.recent(bpy.context)
+    prefs_obj.max_history = 10
+    if got != ["e", "d", "c"]:
+        raise AssertionError(f"최근 3개만 남아야 하는데 {got} 이다")
+    return f"3개로 묶으니 {got}"
+
+
+check("기억할 개수를 넘으면 오래된 것부터 잊는다", check_history_limit)
+
+
+def check_history_boost():
+    """기록이 검색 순위를 바꾸되, 안 걸린 항목까지 끌어올리지는 않는지 본다.
+
+    이것이 핵심이다. 기록만으로 상관없는 항목이 결과에 끼어들면 검색이
+    못 미더워진다.
+    """
+    history = blender_guide.history
+    entries = blender_guide.guide_data.load_entries()
+    history.clear(bpy.context)
+
+    plain = blender_guide.search.search(entries, "면", limit=5)
+    if len(plain) < 2:
+        return "견줄 결과가 모자라 건너뛴다"
+
+    # 두 번째 것을 여러 번 고른 것으로 만들어 둔다.
+    second = plain[1].get("id")
+    for _ in range(5):
+        history.record(bpy.context, second)
+
+    boosted = blender_guide.search.search(
+        entries, "면", limit=5, boosts=history.boosts(bpy.context))
+    if boosted[0].get("id") != second:
+        raise AssertionError(
+            f"여러 번 고른 {second} 가 위로 와야 하는데 "
+            f"{[e.get('id') for e in boosted]} 이다")
+
+    # 검색어에 안 걸리는 것을 아무리 골라도 결과에 끼면 안 된다.
+    history.clear(bpy.context)
+    stranger = next(e.get("id") for e in entries
+                    if e not in plain and e.get("id") != second)
+    for _ in range(20):
+        history.record(bpy.context, stranger)
+    guarded = blender_guide.search.search(
+        entries, "면", limit=5, boosts=history.boosts(bpy.context))
+    if stranger in [e.get("id") for e in guarded]:
+        raise AssertionError(f"안 걸리는 {stranger} 가 기록 때문에 끼어들었다")
+
+    history.clear(bpy.context)
+    return f"{second} 가 1등으로 올라가고, 안 걸리는 것은 끼지 않는다"
+
+
+check("기록이 순위를 바꾸되 검색을 흐리지 않는다", check_history_boost)
+
+check("기록 지우기 기능이 등록됐다",
+      lambda: "BLENDERGUIDE_OT_clear_history" in
+              [c.__name__ for c in bpy.types.Operator.__subclasses__()])
+
 check("애드온을 끈다", lambda: blender_guide.unregister() or "완료")
 check("끄고 나면 속성이 사라진다",
       lambda: not hasattr(bpy.types.WindowManager, "blender_guide_query"))

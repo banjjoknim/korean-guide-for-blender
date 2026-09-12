@@ -20,7 +20,7 @@
 
 import bpy
 
-from . import focus, guide_data, search
+from . import focus, guide_data, history, search
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -75,6 +75,16 @@ def wrap_text(text: str, limit: int) -> list:
 
 # ── 항목별 상태 (즐겨찾기·펼침) ───────────────────────────────────────
 
+def _on_expanded_changed(self, context):
+    """자세히 펼치면 그 항목을 골랐다고 본다.
+
+    왜 펼치기를 신호로 삼는가: 안내 모드를 끈 사람은 이름을 눌러도 아무 일이
+    없으므로, 무엇에 관심을 두었는지 알 방법이 펼치기밖에 없다.
+    """
+    if self.expanded:
+        history.record(context, self.entry_id)
+
+
 def _on_favorite_changed(self, context):
     """별표를 눌렀을 때 설정 파일에 바로 적어 둔다.
 
@@ -99,6 +109,7 @@ class BLENDERGUIDE_PG_entry_state(bpy.types.PropertyGroup):
         name="자세히",
         description="메뉴 위치와 주의할 점을 펼쳐 본다",
         default=False,
+        update=_on_expanded_changed,
     )
 
 
@@ -485,7 +496,8 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
     def _draw_search_results(self, layout, context, entries, query,
                              availability, text_width, p):
         results = search.search(entries, query, availability,
-                                limit=p.max_results)
+                                limit=p.max_results,
+                                boosts=history.boosts(context))
 
         if results:
             for i, entry in enumerate(results):
@@ -544,6 +556,8 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
                      text_width, p):
         wm = context.window_manager
 
+        _draw_history(layout, context, entries, availability, p)
+
         favorites = [e for e in entries
                      if get_state(context, e.get("id", "")).favorite]
         if favorites:
@@ -598,6 +612,47 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             more.active = False
             more.label(text=f"…그 밖에 {len(usable) - p.max_browse}개. "
                             f"검색창에 치면 찾을 수 있습니다.")
+
+
+def _draw_history(layout, context, entries, availability, p) -> None:
+    """최근에 골라 본 항목을 보여 준다. 없으면 아무것도 안 그린다.
+
+    즐겨찾기보다 위에 두는 이유: 즐겨찾기는 일부러 남긴 것이라 이미 어디 있는지
+    알고 있다. 방금 보던 것을 다시 찾는 일이 더 잦다.
+    """
+    ids = history.recent(context, limit=5)
+    if not ids:
+        return
+
+    by_id = {e.get("id"): e for e in entries}
+    picked = [by_id[i] for i in ids if i in by_id]
+    if not picked:
+        return
+
+    head = layout.row()
+    head.label(text="최근에 본 것",
+               icon=safe_icon('RECOVER_LAST', fallback='NONE'))
+
+    learner = bool(getattr(p, "learner_mode", True))
+    col = layout.column(align=True)
+    for entry in picked:
+        shortcut, from_blender = guide_data.get_shortcut(entry)
+        available = bool(availability.get(entry.get("id")))
+        row = col.row(align=True)
+        row.active = available
+        _draw_entry_name(row, context, entry, available, learner)
+
+        right = row.row(align=True)
+        right.alignment = 'RIGHT'
+        count = history.pick_count(context, entry.get("id", ""))
+        if count > 1:
+            times = right.row()
+            times.active = False
+            times.label(text=f"{count}번")
+        if shortcut:
+            right.label(text=shortcut if from_blender else f"({shortcut})")
+
+    layout.separator()
 
 
 # 블렌더가 쓰는 모드 이름을 한국어로 바꾼다. 목록에 없는 모드는 원래 이름을 쓴다.

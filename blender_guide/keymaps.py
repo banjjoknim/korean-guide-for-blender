@@ -8,18 +8,32 @@
 
 from __future__ import annotations
 
+import sys
+
 import bpy
+
+# 맥에서는 Command 를, 그 밖에서는 Control 을 쓴다.
+#
+# 왜 갈라 두는가: 맥에서 한글 입력 상태일 때 Control 조합은 글자 입력 단계를
+# 먼저 거치면서 글쇠가 한글 자모로 바뀌어 버린다. 그래서 단축키가 아예 안 듣는다.
+# Command 조합은 운영체제가 명령으로 먼저 가로채므로 입력기를 거치지 않는다.
+# 맥에서 Command+S 가 어떤 입력기에서도 저장으로 도는 것과 같은 까닭이다.
+#
+# 덤으로 맥 사용자에게는 Command 쪽이 손에 익은 자리이기도 하다.
+IS_MAC = sys.platform == "darwin"
 
 # 팝업을 여는 기본 단축키이다. 설정 화면에서 바꿀 수 있다.
 #
-# 왜 Ctrl+Shift+H 인가: 블렌더 5.1 의 키맵을 실제로 훑어서 비어 있는 조합을 찾았다.
+# 왜 H 인가: 블렌더 5.1 의 키맵 7,726개를 훑어서 비어 있는 조합을 찾았다.
 # 처음에 고른 Ctrl+Shift+G 는 이미 collection.objects_add_active 가 쓰고 있었다.
 # H 는 Help 를 떠올리게 해서 기억하기도 낫다.
-# 겹치는지 다시 확인하려면: tools/blender_guide/_probe/find_free_key.py
+# Cmd+Shift+H 와 Ctrl+Shift+H 모두 쓰는 기능이 없는 것을 확인했다.
+# 다시 확인하려면: probe/find_free_key.py
 DEFAULT_KEY = 'H'
-DEFAULT_CTRL = True
 DEFAULT_SHIFT = True
 DEFAULT_ALT = False
+DEFAULT_CTRL = not IS_MAC
+DEFAULT_OSKEY = IS_MAC
 
 # 어느 키맵에 등록할지 정한다. 'Window' 는 블렌더 어디에서나 듣는다.
 # 왜 'Window' 인가: 초보자는 3D 화면이 아닌 곳에서 막히는 일도 잦다.
@@ -43,8 +57,24 @@ def register_keymaps() -> None:
     kmi = km.keymap_items.new(
         "blender_guide.popup", DEFAULT_KEY, 'PRESS',
         ctrl=DEFAULT_CTRL, shift=DEFAULT_SHIFT, alt=DEFAULT_ALT,
+        oskey=DEFAULT_OSKEY,
     )
     addon_keymaps.append((km, kmi))
+
+
+def default_shortcut_text() -> str:
+    """기본 단축키를 사람이 읽는 글자로 만든다. 설명에 쓴다."""
+    parts = []
+    if DEFAULT_OSKEY:
+        parts.append("Cmd")
+    if DEFAULT_CTRL:
+        parts.append("Ctrl")
+    if DEFAULT_SHIFT:
+        parts.append("Shift")
+    if DEFAULT_ALT:
+        parts.append("Alt")
+    parts.append(DEFAULT_KEY)
+    return "+".join(parts)
 
 
 def unregister_keymaps() -> None:
