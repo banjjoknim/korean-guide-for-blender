@@ -17,6 +17,7 @@
 
 from __future__ import annotations
 
+import os
 import queue
 import re
 import shlex
@@ -34,6 +35,23 @@ import bpy
 PRESETS = {
     "claude": ["claude", "-p", "{prompt}"],
 }
+
+# 도구가 흔히 깔리는 자리이다.
+#
+# 왜 PATH 만으로는 안 되는가: 독이나 파인더로 켠 블렌더는 셸을 거치지 않아서
+# PATH 가 /usr/bin:/bin:/usr/sbin:/sbin 뿐이다. 사용자가 도구를 어디에 깔든
+# 거기에는 없다. 터미널에서 켜면 찾아지고 독으로 켜면 못 찾는 일이 실제로
+# 벌어져서, 자주 쓰이는 자리를 직접 뒤진다.
+EXTRA_DIRS = [
+    "~/.local/bin",
+    "~/bin",
+    "/opt/homebrew/bin",
+    "/usr/local/bin",
+    "/opt/local/bin",
+    "~/.bun/bin",
+    "~/.npm-global/bin",
+    "~/.volta/bin",
+]
 
 # 한 번에 몇 개까지 받아 올 것인가.
 MAX_ANSWERS = 3
@@ -59,6 +77,18 @@ def reset() -> None:
                   took=0.0)
 
 
+def find_tool(name: str) -> str:
+    """도구의 실제 자리를 찾는다. 못 찾으면 빈 글자이다."""
+    found = shutil.which(name)
+    if found:
+        return found
+    for folder in EXTRA_DIRS:
+        candidate = os.path.join(os.path.expanduser(folder), name)
+        if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
+            return candidate
+    return ""
+
+
 def command_for(prefs_obj) -> list:
     """무엇으로 물어볼지 정한다. 못 찾으면 빈 목록을 돌려준다."""
     custom = (getattr(prefs_obj, "agent_command", "") or "").strip()
@@ -70,20 +100,30 @@ def command_for(prefs_obj) -> list:
         if "{prompt}" not in custom:
             # 질문을 넣을 자리가 없으면 맨 뒤에 붙인다.
             parts.append("{prompt}")
+        # 이름만 적었으면 실제 자리를 찾아 바꿔 준다. 그래야 독으로 켠
+        # 블렌더에서도 돈다.
+        if parts and not os.path.sep in parts[0]:
+            found = find_tool(parts[0])
+            if found:
+                parts[0] = found
         return parts
 
     for parts in PRESETS.values():
-        if shutil.which(parts[0]):
-            return list(parts)
+        found = find_tool(parts[0])
+        if found:
+            return [found] + list(parts[1:])
     return []
 
 
 def available(prefs_obj) -> str:
-    """쓸 수 있는 도구 이름을 돌려준다. 없으면 빈 글자이다."""
+    """쓸 수 있는 도구의 실제 자리를 돌려준다. 없으면 빈 글자이다."""
     parts = command_for(prefs_obj)
     if not parts:
         return ""
-    return parts[0] if shutil.which(parts[0]) else ""
+    path = parts[0]
+    if os.path.sep in path:
+        return path if os.path.isfile(path) else ""
+    return path if shutil.which(path) else ""
 
 
 def build_prompt(entries: list, question: str) -> str:
@@ -119,6 +159,21 @@ def parse_answer(text: str, entries: list) -> list:
     return found[:MAX_ANSWERS]
 
 
+def _environment() -> dict:
+    """부를 프로그램에게 넘길 환경을 만든다.
+
+    왜 PATH 를 채워 주는가: 도구를 찾아내도 그 도구가 기대는 것들이 또 있다.
+    claude 는 node 를 찾아 쓰는데, 독으로 켠 블렌더의 PATH 에는 그것이 없어서
+    도구가 코드 1 로 끝났다. 도구를 찾는 것과 도구를 돌리는 것은 다른 문제이다.
+    """
+    env = dict(os.environ)
+    parts = [os.path.expanduser(folder) for folder in EXTRA_DIRS]
+    parts = [folder for folder in parts if os.path.isdir(folder)]
+    parts.append(env.get("PATH", ""))
+    env["PATH"] = os.pathsep.join(p for p in parts if p)
+    return env
+
+
 def _run(parts: list, prompt: str, timeout: float) -> None:
     """딴 갈래에서 도는 부분이다. 여기서는 블렌더를 절대 건드리지 않는다."""
     started = time.time()
@@ -128,7 +183,8 @@ def _run(parts: list, prompt: str, timeout: float) -> None:
         #    입력을 물려받아 무언가 들어오기를 기다린다. claude 는 3초를 기다린
         #    뒤 경고를 내고 진행하는데, 그 사이에 답이 어긋나는 것을 겪었다.
         done = subprocess.run(command, capture_output=True, text=True,
-                              stdin=subprocess.DEVNULL, timeout=timeout)
+                              stdin=subprocess.DEVNULL, timeout=timeout,
+                              env=_environment())
     except FileNotFoundError:
         _answers.put(("failed", f"'{parts[0]}' 을(를) 찾지 못했습니다.", 0.0))
         return
@@ -141,8 +197,10 @@ def _run(parts: list, prompt: str, timeout: float) -> None:
 
     took = time.time() - started
     if done.returncode != 0:
-        detail = (done.stderr or "").strip().splitlines()
-        _answers.put(("failed", detail[-1] if detail else
+        # 까닭을 최대한 남긴다. 표준 오류가 비면 표준 출력이라도 본다.
+        detail = ((done.stderr or "").strip() or (done.stdout or "").strip())
+        lines = detail.splitlines()
+        _answers.put(("failed", lines[-1] if lines else
                       f"오류로 끝났습니다 (코드 {done.returncode})", took))
         return
     _answers.put(("done", done.stdout or "", took))

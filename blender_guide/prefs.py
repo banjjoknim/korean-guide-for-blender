@@ -94,8 +94,9 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
     )
     agent_command: bpy.props.StringProperty(
         name="물어볼 명령",
-        description=("비워 두면 claude 명령줄 도구를 찾아서 씁니다. "
-                     "다른 것을 쓰려면 명령을 적으십시오. {prompt} 자리에 질문이 들어갑니다"),
+        description=("보통은 비워 두면 됩니다. claude 명령줄 도구를 알아서 찾습니다. "
+                     "다른 도구를 쓰거나 자동으로 못 찾을 때만 적으십시오. "
+                     "{prompt} 자리에 질문이 들어갑니다. 예: claude -p {prompt}"),
         default="",
     )
     agent_timeout: bpy.props.FloatProperty(
@@ -219,14 +220,23 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
 
         tool = agent.available(self)
         note = box.column(align=True)
-        note.active = False
         if not self.use_agent:
+            note.active = False
             note.label(text="에이전트는 규칙으로 아무것도 못 찾았을 때만 부릅니다.")
         elif tool:
-            note.label(text=f"쓸 도구를 찾았습니다: {tool}")
+            note.active = False
+            note.label(text="'물어볼 명령' 은 비워 두어도 됩니다. 알아서 찾습니다.")
+            note.label(text=f"찾은 도구: {tool}")
         else:
-            note.alert = True
-            note.label(text="물어볼 도구를 못 찾았습니다. 위에 명령을 적어 주세요.")
+            warn = note.column(align=True)
+            warn.alert = True
+            warn.label(text="물어볼 도구를 못 찾았습니다.",
+                       icon=popup.safe_icon('ERROR', fallback='NONE'))
+            hint = note.column(align=True)
+            hint.active = False
+            hint.label(text="claude 명령줄 도구를 깔면 알아서 찾습니다.")
+            hint.label(text="다른 도구를 쓰려면 위에 명령을 적으십시오.")
+            hint.label(text="예: claude -p {prompt}")
 
         col.separator()
         col.prop(self, "use_history")

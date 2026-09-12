@@ -372,6 +372,33 @@ def check_agent_parse():
 
 check("에이전트의 엉뚱한 답을 걸러 낸다", check_agent_parse)
 
+def check_agent_discovery():
+    """설정을 비워 두어도 도구를 알아서 찾는지 본다.
+
+    ⚠️ shutil.which 만으로는 부족하다. 독이나 파인더로 켠 블렌더는 셸을 거치지
+    않아서 PATH 가 /usr/bin:/bin:/usr/sbin:/sbin 뿐이다. 사용자가 도구를 어디에
+    깔든 거기에는 없다. 터미널에서 켜면 찾아지고 독으로 켜면 못 찾는 일이
+    실제로 벌어졌다. 그래서 흔히 깔리는 자리를 직접 뒤진다.
+    """
+    agent = blender_guide.agent
+    if not agent.EXTRA_DIRS:
+        raise AssertionError("찾아볼 자리가 하나도 적혀 있지 않다")
+    for folder in ("~/.local/bin", "/opt/homebrew/bin", "/usr/local/bin"):
+        if folder not in agent.EXTRA_DIRS:
+            raise AssertionError(f"{folder} 를 찾아보지 않는다")
+
+    # 있을 리 없는 이름은 못 찾아야 한다.
+    if agent.find_tool("이런도구는없다"):
+        raise AssertionError("없는 도구를 찾았다고 한다")
+
+    p = blender_guide.prefs.get_prefs(bpy.context)
+    p.agent_command = ""
+    found = agent.available(p)
+    return f"비워 둔 채로 찾은 것: {found or '(이 컴퓨터에는 없음)'}"
+
+
+check("설정을 비워 두어도 도구를 알아서 찾는다", check_agent_discovery)
+
 check("에이전트 기능이 등록됐다",
       lambda: "BLENDERGUIDE_OT_ask_agent" in
               [c.__name__ for c in bpy.types.Operator.__subclasses__()])
