@@ -350,7 +350,9 @@ def check_catalog_quality():
             if not item.get(field):
                 raise AssertionError(f"{item.get('en') or item.get('key')} 에 "
                                      f"{field} 가 없다")
-        sig = (item["kind"], item["en"])
+        # 설정값은 묶음이 다르면 같은 이름이 있다. '해상도' 는 렌더에도
+        # 화면에도 있다. 같은 묶음 안에서만 겹치지 않으면 된다.
+        sig = (item["kind"], item.get("group", ""), item["en"])
         if sig in seen:
             raise AssertionError(f"같은 것이 두 번 들어 있다: {sig}")
         seen.add(sig)
@@ -401,9 +403,135 @@ def check_catalog_separate():
 check("카탈로그가 정리된 항목을 밀어내지 않는다", check_catalog_separate)
 
 
+def check_catalog_translit():
+    """번역이 없는 것을 세 갈래 말로 모두 찾는지 본다.
+
+    블렌더에 번역이 없는 것이 74가지 있다. 이름은 음차로 둔다. 블렌더 자신이
+    '섀도우', '페이스 오리엔테이션' 처럼 음차를 즐겨 쓰므로, 뜻으로 옮긴 말을
+    이름 자리에 두면 그것만 말투가 달라지기 때문이다. 대신 뜻으로 옮긴 말과,
+    블렌더가 낱말 단위로 옮긴 말을 검색어로 함께 받는다.
+    """
+    catalog = blender_guide.catalog
+    cases = [
+        # 음차로 친 경우
+        ("스네이크 훅", "Snake Hook"), ("스네이크훅", "Snake Hook"),
+        ("셀렉트 라쏘", "Select Lasso"),
+        ("익스트루드 매니폴드", "Extrude Manifold"),
+        # 뜻으로 친 경우
+        ("길게 뽑아내기", "Snake Hook"), ("겹치지 않게 밀어내기", "Extrude Manifold"),
+        # 블렌더가 낱말 단위로 옮긴 말로 친 경우
+        ("떼어내기", "Rip Region"), ("돌출 매니폴드", "Extrude Manifold"),
+        ("선택 박스", "Select Box"),
+    ]
+    for query, want in cases:
+        names = [e.get("en") for e in catalog.search(query, limit=3)]
+        if want not in names:
+            raise AssertionError(f"{query!r} → {want} 가 있어야 하는데 {names}")
+
+    sounded = [i for i in catalog.load() if i.get("gloss")]
+    if len(sounded) < 70:
+        raise AssertionError(f"음차를 이름으로 삼은 것이 {len(sounded)}개뿐이다")
+    return f"{len(cases)}가지가 닿고, 음차를 이름으로 삼은 항목은 {len(sounded)}개다"
+
+
+check("음차·뜻·블렌더 번역어로 모두 찾는다", check_catalog_translit)
+
+
+def check_gloss_shown():
+    """음차를 이름으로 쓴 것에는 뜻이 함께 붙는지 본다.
+
+    '스네이크 훅' 만 보고는 그것이 무엇인지 알 수 없다. 음차로 이름을 삼은
+    까닭이 말투를 맞추려는 것이지 뜻을 감추려는 것이 아니므로, 뜻은 이름
+    아래에 한 줄로 남아 있어야 한다.
+    """
+    entries = {e["en"]: e for e in blender_guide.catalog.as_entries()}
+    got = entries.get("Snake Hook")
+    if got is None:
+        raise AssertionError("Snake Hook 이 카탈로그에 없다")
+    if got["ko"] != "스네이크 훅":
+        raise AssertionError(f"이름이 음차가 아니다: {got['ko']}")
+    if got.get("_gloss") != "길게 뽑아내기":
+        raise AssertionError(f"뜻이 안 붙었다: {got.get('_gloss')!r}")
+
+    # 블렌더 번역이 있는 것에는 뜻을 붙이지 않는다. 이름이 이미 그 말이다.
+    bevel = entries.get("Bevel")
+    if bevel is not None and bevel.get("_gloss"):
+        raise AssertionError(f"번역이 있는데 뜻이 붙었다: {bevel.get('_gloss')!r}")
+    with_gloss = [e for e in entries.values() if e.get("_gloss")]
+    return f"{got['ko']} — 뜻: {got['_gloss']} · 뜻이 붙은 항목 {len(with_gloss)}개"
+
+
+check("음차 이름에는 뜻이 함께 붙는다", check_gloss_shown)
+
+
+def check_settings_search():
+    """설정값을 찾는지 본다.
+
+    '그림자 끄기' 나 '샘플 수 올리기' 는 기능도 모디파이어도 아니라 어디에도
+    없었다. 이제 900가지 설정값이 들어 있고, 블렌더 번역이 우리 입말과 다른
+    것에는 별칭을 붙여 두었다. '폴리곤 수 보기' 로 '통계 보기' 에 닿는 식이다.
+    """
+    catalog = blender_guide.catalog
+    cases = [("그림자 끄기", "Shadows"), ("샘플 수", "Render Samples"),
+             ("배경 투명", "Transparent"), ("폴리곤 수 보기", "Show Statistics"),
+             ("글씨 크기", "UI Scale"), ("스냅 켜기", "Snap"),
+             ("use_shadow", "Use Shadow"), ("면 방향 보기", "Face Orientation")]
+    lines = []
+    for query, want in cases:
+        names = [e.get("en") for e in catalog.search(query, limit=3)]
+        if want not in names:
+            raise AssertionError(f"{query!r} → {want} 가 있어야 하는데 {names}")
+        lines.append(query)
+    return " · ".join(lines)
+
+
+check("설정값을 찾는다", check_settings_search)
+
+
+def check_setting_group_shown():
+    """같은 이름의 설정값이 어느 묶음의 것인지 구별되는지 본다.
+
+    '해상도' 만 해도 렌더에 있고 화면에도 있다. 이름만 보여 주면 어느 것을
+    골라야 할지 알 수 없어서, 묶음 이름을 이름 옆에 함께 보여 준다.
+    """
+    entries = [e for e in blender_guide.catalog.as_entries()
+               if e["id"].startswith("catalog:setting:")]
+    if not entries:
+        raise AssertionError("설정값이 하나도 안 들어왔다")
+    flat = [e for e in entries if e.get("_kind_ko") == "설정값"]
+    if flat:
+        raise AssertionError(f"묶음이 안 붙은 설정값이 {len(flat)}개 있다: "
+                             f"{[e['ko'] for e in flat[:3]]}")
+    same = [e for e in entries if e["ko"] == "해상도"]
+    if len(same) < 2:
+        raise AssertionError("이름이 겹치는 설정값을 재어 볼 수 없다")
+    if len({e["_kind_ko"] for e in same}) < 2:
+        raise AssertionError(f"같은 이름인데 묶음까지 같다: "
+                             f"{[e['_kind_ko'] for e in same]}")
+    return f"설정값 {len(entries)}개에 모두 묶음이 붙었다 — " + " · ".join(
+        e["_kind_ko"] for e in same[:3])
+
+
+check("설정값에 어느 묶음인지 붙는다", check_setting_group_shown)
+
+
+def builtin_entries():
+    """애드온에 딸린 항목만 읽는다.
+
+    load_entries() 는 사용자가 따로 둔 팩까지 합친다. 그것으로 재면 남의
+    자료에 따라 점검이 붙었다 떨어졌다 한다. 실제로 사용자 팩에 있던
+    'proj_quarter_view' 때문에 '1234567' 에 엉뚱한 것이 걸린 적이 있다.
+    """
+    entries, error = blender_guide.guide_data._read_entry_file(
+        blender_guide.guide_data._BUILTIN_PATH)
+    if error:
+        raise AssertionError(f"기본 항목을 못 읽었다: {error}")
+    return entries
+
+
 def check_similar():
     """오타를 유사도가 잡는지 본다. 자세한 것은 blender_guide/similar.py 에 있다."""
-    entries = blender_guide.guide_data.load_entries()
+    entries = builtin_entries()
     lines = []
     for text, want in (("모서라 둥글게", "bevel"), ("키프래임", "keyframe_insert")):
         got = blender_guide.similar.search(entries, text, limit=3)
@@ -426,7 +554,7 @@ def check_similar_quiet():
     보여 주면 '비슷한 것' 이 아니라 '아무거나' 가 된다. 실제로 재어 보니
     뜻 없는 'asdfgh' 가 0.085 까지 올라왔다. 문턱을 0.12 로 둔 까닭이다.
     """
-    entries = blender_guide.guide_data.load_entries()
+    entries = builtin_entries()
     for junk in ("asdfgh", "zzzzzz", "ㅋㅋㅋㅋ", "1234567"):
         got = blender_guide.similar.search(entries, junk)
         if got:

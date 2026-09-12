@@ -515,13 +515,36 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
             hint.active = False
             hint.label(text="이렇게 알아들었습니다: " + " · ".join(words))
 
-        if results:
+        # 설명문에만 스쳐 걸린 답도 '찾았다' 로 치면, 정작 찾던 설정값까지
+        # 내려가지 못한다. 그래서 걸린 세기를 재어 둔다.
+        probes = words or [query]
+        weak = not results or _strength(results[0], probes) < search.SCORE_TAG
+
+        if results and not weak:
             for i, entry in enumerate(results):
                 _draw_entry(layout, context, entry,
                             bool(availability.get(entry.get("id"))),
                             text_width,
                             # 첫 번째 결과는 펼쳐서 보여 준다. 대개 그것을 찾고 있다.
                             force_expand=(i == 0 and p.auto_expand_first),
+                            p=p)
+            return
+
+        if results:
+            # 약하게 걸렸을 뿐이다. 이름으로 또렷이 걸리는 설정값이나 도구가
+            # 있으면 그쪽이 답일 때가 많으므로 먼저 보여 주고, 정리된 항목은
+            # 그 아래에 덧붙인다.
+            drew = _draw_catalog(layout, context, query, p, probes=probes)
+            if drew:
+                head = layout.row()
+                head.active = False
+                head.label(text="한국어 항목 중에서는 이런 것이 가까웠습니다")
+            for i, entry in enumerate(results):
+                _draw_entry(layout, context, entry,
+                            bool(availability.get(entry.get("id"))),
+                            text_width,
+                            force_expand=(i == 0 and p.auto_expand_first
+                                          and not drew),
                             p=p)
             return
 
@@ -713,21 +736,42 @@ def _draw_agent_ask(layout, context, query: str) -> None:
                  icon=safe_icon('COMMUNITY', fallback='NONE')).question = query
 
 
-def _draw_catalog(layout, context, query: str, p) -> bool:
-    """모디파이어·제약·노드·브러시·도구에서 찾은 것을 보여 준다.
+def _strength(entry, probes) -> int:
+    """항목이 얼마나 또렷이 걸렸는지 잰다.
+
+    이름이나 별칭에 걸린 것은 높고, 설명문에만 걸린 것은 낮다. 설명문은
+    길어서 아무 낱말이나 스쳐 걸린다. '그림자 끄기' 를 쳤을 때 설명문에
+    '그림자' 가 한 번 나온다는 까닭만으로 'UV 펼치기' 가 1등으로 올라온
+    일이 있었다. 그런 답을 내놓고 나면 정작 찾던 설정값에는 닿지 못한다.
+    """
+    return max((search.score_entry(entry, probe) for probe in probes),
+               default=0)
+
+
+def _draw_catalog(layout, context, query: str, p, probes=None) -> bool:
+    """모디파이어·제약·노드·브러시·도구·설정값에서 찾은 것을 보여 준다.
 
     누를 수 있는 단추는 두지 않는다. 이것들은 실행하는 기능이 아니라 어디에
-    가서 골라야 하는 것이라, 알려 주는 것까지가 할 일이다.
+    가서 고르거나 고쳐야 하는 것이라, 어디에 있는지 알려 주는 것까지가 할 일이다.
     """
     if not getattr(p, "use_catalog", True):
         return False
 
     found = catalog.search(query, limit=p.max_results)
+    if probes is not None:
+        # 정리된 항목이 약하게만 걸렸을 때 불린 경우이다. 이때는 카탈로그도
+        # 이름으로 또렷이 걸린 것만 내놓는다. 약한 것 위에 약한 것을 얹으면
+        # 고르는 사람만 더 헷갈린다.
+        found = [e for e in found
+                 if _strength(e, probes) >= search.SCORE_TAG]
     if not found:
         return False
 
+    # 설정값만 걸렸을 때까지 '다른 도구' 라고 하면 무엇을 찾았는지 흐려진다.
+    only_setting = all(e.get("_kind_ko", "").startswith("설정값") for e in found)
     head = layout.row()
-    head.label(text="블렌더의 다른 도구에서 찾았습니다",
+    head.label(text="블렌더 설정값에서 찾았습니다" if only_setting
+               else "블렌더의 다른 도구에서 찾았습니다",
                icon=safe_icon('TOOL_SETTINGS', fallback='NONE'))
 
     text_width = max(30, int(p.popup_width / 7) - 8)
@@ -748,6 +792,14 @@ def _draw_catalog(layout, context, query: str, p) -> bool:
         sub.active = False
         sub.label(text=entry.get("en", ""))
 
+        # 블렌더에 번역이 없어 음차를 이름으로 쓴 것이다. '스네이크 훅' 만
+        # 보고는 무엇인지 알 수 없으므로 뜻을 한 줄 덧붙인다.
+        gloss = entry.get("_gloss")
+        if gloss:
+            row = col.row()
+            row.active = False
+            row.label(text=f"뜻: {gloss}")
+
         where = entry.get("where")
         if where:
             row = col.row()
@@ -765,7 +817,8 @@ def _draw_catalog(layout, context, query: str, p) -> bool:
 
     hint = layout.column(align=True)
     hint.active = False
-    hint.label(text="이것들은 눌러서 바로 쓰는 기능이 아니라, 적힌 자리에 가서 고르는 것입니다.")
+    hint.label(text="이것들은 눌러서 바로 쓰는 기능이 아니라, 적힌 자리에 가서 "
+                    + ("고치는 값입니다." if only_setting else "고르는 것입니다."))
     layout.separator()
     return True
 

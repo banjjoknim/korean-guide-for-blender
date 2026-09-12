@@ -92,9 +92,10 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
         default=True,
     )
     use_catalog: bpy.props.BoolProperty(
-        name="모디파이어·노드·브러시·도구도 찾는다",
+        name="모디파이어·노드·브러시·도구·설정값도 찾는다",
         description=("블렌더에는 기능이 아닌 것도 많습니다. 모디파이어 종류나 노드처럼 "
-                     "어디에 가서 골라야 하는 것들입니다. 667가지를 담아 두었습니다"),
+                     "어디에 가서 골라야 하는 것, 그리고 '그림자 끄기' 처럼 어디에 "
+                     "가서 고쳐야 하는 설정값입니다. 1,567가지를 담아 두었습니다"),
         default=True,
     )
     use_similar: bpy.props.BoolProperty(
