@@ -1,0 +1,6008 @@
+{
+ "schema_version": 1,
+ "catalog": [
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_VERTEX_WEIGHT_PROXIMITY",
+   "ko": "버텍스 웨이트 근접",
+   "en": "Vertex Weight Proximity",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate vertex weights based on distance to object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "DATA_TRANSFER",
+   "ko": "데이터 전송",
+   "en": "Data Transfer",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Transfer several types of data (vertex groups, UV maps, vertex colors, custom normals) from one mesh to another"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MESH_CACHE",
+   "ko": "메시 캐시",
+   "en": "Mesh Cache",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform the mesh using an external frame-by-frame vertex transform cache"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MESH_SEQUENCE_CACHE",
+   "ko": "메시 시퀀스 캐시",
+   "en": "Mesh Sequence Cache",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform the mesh or curve using an external mesh cache in Alembic format"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "NORMAL_EDIT",
+   "ko": "노멀 편집",
+   "en": "Normal Edit",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Modify the direction of the surface normals"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "WEIGHTED_NORMAL",
+   "ko": "웨이트된 노멀",
+   "en": "Weighted Normal",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Modify the direction of the surface normals using a weighting method"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "UV_PROJECT",
+   "ko": "UV 투사",
+   "en": "UV Project",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Project the UV map coordinates from the negative Z axis of another object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "UV_WARP",
+   "ko": "UV 왜곡",
+   "en": "UV Warp",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Transform the UV map using the difference between two objects"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "VERTEX_WEIGHT_EDIT",
+   "ko": "버텍스 웨이트 편집",
+   "en": "Vertex Weight Edit",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Modify of the weights of a vertex group"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "VERTEX_WEIGHT_MIX",
+   "ko": "버텍스 웨이트 조합",
+   "en": "Vertex Weight Mix",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Mix the weights of two vertex groups"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_COLOR",
+   "ko": "색조/채도",
+   "en": "Hue/Saturation",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Change hue/saturation/value of the strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_TINT",
+   "ko": "틴트",
+   "en": "Tint",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Tint the color of the strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_OPACITY",
+   "ko": "불투명도",
+   "en": "Opacity",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Change the opacity of the strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_VERTEX_WEIGHT_ANGLE",
+   "ko": "버텍스 무게 각도",
+   "en": "Vertex Weight Angle",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate vertex weights based on stroke angle"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_TIME",
+   "ko": "타임 오프셋",
+   "en": "Time Offset",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Offset keyframes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_TEXTURE",
+   "ko": "텍스처 맵핑",
+   "en": "Texture Mapping",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Change stroke UV texture values"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "ARRAY",
+   "ko": "배열",
+   "en": "Array",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Create copies of the shape with offsets"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "BEVEL",
+   "ko": "베벨",
+   "en": "Bevel",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate sloped corners by adding geometry to the mesh's edges or vertices"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "BOOLEAN",
+   "ko": "불리언",
+   "en": "Boolean",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Use another shape to cut, combine or perform a difference operation"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "BUILD",
+   "ko": "빌드",
+   "en": "Build",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Cause the faces of the mesh object to appear or disappear one after the other over time"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "DECIMATE",
+   "ko": "데시메이트",
+   "en": "Decimate",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Reduce the geometry density"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "EDGE_SPLIT",
+   "ko": "에지 분할",
+   "en": "Edge Split",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Split away joined faces at the edges"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "NODES",
+   "ko": "지오메트리 노드",
+   "en": "Geometry Nodes",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": ""
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MASK",
+   "ko": "마스크",
+   "en": "Mask",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Dynamically hide vertices based on a vertex group or armature"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MIRROR",
+   "ko": "미러",
+   "en": "Mirror",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Mirror along the local X, Y and/or Z axes, over the object origin"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MESH_TO_VOLUME",
+   "ko": "메시지를 볼륨으로",
+   "en": "Mesh to Volume",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": ""
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MULTIRES",
+   "ko": "멀티리솔루션",
+   "en": "Multiresolution",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Subdivide the mesh in a way that allows editing the higher subdivision levels"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "REMESH",
+   "ko": "리메시",
+   "en": "Remesh",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate new mesh topology based on the current shape"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SCREW",
+   "ko": "스크류",
+   "en": "Screw",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Lathe around an axis, treating the input mesh as a profile"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SKIN",
+   "ko": "스킨",
+   "en": "Skin",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Create a solid shape from vertices and edges, using the vertex radius to define the thickness"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SOLIDIFY",
+   "ko": "솔리디파이",
+   "en": "Solidify",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Make the surface thick"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SUBSURF",
+   "ko": "분할 표면",
+   "en": "Subdivision Surface",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Split the faces into smaller parts, giving it a smoother appearance"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "TRIANGULATE",
+   "ko": "삼각분할",
+   "en": "Triangulate",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Convert all polygons to triangles"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "VOLUME_TO_MESH",
+   "ko": "볼륨을 메시지로",
+   "en": "Volume to Mesh",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": ""
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "WELD",
+   "ko": "용접",
+   "en": "Weld",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Find groups of vertices closer than dist and merge them together"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "WIREFRAME",
+   "ko": "와이어프레임",
+   "en": "Wireframe",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Convert faces into thickened edges"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_LENGTH",
+   "ko": "길이",
+   "en": "Length",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Grease Pencil length modifier"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "LINEART",
+   "ko": "선 아트",
+   "en": "Line Art",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate Line Art from scene geometries"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_MULTIPLY",
+   "ko": "여러 스트로크",
+   "en": "Multiple Strokes",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate multiple strokes around original strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_SIMPLIFY",
+   "ko": "단순화",
+   "en": "Simplify",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Simplify stroke reducing number of points"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_SUBDIV",
+   "ko": "분할",
+   "en": "Subdivide",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Grease Pencil subdivide modifier"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_ENVELOPE",
+   "ko": "엔벨로프",
+   "en": "Envelope",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Create an envelope shape"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_OUTLINE",
+   "ko": "윤곽선",
+   "en": "Outline",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Convert stroke to outline"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "ARMATURE",
+   "ko": "아마츄어",
+   "en": "Armature",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform the shape using an armature object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "CAST",
+   "ko": "캐스트",
+   "en": "Cast",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Shift the shape towards a predefined primitive"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "CURVE",
+   "ko": "커브",
+   "en": "Curve",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Bend the mesh using a curve object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "DISPLACE",
+   "ko": "변위",
+   "en": "Displace",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Offset vertices based on a texture"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "HOOK",
+   "ko": "후크",
+   "en": "Hook",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform specific points using another object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "LAPLACIANDEFORM",
+   "ko": "라플라시안 변형",
+   "en": "Laplacian Deform",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform based a series of anchor points"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "LATTICE",
+   "ko": "래티스",
+   "en": "Lattice",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform using the shape of a lattice object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "MESH_DEFORM",
+   "ko": "메시 변형",
+   "en": "Mesh Deform",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform using a different mesh, which acts as a deformation cage"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SHRINKWRAP",
+   "ko": "수축 감싸기",
+   "en": "Shrinkwrap",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Project the shape onto another object"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SIMPLE_DEFORM",
+   "ko": "심플 변형",
+   "en": "Simple Deform",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform the shape by twisting, bending, tapering or stretching"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SMOOTH",
+   "ko": "스무스",
+   "en": "Smooth",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Smooth the mesh by flattening the angles between adjacent faces"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "CORRECTIVE_SMOOTH",
+   "ko": "스무스 교정",
+   "en": "Smooth Corrective",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Smooth the mesh while still preserving the volume"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "LAPLACIANSMOOTH",
+   "ko": "스무스 라플라시안",
+   "en": "Smooth Laplacian",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Reduce the noise on a mesh surface with minimal changes to its shape"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SURFACE_DEFORM",
+   "ko": "표면 변형",
+   "en": "Surface Deform",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Transfer motion from another mesh"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "WARP",
+   "ko": "왜곡",
+   "en": "Warp",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Warp parts of a mesh to a new location in a very flexible way thanks to 2 specified objects"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "WAVE",
+   "ko": "웨이브",
+   "en": "Wave",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Adds a ripple-like motion to an object's geometry"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "VOLUME_DISPLACE",
+   "ko": "볼륨 변위",
+   "en": "Volume Displace",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Deform volume based on noise or other vector fields"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_NOISE",
+   "ko": "노이즈",
+   "en": "Noise",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate noise wobble in Grease Pencil strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_OFFSET",
+   "ko": "오프셋",
+   "en": "Offset",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Change stroke location, rotation, or scale"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_THICKNESS",
+   "ko": "두께",
+   "en": "Thickness",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Change stroke thickness"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "GREASE_PENCIL_DASH",
+   "ko": "도트 대시",
+   "en": "Dot Dash",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate dot-dash styled strokes"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "CLOTH",
+   "ko": "옷감",
+   "en": "Cloth",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Physic simulation for cloth"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "COLLISION",
+   "ko": "충돌",
+   "en": "Collision",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "For colliders participating in physics simulation, control which level in the modifier stack is used as the collision surface"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "DYNAMIC_PAINT",
+   "ko": "다이나믹 페인트",
+   "en": "Dynamic Paint",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Turn objects into paint canvases and brushes, creating color attributes, image sequences, or displacement"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "EXPLODE",
+   "ko": "폭발",
+   "en": "Explode",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Break apart the mesh faces and let them follow particles"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "FLUID",
+   "ko": "유체",
+   "en": "Fluid",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Physics simulation for fluids, like water, oil and smoke"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "OCEAN",
+   "ko": "오션",
+   "en": "Ocean",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Generate a moving ocean surface"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "PARTICLE_INSTANCE",
+   "ko": "파티클 인스턴스",
+   "en": "Particle Instance",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Duplicate mesh at the location of particles"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "PARTICLE_SYSTEM",
+   "ko": "파티클 시스템",
+   "en": "Particle System",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Spawn particles from the shape"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SOFT_BODY",
+   "ko": "소프트 바디",
+   "en": "Soft Body",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": "Simulate soft deformable objects"
+  },
+  {
+   "kind": "modifier",
+   "kind_ko": "모디파이어",
+   "key": "SURFACE",
+   "ko": "표면",
+   "en": "Surface",
+   "where": "속성 패널의 파란 렌치 아이콘 > Add Modifier",
+   "note": ""
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "CAMERA_SOLVER",
+   "ko": "카메라 솔버",
+   "en": "Camera Solver",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": ""
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "FOLLOW_TRACK",
+   "ko": "트랙을 따라가기",
+   "en": "Follow Track",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": ""
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "OBJECT_SOLVER",
+   "ko": "오브젝트 솔버",
+   "en": "Object Solver",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": ""
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "COPY_LOCATION",
+   "ko": "위치를 복사",
+   "en": "Copy Location",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Copy the location of a target (with an optional offset), so that they move together"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "COPY_ROTATION",
+   "ko": "회전을 복사",
+   "en": "Copy Rotation",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Copy the rotation of a target (with an optional offset), so that they rotate together"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "COPY_SCALE",
+   "ko": "스케일을 복사",
+   "en": "Copy Scale",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Copy the scale factors of a target (with an optional offset), so that they are scaled by the same amount"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "COPY_TRANSFORMS",
+   "ko": "변환을 복사",
+   "en": "Copy Transforms",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Copy all the transformations of a target, so that they move together"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "LIMIT_DISTANCE",
+   "ko": "거리를 제한",
+   "en": "Limit Distance",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict movements to within a certain distance of a target (at the time of constraint evaluation only)"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "LIMIT_LOCATION",
+   "ko": "위치를 제한",
+   "en": "Limit Location",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict movement along each axis within given ranges"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "LIMIT_ROTATION",
+   "ko": "회전을 제한",
+   "en": "Limit Rotation",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict rotation along each axis within given ranges"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "LIMIT_SCALE",
+   "ko": "스케일을 제한",
+   "en": "Limit Scale",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict scaling along each axis with given ranges"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "MAINTAIN_VOLUME",
+   "ko": "볼륨을 유지하기",
+   "en": "Maintain Volume",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Compensate for scaling one axis by applying suitable scaling to the other two axes"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "TRANSFORM",
+   "ko": "변환",
+   "en": "Transformation",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Use one transform property from target to control another (or same) property on owner"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "TRANSFORM_CACHE",
+   "ko": "변환 캐시",
+   "en": "Transform Cache",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Look up the transformation matrix from an external file"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "CLAMP_TO",
+   "ko": "대상으로 클램프",
+   "en": "Clamp To",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict movements to lie along a curve by remapping location along curve's longest axis"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "DAMPED_TRACK",
+   "ko": "감쇠된 트랙",
+   "en": "Damped Track",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Point towards a target by performing the smallest rotation necessary"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "IK",
+   "ko": "역운동학 (IK)",
+   "en": "Inverse Kinematics",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Control a chain of bones by specifying the endpoint target (Bones only)"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "LOCKED_TRACK",
+   "ko": "잠긴 트랙",
+   "en": "Locked Track",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Rotate around the specified ('locked') axis to point towards a target"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "SPLINE_IK",
+   "ko": "스플라인 IK",
+   "en": "Spline IK",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Align chain of bones along a curve (Bones only)"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "STRETCH_TO",
+   "ko": "다음 대상으로 늘이기",
+   "en": "Stretch To",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Stretch along Y-Axis to point towards a target"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "TRACK_TO",
+   "ko": "대상으로 트랙",
+   "en": "Track To",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Legacy tracking constraint prone to twisting artifacts"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "ACTION",
+   "ko": "액션",
+   "en": "Action",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Use transform property of target to look up pose for owner from an Action"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "ARMATURE",
+   "ko": "아마츄어",
+   "en": "Armature",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Apply weight-blended transformation from multiple bones like the Armature modifier"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "CHILD_OF",
+   "ko": "대상의 자식",
+   "en": "Child Of",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Make target the 'detachable' parent of owner"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "FLOOR",
+   "ko": "바닥",
+   "en": "Floor",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Use position (and optionally rotation) of target to define a 'wall' or 'floor' that the owner cannot cross"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "FOLLOW_PATH",
+   "ko": "경로를 따라가기",
+   "en": "Follow Path",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Use to animate an object/bone following a path"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "GEOMETRY_ATTRIBUTE",
+   "ko": "지오메트리 속성",
+   "en": "Geometry Attribute",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Retrieve transform from target geometry attribute data"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "PIVOT",
+   "ko": "피벗",
+   "en": "Pivot",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Change pivot point for transforms (buggy)"
+  },
+  {
+   "kind": "constraint",
+   "kind_ko": "제약",
+   "key": "SHRINKWRAP",
+   "ko": "수축 감싸기",
+   "en": "Shrinkwrap",
+   "where": "속성 패널의 뼈와 사슬 아이콘 > Add Object Constraint",
+   "note": "Restrict movements to surface of target mesh"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeAddShader",
+   "ko": "추가 셰이더",
+   "en": "Add Shader",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Add two Shaders together"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeAmbientOcclusion",
+   "ko": "주변 폐색 (AO)",
+   "en": "Ambient Occlusion",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Compute how much the hemisphere above the shading point is occluded, for example to add weathering effects to corners.\nNote: For Cycles, this may slow down renders significantly"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeAttribute",
+   "ko": "속성",
+   "en": "Attribute",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve attributes attached to objects or geometry"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBackground",
+   "ko": "배경",
+   "en": "Background",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Add background light emission.\nNote: This node should only be used for the world surface output"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBevel",
+   "ko": "베벨",
+   "en": "Bevel",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generates normals with round corners.\nNote: only supported in Cycles, and may slow down renders"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBlackbody",
+   "ko": "블렉보디",
+   "en": "Blackbody",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Convert a blackbody temperature to an RGB value"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBrightContrast",
+   "ko": "밝기/대비",
+   "en": "Brightness/Contrast",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Control the brightness and contrast of the input color"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfAnisotropic",
+   "ko": "광택 BSDF",
+   "en": "Glossy BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Reflection with microfacet distribution, used for materials such as metal or mirrors"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfDiffuse",
+   "ko": "확산 BSDF",
+   "en": "Diffuse BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Lambertian and Oren-Nayar diffuse reflection"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfGlass",
+   "ko": "유리 BSDF",
+   "en": "Glass BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Glass-like shader mixing refraction and reflection at grazing angles"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfHair",
+   "ko": "헤어 BSDF",
+   "en": "Hair BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Reflection and transmission shaders optimized for hair rendering"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfHairPrincipled",
+   "ko": "프린시플드 헤어 BSDF",
+   "en": "Principled Hair BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Physically-based, easy-to-use shader for rendering hair and fur"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfMetallic",
+   "ko": "메탈릭 BSDF",
+   "en": "Metallic BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Metallic reflection with microfacet distribution, and metallic fresnel"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfPrincipled",
+   "ko": "프린시플드 BSDF",
+   "en": "Principled BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Physically-based, easy-to-use shader for rendering surface materials, based on the OpenPBR model"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfRayPortal",
+   "ko": "레이 포털 BSDF",
+   "en": "Ray Portal BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Continue tracing from an arbitrary new position and in a new direction"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfRefraction",
+   "ko": "굴절 BSDF",
+   "en": "Refraction BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Glossy refraction with sharp or microfacet distribution, typically used for materials that transmit light"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfSheen",
+   "ko": "쉰 BSDF",
+   "en": "Sheen BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Reflection for materials such as cloth.\nTypically mixed with other shaders (such as a Diffuse Shader) and is not particularly useful on its own"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfToon",
+   "ko": "툰 BSDF",
+   "en": "Toon BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Diffuse and Glossy shaders with cartoon light effects"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfTranslucent",
+   "ko": "반투명 BSDF",
+   "en": "Translucent BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Lambertian diffuse transmission"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBsdfTransparent",
+   "ko": "투명 BSDF",
+   "en": "Transparent BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Transparency without refraction, passing straight through the surface as if there were no geometry"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeBump",
+   "ko": "범프",
+   "en": "Bump",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a perturbed normal from a height texture for bump mapping. Typically used for faking highly detailed surfaces"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeCameraData",
+   "ko": "카메라 데이터",
+   "en": "Camera Data",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve information about the camera and how it relates to the current shading point's position"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeClamp",
+   "ko": "클램프",
+   "en": "Clamp",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Clamp a value between a minimum and a maximum"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeCombineColor",
+   "ko": "색상 결합",
+   "en": "Combine Color",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Create a color from individual components using multiple models"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeCombineXYZ",
+   "ko": "결합 XYZ",
+   "en": "Combine XYZ",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Create a vector from X, Y, and Z components"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeCustomGroup",
+   "ko": "셰이더 커스텀 그룹",
+   "en": "Shader Custom Group",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Custom Shader Group Node for Python nodes"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeDisplacement",
+   "ko": "변위",
+   "en": "Displacement",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Displace the surface along the surface normal"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeEeveeSpecular",
+   "ko": "스펙큘러 BSF",
+   "en": "Specular BSDF",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Similar to the Principled BSDF node but uses the specular workflow instead of metallic, which functions by specifying the facing (along normal) reflection color. Energy is not conserved, so the result"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeEmission",
+   "ko": "방출",
+   "en": "Emission",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Lambertian emission shader"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeFloatCurve",
+   "ko": "실수 곡선",
+   "en": "Float Curve",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Map an input float to a curve and outputs a float value"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeFresnel",
+   "ko": "프레넬",
+   "en": "Fresnel",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Produce a blending factor depending on the angle between the surface normal and the view direction using Fresnel equations.\nTypically used for mixing reflections at grazing angles"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeGamma",
+   "ko": "감마",
+   "en": "Gamma",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Apply a gamma correction"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeGroup",
+   "ko": "그룹",
+   "en": "Group",
+   "where": "Shading 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeHairInfo",
+   "ko": "커브 정보",
+   "en": "Curves Info",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve hair curve information"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeHoldout",
+   "ko": "홀드아웃",
+   "en": "Holdout",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Create a \"hole\" in the image with zero alpha transparency, which is useful for compositing.\nNote: the holdout shader can only create alpha when transparency is enabled in the film settings"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeHueSaturation",
+   "ko": "색조/채도/값",
+   "en": "Hue/Saturation/Value",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Apply a color transformation in the HSV color model"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeInvert",
+   "ko": "색상 반전",
+   "en": "Invert Color",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Invert a color, producing a negative"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeLayerWeight",
+   "ko": "레이어 웨이트",
+   "en": "Layer Weight",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Produce a blending factor depending on the angle between the surface normal and the view direction.\nTypically used for layering shaders with the Mix Shader node"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeLightFalloff",
+   "ko": "라이트 감소",
+   "en": "Light Falloff",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Manipulate how light intensity decreases over distance. Typically used for non-physically-based effects; in reality light always falls off quadratically"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeLightPath",
+   "ko": "라이트 경로",
+   "en": "Light Path",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve the type of incoming ray for which the shader is being executed.\nTypically used for non-physically-based tricks"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMapRange",
+   "ko": "맵 범위",
+   "en": "Map Range",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Remap a value from a range to a target range"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMapping",
+   "ko": "맵핑",
+   "en": "Mapping",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Transform the input vector by applying translation, rotation, and scale"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMath",
+   "ko": "수학",
+   "en": "Math",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Perform math operations"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMix",
+   "ko": "조합",
+   "en": "Mix",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Mix values by a factor"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMixRGB",
+   "ko": "믹스 (레거시)",
+   "en": "Mix (Legacy)",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Mix two input colors"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeMixShader",
+   "ko": "조합 셰이더",
+   "en": "Mix Shader",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Mix two shaders together. Typically used for material layering"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeNewGeometry",
+   "ko": "지오메트리",
+   "en": "Geometry",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve geometric information about the current shading point"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeNormal",
+   "ko": "노멀",
+   "en": "Normal",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a normal vector and a dot product"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeNormalMap",
+   "ko": "노멀 맵",
+   "en": "Normal Map",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a perturbed normal from an RGB normal map image. Typically used for faking highly detailed surfaces"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeObjectInfo",
+   "ko": "오브젝트 정보",
+   "en": "Object Info",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve information about the object instance"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeOutputAOV",
+   "ko": "AOV 출력",
+   "en": "AOV Output",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Arbitrary Output Variables.\nProvide custom render passes for arbitrary shader node outputs"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeOutputLight",
+   "ko": "라이트 출력",
+   "en": "Light Output",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Output light information to a light object"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeOutputLineStyle",
+   "ko": "라인 스타일 출력",
+   "en": "Line Style Output",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Control the mixing of texture information into the base color of line styles"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeOutputMaterial",
+   "ko": "머티리얼 출력",
+   "en": "Material Output",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Output surface material information for use in rendering"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeOutputWorld",
+   "ko": "월드 출력",
+   "en": "World Output",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Output light color information to the scene's World"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeParticleInfo",
+   "ko": "파티클 정보",
+   "en": "Particle Info",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve the data of the particle that spawned the object instance, for example to give variation to multiple instances of an object"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodePointInfo",
+   "ko": "포인트 정보",
+   "en": "Point Info",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve information about points in a point cloud"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeRGB",
+   "ko": "색상",
+   "en": "Color",
+   "where": "Shading 작업 공간 > Add",
+   "note": "A color picker"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeRGBCurve",
+   "ko": "RGB 커브",
+   "en": "RGB Curves",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Apply color corrections for each color channel"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeRGBToBW",
+   "ko": "RGB를 BW로 변환",
+   "en": "RGB to BW",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Convert a color's luminance to a grayscale value"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeRadialTiling",
+   "ko": "방사형 타일링",
+   "en": "Radial Tiling",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Transform Coordinate System for Radial Tiling"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeRaycast",
+   "ko": "레이캐스트",
+   "en": "Raycast",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Cast rays and retrieve information from the hit point"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeScript",
+   "ko": "스크립트",
+   "en": "Script",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate an OSL shader from a file or text data-block.\nNote: OSL shaders are not supported on all GPU backends"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeSeparateColor",
+   "ko": "별도의 색상",
+   "en": "Separate Color",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Split a color into its individual components using multiple models"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeSeparateXYZ",
+   "ko": "분리 XYZ",
+   "en": "Separate XYZ",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Split a vector into its X, Y, and Z components"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeShaderToRGB",
+   "ko": "셰이더를 RGB로 변환",
+   "en": "Shader to RGB",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Convert rendering effect (such as light and shadow) to color. Typically used for non-photorealistic rendering, to apply additional effects on the output of BSDFs.\nNote: only supported in EEVEE"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeSqueeze",
+   "ko": "스퀴즈 값 (레거시)",
+   "en": "Squeeze Value (Legacy)",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Deprecated"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeSubsurfaceScattering",
+   "ko": "서브 표면 산란 (SSS)",
+   "en": "Subsurface Scattering",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Subsurface multiple scattering shader to simulate light entering the surface and bouncing internally.\nTypically used for materials such as skin, wax, marble or milk"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTangent",
+   "ko": "탄젠트",
+   "en": "Tangent",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a tangent direction for the Anisotropic BSDF"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexBrick",
+   "ko": "벽돌 텍스처",
+   "en": "Brick Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a procedural texture producing bricks"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexChecker",
+   "ko": "체커 텍스처",
+   "en": "Checker Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a checkerboard texture"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexCoord",
+   "ko": "텍스처 좌표",
+   "en": "Texture Coordinate",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve multiple types of texture coordinates.\nTypically used as inputs for texture nodes"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexEnvironment",
+   "ko": "환경 텍스처",
+   "en": "Environment Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Sample an image file as an environment texture. Typically used to light the scene with the background node"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexGabor",
+   "ko": "가버 텍스처",
+   "en": "Gabor Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate Gabor noise"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexGradient",
+   "ko": "그라디언트 텍스처",
+   "en": "Gradient Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate interpolated color and intensity values based on the input vector"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexIES",
+   "ko": "IES 텍스처",
+   "en": "IES Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Match real world lights with IES files, which store the directional intensity distribution of light sources"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexImage",
+   "ko": "이미지 텍스처",
+   "en": "Image Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Sample an image file as a texture"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexMagic",
+   "ko": "매직 텍스처",
+   "en": "Magic Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a psychedelic color texture"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexNoise",
+   "ko": "노이즈 텍스처",
+   "en": "Noise Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate fractal Perlin noise"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexSky",
+   "ko": "하늘 텍스처",
+   "en": "Sky Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate a procedural sky texture"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexVoronoi",
+   "ko": "보로노이 텍스처",
+   "en": "Voronoi Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate Worley noise based on the distance to random points. Typically used to generate textures such as stones, water, or biological cells"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexWave",
+   "ko": "웨이브 텍스처",
+   "en": "Wave Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Generate procedural bands or rings with noise"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeTexWhiteNoise",
+   "ko": "화이트 노이즈 텍스처",
+   "en": "White Noise Texture",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Calculate a random value or color based on an input seed"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeUVAlongStroke",
+   "ko": "스트로크를 따라 UV",
+   "en": "UV Along Stroke",
+   "where": "Shading 작업 공간 > Add",
+   "note": "UV coordinates that map a texture along the stroke length"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeUVMap",
+   "ko": "UV 맵",
+   "en": "UV Map",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve a UV map from the geometry, or the default fallback if none is specified"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeValToRGB",
+   "ko": "색상 램프",
+   "en": "Color Ramp",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Map values to colors with the use of a gradient"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeValue",
+   "ko": "값",
+   "en": "Value",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Input numerical values to other nodes in the tree"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVectorCurve",
+   "ko": "벡터 커브",
+   "en": "Vector Curves",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Map input vector components with curves"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVectorDisplacement",
+   "ko": "벡터 변위",
+   "en": "Vector Displacement",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Displace the surface along an arbitrary direction"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVectorMath",
+   "ko": "벡터 수학",
+   "en": "Vector Math",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Perform vector math operation"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVectorRotate",
+   "ko": "벡터 회전",
+   "en": "Vector Rotate",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Rotate a vector around a pivot point (center)"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVectorTransform",
+   "ko": "벡터 변환",
+   "en": "Vector Transform",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Convert a vector, point, or normal between world, camera, and object coordinate space"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVertexColor",
+   "ko": "색상 속성",
+   "en": "Color Attribute",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve a color attribute, or the default fallback if none is specified"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVolumeAbsorption",
+   "ko": "볼륨 흡수",
+   "en": "Volume Absorption",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Absorb light as it passes through the volume"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVolumeCoefficients",
+   "ko": "볼륨 계수",
+   "en": "Volume Coefficients",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Model all three physical processes in a volume, represented by their coefficients"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVolumeInfo",
+   "ko": "볼륨 정보",
+   "en": "Volume Info",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Read volume data attributes from volume grids"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVolumePrincipled",
+   "ko": "프린시플 볼륨",
+   "en": "Principled Volume",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Combine all volume shading components into a single easy to use node"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeVolumeScatter",
+   "ko": "볼륨 산란",
+   "en": "Volume Scatter",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Scatter light as it passes through the volume, often used to add fog to a scene"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeWavelength",
+   "ko": "파장",
+   "en": "Wavelength",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Convert a wavelength value to an RGB value"
+  },
+  {
+   "kind": "shader_node",
+   "kind_ko": "셰이더 노드",
+   "key": "ShaderNodeWireframe",
+   "ko": "와이어프레임",
+   "en": "Wireframe",
+   "where": "Shading 작업 공간 > Add",
+   "note": "Retrieve the edges of an object as it appears to Cycles.\nNote: as meshes are triangulated before being processed by Cycles, topology will always appear triangulated"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeAccumulateField",
+   "ko": "필드 누적",
+   "en": "Accumulate Field",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Add the values of an evaluated field together and output the running total for each element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeAttributeDomainSize",
+   "ko": "도메인 크기",
+   "en": "Domain Size",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the number of elements in a geometry for each attribute domain"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeAttributeStatistic",
+   "ko": "속성 통계",
+   "en": "Attribute Statistic",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate statistics about a data set from a field evaluated on a geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeBake",
+   "ko": "베이크",
+   "en": "Bake",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Cache the incoming data so that it can be used without recomputation"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeBlurAttribute",
+   "ko": "블러 속성",
+   "en": "Blur Attribute",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Mix attribute values of neighboring elements"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeBoneInfo",
+   "ko": "뼈 정보",
+   "en": "Bone Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information of armature bones"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeBoundBox",
+   "ko": "경계 박스",
+   "en": "Bounding Box",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the limits of a geometry's positions and generate a box mesh with those dimensions"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCameraInfo",
+   "ko": "카메라 정보",
+   "en": "Camera Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information from a camera object"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCaptureAttribute",
+   "ko": "캡처 속성",
+   "en": "Capture Attribute",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Store the result of a field on a geometry and output the data as a node socket. Allows remembering or interpolating data as the geometry changes, such as positions before deformation"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCollectionInfo",
+   "ko": "컬렉션 정보",
+   "en": "Collection Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve geometry instances from a collection"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeConvexHull",
+   "ko": "볼록 선체",
+   "en": "Convex Hull",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a mesh that encloses all points in the input geometry with the smallest number of points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCornersOfEdge",
+   "ko": "에지 코너",
+   "en": "Corners of Edge",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve face corners connected to edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCornersOfFace",
+   "ko": "얼굴 모서리",
+   "en": "Corners of Face",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve corners that make up a face"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCornersOfVertex",
+   "ko": "버텍스의 모서리",
+   "en": "Corners of Vertex",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve face corners connected to vertices"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCubeGridTopology",
+   "ko": "정육면체 격자 구조",
+   "en": "Cube Grid Topology",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a boolean grid topology with the given dimensions, for use with the Field to Grid node"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveArc",
+   "ko": "아크",
+   "en": "Arc",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline arc"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveEndpointSelection",
+   "ko": "엔드포인트 선택",
+   "en": "Endpoint Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Provide a selection for an arbitrary number of endpoints in each spline"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveHandleTypeSelection",
+   "ko": "핸들 유형 선택",
+   "en": "Handle Type Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Provide a selection based on the handle types of Bézier control points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveLength",
+   "ko": "커브 길이",
+   "en": "Curve Length",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the length of all splines added together"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveOfPoint",
+   "ko": "점의 곡선",
+   "en": "Curve of Point",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the curve a control point is part of"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurvePrimitiveBezierSegment",
+   "ko": "베지어 세그먼트",
+   "en": "Bézier Segment",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a 2D Bézier spline from the given control points and handles"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurvePrimitiveCircle",
+   "ko": "커브 원",
+   "en": "Curve Circle",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline circle"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurvePrimitiveLine",
+   "ko": "커브 선",
+   "en": "Curve Line",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline line with two points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurvePrimitiveQuadrilateral",
+   "ko": "사변형",
+   "en": "Quadrilateral",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a polygon with four points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveQuadraticBezier",
+   "ko": "쿼드 베지어",
+   "en": "Quadratic Bézier",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline in a parabola shape with control points positions"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveSetHandles",
+   "ko": "핸들 유형 설정",
+   "en": "Set Handle Type",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the handle type for the control points of a Bézier curve"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveSpiral",
+   "ko": "나선",
+   "en": "Spiral",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline in a spiral shape"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveSplineType",
+   "ko": "스플라인 유형 설정",
+   "en": "Set Spline Type",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Change the type of curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveStar",
+   "ko": "별",
+   "en": "Star",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline in a star pattern by connecting alternating points of two circles"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveToMesh",
+   "ko": "커브에서 메시로",
+   "en": "Curve to Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert curves into a mesh, optionally with a custom profile shape defined by curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurveToPoints",
+   "ko": "커브를 점으로",
+   "en": "Curve to Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a point cloud by sampling positions along curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCurvesToGreasePencil",
+   "ko": "연필에 기름칠하는 커브",
+   "en": "Curves to Grease Pencil",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert the curves in each top-level instance into Grease Pencil layer"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeCustomGroup",
+   "ko": "지오메트리 커스텀 그룹",
+   "en": "Geometry Custom Group",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Custom Geometry Group Node for Python nodes"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDeformCurvesOnSurface",
+   "ko": "표면의 커브 변형",
+   "en": "Deform Curves on Surface",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Translate and rotate curves based on changes between the object's original and evaluated surface mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDeleteGeometry",
+   "ko": "지오메트리 삭제",
+   "en": "Delete Geometry",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Remove selected elements of a geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDistributePointsInGrid",
+   "ko": "그리드에 포인트 배포",
+   "en": "Distribute Points in Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate points inside a volume grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDistributePointsInVolume",
+   "ko": "볼륨으로 포인트 배포",
+   "en": "Distribute Points in Volume",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate points inside a volume"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDistributePointsOnFaces",
+   "ko": "얼굴에 포인트 분배",
+   "en": "Distribute Points on Faces",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate points spread out on the surface of a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDualMesh",
+   "ko": "듀얼 메시지",
+   "en": "Dual Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert Faces into vertices and vertices into faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeDuplicateElements",
+   "ko": "중복 요소",
+   "en": "Duplicate Elements",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate an arbitrary number copies of each selected input element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeEdgePathsToCurves",
+   "ko": "커브에 대한 에지 경로",
+   "en": "Edge Paths to Curves",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output curves following paths across mesh edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeEdgePathsToSelection",
+   "ko": "에지 경로 선택",
+   "en": "Edge Paths to Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output a selection of edges by following paths across mesh edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeEdgesOfCorner",
+   "ko": "모서리 가장자리",
+   "en": "Edges of Corner",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the edges on both sides of a face corner"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeEdgesOfVertex",
+   "ko": "버텍스의 가장자리",
+   "en": "Edges of Vertex",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the edges connected to each vertex"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeEdgesToFaceGroups",
+   "ko": "에지 투 페이스 그룹",
+   "en": "Edges to Face Groups",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Group faces into regions surrounded by the selected boundary edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeExtrudeMesh",
+   "ko": "메시지 돌출",
+   "en": "Extrude Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate new vertices, edges, or faces from selected elements and move them based on an offset while keeping them connected by their boundary"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFaceOfCorner",
+   "ko": "코너의 얼굴",
+   "en": "Face of Corner",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the face each face corner is part of"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldAtIndex",
+   "ko": "인덱스에서 평가",
+   "en": "Evaluate at Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve data of other elements in the context's geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldAverage",
+   "ko": "필드 평균",
+   "en": "Field Average",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the mean and median of a given field"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldMinAndMax",
+   "ko": "필드 최소 및 최대",
+   "en": "Field Min & Max",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the minimum and maximum of a given field"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldOnDomain",
+   "ko": "도메인에서 평가",
+   "en": "Evaluate on Domain",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve values from a field on a different domain besides the domain from the context"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldToGrid",
+   "ko": "필드에서 그리드로",
+   "en": "Field to Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create new grids by evaluating new values on an existing volume grid topology"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldToList",
+   "ko": "필드를 목록으로",
+   "en": "Field to List",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a list of values"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFieldVariance",
+   "ko": "필드 분산",
+   "en": "Field Variance",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the standard deviation and variance of a given field"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFillCurve",
+   "ko": "필 커브",
+   "en": "Fill Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a mesh on the XY plane with faces on the inside of input curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFilletCurve",
+   "ko": "필렛 커브",
+   "en": "Fillet Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Round corners by generating circular arcs on each control point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeFlipFaces",
+   "ko": "반전 얼굴",
+   "en": "Flip Faces",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Reverse the order of the vertices and edges of selected faces, flipping their normal direction"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeForeachGeometryElementInput",
+   "ko": "각 지오메트리 요소 입력에 대해",
+   "en": "For Each Geometry Element Input",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeForeachGeometryElementOutput",
+   "ko": "각 지오메트리 요소에 대한 출력",
+   "en": "For Each Geometry Element Output",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGeometryToInstance",
+   "ko": "지오메트리에서 인스턴스로",
+   "en": "Geometry to Instance",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert each input geometry into an instance, which can be much faster than the Join Geometry node when the inputs are large"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGetGeometryBundle",
+   "ko": "지오메트리 묶음 가져오기",
+   "en": "Get Geometry Bundle",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Get the bundle of a geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGetNamedGrid",
+   "ko": "그리드 이름 지정하기",
+   "en": "Get Named Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Get volume grid from a volume geometry with the specified name"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGizmoDial",
+   "ko": "다이얼 기즈모",
+   "en": "Dial Gizmo",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Show a dial gizmo in the viewport for a value"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGizmoLinear",
+   "ko": "선형 기즈모",
+   "en": "Linear Gizmo",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Show a linear gizmo in the viewport for a value"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGizmoTransform",
+   "ko": "트랜스폼 기즈모",
+   "en": "Transform Gizmo",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Show a transform gizmo in the viewport"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGreasePencilToCurves",
+   "ko": "연필을 커브에 그리기",
+   "en": "Grease Pencil to Curves",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert Grease Pencil layers into curve instances"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridAdvect",
+   "ko": "어드벡트 그리드",
+   "en": "Advect Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Move grid values through a velocity field using numerical integration. Supports multiple integration schemes for different accuracy and performance trade-offs"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridClip",
+   "ko": "격자 잘라내기",
+   "en": "Clip Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Deactivate grid voxels outside minimum and maximum coordinates, setting them to the background value."
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridCurl",
+   "ko": "그리드 컬",
+   "en": "Grid Curl",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the magnitude and direction of circulation of a directional vector grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridDilateAndErode",
+   "ko": "격자 부풀리기·깎기",
+   "en": "Grid Dilate & Erode",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Dilate or erode the active regions of a grid. This changes which voxels are active but does not change their values."
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridDivergence",
+   "ko": "그리드 다이버전스",
+   "en": "Grid Divergence",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the flow into and out of each point of a directional vector grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridGradient",
+   "ko": "그리드 그라디언트",
+   "en": "Grid Gradient",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the direction and magnitude of the change in values of a scalar grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridInfo",
+   "ko": "그리드 정보",
+   "en": "Grid Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information about a volume grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridLaplacian",
+   "ko": "그리드 라플라시안",
+   "en": "Grid Laplacian",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Compute the divergence of the gradient of the input grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridMean",
+   "ko": "격자 평균",
+   "en": "Grid Mean",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply mean (box) filter smoothing to a voxel. The mean value from surrounding voxels in a box-shape defined by the radius replaces the voxel value."
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridMedian",
+   "ko": "격자 중앙값",
+   "en": "Grid Median",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply median (box) filter smoothing to a voxel. The median value from surrounding voxels in a box-shape defined by the radius replaces the voxel value."
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridPrune",
+   "ko": "가지치기 그리드",
+   "en": "Prune Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Make the storage of a volume grid more efficient by collapsing data into tiles or inner nodes"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridToMesh",
+   "ko": "그리드에서 메시지로",
+   "en": "Grid to Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a mesh on the \"surface\" of a volume grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridToPoints",
+   "ko": "격자를 점으로",
+   "en": "Grid to Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a point cloud from a volume grid's active voxels"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGridVoxelize",
+   "ko": "복셀라이즈 그리드",
+   "en": "Voxelize Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Remove sparseness from a volume grid by making the active tiles into voxels"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeGroup",
+   "ko": "그룹",
+   "en": "Group",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImageInfo",
+   "ko": "이미지 정보",
+   "en": "Image Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information about an image"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImageTexture",
+   "ko": "이미지 텍스처",
+   "en": "Image Texture",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Sample values from an image texture"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportCSV",
+   "ko": "가져오기 CSV",
+   "en": "Import CSV",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import geometry from an CSV file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportOBJ",
+   "ko": "가져오기 객체",
+   "en": "Import OBJ",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import geometry from an OBJ file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportPLY",
+   "ko": "가져오기 플라이",
+   "en": "Import PLY",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import a point cloud from a PLY file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportSTL",
+   "ko": "가져오기 stl",
+   "en": "Import STL",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import a mesh from an STL file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportText",
+   "ko": "가져오기 텍스트",
+   "en": "Import Text",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import a string from a text file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeImportVDB",
+   "ko": "가져오기 DB",
+   "en": "Import VDB",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Import volume data from a .vdb file"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeIndexOfNearest",
+   "ko": "가장 가까운 인덱스",
+   "en": "Index of Nearest",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Find the nearest element in a group. Similar to the \"Sample Nearest\" node"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeIndexSwitch",
+   "ko": "인덱스 스위치",
+   "en": "Index Switch",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Choose between an arbitrary number of values with an index"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputActiveCamera",
+   "ko": "활성 카메라",
+   "en": "Active Camera",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the scene's active camera"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputCollection",
+   "ko": "컬렉션",
+   "en": "Collection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output a single collection"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputCurveHandlePositions",
+   "ko": "커브 핸들 위치",
+   "en": "Curve Handle Positions",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the position of each Bézier control point's handles"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputCurveTilt",
+   "ko": "커브 틸트",
+   "en": "Curve Tilt",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the angle at each control point used to twist the curve's normal around its tangent"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputEdgeSmooth",
+   "ko": "에지 스무스",
+   "en": "Is Edge Smooth",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve whether each edge is marked for smooth or split normals"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputID",
+   "ko": "고유 번호",
+   "en": "ID",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve a stable random identifier value from the \"id\" attribute on the point domain, or the index if the attribute does not exist"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputImage",
+   "ko": "이미지",
+   "en": "Image",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Input an image data-block"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputIndex",
+   "ko": "인덱스",
+   "en": "Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve an integer value indicating the position of each element in the list, starting at zero"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputInstanceBounds",
+   "ko": "인스턴스 바운드",
+   "en": "Instance Bounds",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate position bounds of each instance's geometry set"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputInstanceRotation",
+   "ko": "인스턴스 로테이션이나 회전",
+   "en": "Instance Rotation",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the rotation of each instance in the geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputInstanceScale",
+   "ko": "인스턴스 스케일",
+   "en": "Instance Scale",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the scale of each instance in the geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMaterial",
+   "ko": "머티리얼",
+   "en": "Material",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output a single material"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMaterialIndex",
+   "ko": "머티리얼 인댁스",
+   "en": "Material Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the index of the material used for each element in the geometry's list of materials"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshEdgeAngle",
+   "ko": "에지 각도",
+   "en": "Edge Angle",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "The angle between the normals of connected manifold faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshEdgeNeighbors",
+   "ko": "에지 이웃",
+   "en": "Edge Neighbors",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the number of faces that use each edge as one of their sides"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshEdgeVertices",
+   "ko": "에지 정점",
+   "en": "Edge Vertices",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve topology information relating to each edge of a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshFaceArea",
+   "ko": "페이스 영역",
+   "en": "Face Area",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the surface area of a mesh's faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshFaceIsPlanar",
+   "ko": "면이 평평한지",
+   "en": "Is Face Planar",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve whether all triangles in a face are on the same plane, i.e. whether they have the same normal"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshFaceNeighbors",
+   "ko": "페이스 이웃",
+   "en": "Face Neighbors",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve topology information relating to each face of a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshIsland",
+   "ko": "메시 아일랜드",
+   "en": "Mesh Island",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information about separate connected regions in a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputMeshVertexNeighbors",
+   "ko": "버텍스 이웃",
+   "en": "Vertex Neighbors",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve topology information relating to each vertex of a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputNamedAttribute",
+   "ko": "명명된 속성",
+   "en": "Named Attribute",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the data of a specified attribute"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputNamedLayerSelection",
+   "ko": "명명된 레이어 선택",
+   "en": "Named Layer Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output a selection of a Grease Pencil layer"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputNormal",
+   "ko": "노멀",
+   "en": "Normal",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve a unit length vector indicating the direction pointing away from the geometry at each element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputObject",
+   "ko": "오브젝트",
+   "en": "Object",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output a single object"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputPosition",
+   "ko": "위치",
+   "en": "Position",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve a vector indicating the location of each element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputRadius",
+   "ko": "반경",
+   "en": "Radius",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the radius at each point on curve or point cloud geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputSceneTime",
+   "ko": "씬 시간",
+   "en": "Scene Time",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the current time in the scene's animation in units of seconds or frames"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputShadeSmooth",
+   "ko": "Is 페이스 스무스",
+   "en": "Is Face Smooth",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve whether each face is marked for smooth or sharp normals"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputShortestEdgePaths",
+   "ko": "최단 에지 경로",
+   "en": "Shortest Edge Paths",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Find the shortest paths along mesh edges to selected end vertices, with customizable cost per edge"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputSplineCyclic",
+   "ko": "곡선이 닫혀 있는지",
+   "en": "Is Spline Cyclic",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve whether each spline endpoint connects to the beginning"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputSplineResolution",
+   "ko": "스플라인 해상도",
+   "en": "Spline Resolution",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the number of evaluated points that will be generated for every control point on curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputTangent",
+   "ko": "커브 탄젠트",
+   "en": "Curve Tangent",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the direction of curves at each control point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInputVoxelIndex",
+   "ko": "복셀 인덱스",
+   "en": "Voxel Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the integer coordinates of the voxel that the field is evaluated on"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInstanceOnPoints",
+   "ko": "인스턴스 온 포인트",
+   "en": "Instance on Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a reference to geometry at each of the input points, without duplicating its underlying data"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInstanceTransform",
+   "ko": "인스턴스 트랜스폼",
+   "en": "Instance Transform",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the full transformation of each instance in the geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInstancesToPoints",
+   "ko": "인스턴스에서 포인트로",
+   "en": "Instances to Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate points at the origins of instances.\nNote: Nested instances are not affected by this node"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeInterpolateCurves",
+   "ko": "커브 보간",
+   "en": "Interpolate Curves",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate new curves on points by interpolating between existing curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeIsViewport",
+   "ko": "뷰포트",
+   "en": "Is Viewport",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve whether the nodes are being evaluated for the viewport rather than the final render"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeJoinGeometry",
+   "ko": "지오메트리 가입하기",
+   "en": "Join Geometry",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Merge separately generated geometries into a single one"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeListLength",
+   "ko": "목록 길이",
+   "en": "List Length",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Count how many items are in a given list"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMaterialSelection",
+   "ko": "머티리얼 선택",
+   "en": "Material Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Provide a selection of faces that use the specified material"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMenuSwitch",
+   "ko": "메뉴 전환",
+   "en": "Menu Switch",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Select from multiple inputs by name"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMergeByDistance",
+   "ko": "거리별 머지",
+   "en": "Merge by Distance",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Merge vertices or points within a given distance"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMergeLayers",
+   "ko": "머지 레이어",
+   "en": "Merge Layers",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Join groups of Grease Pencil layers into one"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshBoolean",
+   "ko": "메시지 부울",
+   "en": "Mesh Boolean",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Cut, subtract, or join multiple mesh inputs"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshCircle",
+   "ko": "메시 서클",
+   "en": "Mesh Circle",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a circular ring of edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshCone",
+   "ko": "원뿔",
+   "en": "Cone",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a cone mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshCube",
+   "ko": "큐브",
+   "en": "Cube",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a cuboid mesh with variable side lengths and subdivisions"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshCylinder",
+   "ko": "실린더",
+   "en": "Cylinder",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a cylinder mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshFaceSetBoundaries",
+   "ko": "페이스 그룹 경계",
+   "en": "Face Group Boundaries",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Find edges on the boundaries between groups of faces with the same ID value"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshGrid",
+   "ko": "격자",
+   "en": "Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a planar mesh on the XY plane"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshIcoSphere",
+   "ko": "아이코 스피어",
+   "en": "Ico Sphere",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a spherical mesh that consists of equally sized triangles"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshLine",
+   "ko": "메시지 선",
+   "en": "Mesh Line",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate vertices in a line and connect them with edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshToCurve",
+   "ko": "메시 - 커브",
+   "en": "Mesh to Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a curve from a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshToDensityGrid",
+   "ko": "메시 - 밀도 그리드",
+   "en": "Mesh to Density Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a filled volume grid from a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshToPoints",
+   "ko": "메시지에서 포인트로",
+   "en": "Mesh to Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a point cloud from a mesh's vertices"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshToSDFGrid",
+   "ko": "SDF 그리드에 메시지 보내기",
+   "en": "Mesh to SDF Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a signed distance volume grid from a mesh"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshToVolume",
+   "ko": "메시지를 볼륨으로",
+   "en": "Mesh to Volume",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a fog volume with the shape of the input mesh's surface"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeMeshUVSphere",
+   "ko": "UV 구체",
+   "en": "UV Sphere",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a spherical mesh with quads, except for triangles at the top and bottom"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeObjectInfo",
+   "ko": "오브젝트 정보",
+   "en": "Object Info",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve information from an object"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeOffsetCornerInFace",
+   "ko": "페이스의 오프셋 코너",
+   "en": "Offset Corner in Face",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve corners in the same face as another"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeOffsetPointInCurve",
+   "ko": "커브의 오프셋 포인트",
+   "en": "Offset Point in Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Offset a control point index within its curve"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePoints",
+   "ko": "포인트",
+   "en": "Points",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a point cloud with positions and radii defined by fields"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePointsOfCurve",
+   "ko": "커브 포인트",
+   "en": "Points of Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve a point index within a curve"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePointsToCurves",
+   "ko": "커브에 대한 포인트",
+   "en": "Points to Curves",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Split all points to curve by its group ID and reorder by weight"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePointsToSDFGrid",
+   "ko": "SDF 그리드 가리키기",
+   "en": "Points to SDF Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create a signed distance volume grid from points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePointsToVertices",
+   "ko": "정점을 가리키는 점",
+   "en": "Points to Vertices",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a mesh vertex for each point cloud point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodePointsToVolume",
+   "ko": "볼륨을 가리키는 포인트",
+   "en": "Points to Volume",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a fog volume sphere around every point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeProximity",
+   "ko": "지오메트리 근접성",
+   "en": "Geometry Proximity",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Compute the closest location on the target geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRaycast",
+   "ko": "레이캐스트",
+   "en": "Raycast",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Cast rays from the context geometry onto a target geometry, and retrieve information from each hit point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRealizeInstances",
+   "ko": "인스턴스 실현",
+   "en": "Realize Instances",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert instances into real geometry data"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRemoveAttribute",
+   "ko": "명명된 속성 제거",
+   "en": "Remove Named Attribute",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Delete an attribute with a specified name from a geometry. Typically used to optimize performance"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRepeatInput",
+   "ko": "입력 반복",
+   "en": "Repeat Input",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRepeatOutput",
+   "ko": "반복 출력",
+   "en": "Repeat Output",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeReplaceMaterial",
+   "ko": "머티리얼 교체",
+   "en": "Replace Material",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Swap one material with another"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeResampleCurve",
+   "ko": "커브 재샘플링",
+   "en": "Resample Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a poly spline for each input spline"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeReverseCurve",
+   "ko": "역곡선",
+   "en": "Reverse Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Change the direction of curves by swapping their start and end data"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeRotateInstances",
+   "ko": "회전 인스턴스",
+   "en": "Rotate Instances",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Rotate geometry instances in local or global space"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridBoolean",
+   "ko": "SDF 그리드 부울",
+   "en": "SDF Grid Boolean",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Cut, subtract, or join multiple SDF volume grid inputs"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridFillet",
+   "ko": "SDF 그리드 필렛",
+   "en": "SDF Grid Fillet",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Round off concave internal corners in a signed distance field. Only affects areas with negative principal curvature, creating smoother transitions between surfaces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridLaplacian",
+   "ko": "SDF 그리드 라플라시안",
+   "en": "SDF Grid Laplacian",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply Laplacian flow smoothing to a signed distance field. Computationally efficient alternative to mean curvature flow, ideal when combined with SDF normalization"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridMean",
+   "ko": "SDF 그리드 평균",
+   "en": "SDF Grid Mean",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply mean (box) filter smoothing to a signed distance field. Fast separable averaging filter for general smoothing of the distance field"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridMeanCurvature",
+   "ko": "SDF 그리드 평균 곡률",
+   "en": "SDF Grid Mean Curvature",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply mean curvature flow smoothing to a signed distance field. Evolves the surface based on its mean curvature, naturally smoothing high-curvature regions more than flat areas"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridMedian",
+   "ko": "SDF 그리드 중앙값",
+   "en": "SDF Grid Median",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Apply median filter to a signed distance field. Reduces noise while preserving sharp features and edges in the distance field"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSDFGridOffset",
+   "ko": "SDF 그리드 오프셋",
+   "en": "SDF Grid Offset",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Offset a signed distance field surface by a world-space distance. Dilates (positive) or erodes (negative) while maintaining the signed distance property"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleCurve",
+   "ko": "샘플 커브",
+   "en": "Sample Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve data from a point on a curve at a certain distance from its start"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleGrid",
+   "ko": "샘플 그리드",
+   "en": "Sample Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve values from the specified volume grid"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleGridIndex",
+   "ko": "샘플 그리드 인덱스",
+   "en": "Sample Grid Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve volume grid values at specific voxels"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleIndex",
+   "ko": "샘플 인덱스",
+   "en": "Sample Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve values from specific geometry elements"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleNearest",
+   "ko": "가장 가까운 샘플",
+   "en": "Sample Nearest",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Find the element of a geometry closest to a position. Similar to the \"Index of Nearest\" node"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleNearestSurface",
+   "ko": "가장 가까운 표면 샘플",
+   "en": "Sample Nearest Surface",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the interpolated value of a mesh attribute on the closest point of its surface"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSampleUVSurface",
+   "ko": "샘플 UV 표면",
+   "en": "Sample UV Surface",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Calculate the interpolated values of a mesh attribute at a UV coordinate"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeScaleElements",
+   "ko": "스케일 요소",
+   "en": "Scale Elements",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Scale groups of connected edges and faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeScaleInstances",
+   "ko": "스케일 인스턴스",
+   "en": "Scale Instances",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Scale geometry instances in local or global space"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSelfObject",
+   "ko": "셀프 오브젝트",
+   "en": "Self Object",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the object that contains the geometry nodes modifier currently being executed"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSeparateComponents",
+   "ko": "별도의 구성 요소",
+   "en": "Separate Components",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Split a geometry into a separate output for each type of data in the geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSeparateGeometry",
+   "ko": "별도의 지오메트리",
+   "en": "Separate Geometry",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Split a geometry into two geometry outputs based on a selection"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetCurveHandlePositions",
+   "ko": "핸들 위치 설정",
+   "en": "Set Handle Positions",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the positions for the handles of Bézier curves"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetCurveNormal",
+   "ko": "커브 노멀 설정",
+   "en": "Set Curve Normal",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the evaluation mode for curve normals"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetCurveRadius",
+   "ko": "커브 반경 설정",
+   "en": "Set Curve Radius",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the radius of the curve at each control point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetCurveTilt",
+   "ko": "커브 틸트 설정",
+   "en": "Set Curve Tilt",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the tilt angle at each curve control point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGeometryBundle",
+   "ko": "지오메트리 묶음 넣기",
+   "en": "Set Geometry Bundle",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the bundle of a geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGeometryName",
+   "ko": "지오메트리 이름 설정",
+   "en": "Set Geometry Name",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the name of a geometry for easier debugging"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGreasePencilColor",
+   "ko": "그리스 펜슬 색상 설정",
+   "en": "Set Grease Pencil Color",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set color and opacity attributes on Grease Pencil geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGreasePencilDepth",
+   "ko": "그리스 펜슬 깊이 설정",
+   "en": "Set Grease Pencil Depth",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the Grease Pencil depth order to use"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGreasePencilSoftness",
+   "ko": "그리스 펜슬 부드러움 설정",
+   "en": "Set Grease Pencil Softness",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set softness attribute on Grease Pencil geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGridBackground",
+   "ko": "그리드 배경 설정",
+   "en": "Set Grid Background",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the background value used for inactive voxels and tiles"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetGridTransform",
+   "ko": "그리드 트랜스폼 설정",
+   "en": "Set Grid Transform",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the transform for the grid from index space into object space."
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetID",
+   "ko": "ID 설정",
+   "en": "Set ID",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the id attribute on the input geometry, mainly used internally for randomizing"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetInstanceTransform",
+   "ko": "인스턴스 트랜스폼 설정",
+   "en": "Set Instance Transform",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the transformation matrix of every instance"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetMaterial",
+   "ko": "머티리얼 세트",
+   "en": "Set Material",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Assign a material to geometry elements"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetMaterialIndex",
+   "ko": "머티리얼 인덱스 설정",
+   "en": "Set Material Index",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the material index for each selected geometry element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetMeshNormal",
+   "ko": "메시지 일반 설정",
+   "en": "Set Mesh Normal",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Store a normal vector for each mesh element"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetPointRadius",
+   "ko": "설정 포인트 반경",
+   "en": "Set Point Radius",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the display size of point cloud points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetPosition",
+   "ko": "위치 설정",
+   "en": "Set Position",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set the location of each point"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetShadeSmooth",
+   "ko": "음영 스무스 설정",
+   "en": "Set Shade Smooth",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Control the smoothness of mesh normals around each face by changing the \"shade smooth\" attribute"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetSplineCyclic",
+   "ko": "스플라인 주기 설정",
+   "en": "Set Spline Cyclic",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Control whether each spline loops back on itself by changing the \"cyclic\" attribute"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSetSplineResolution",
+   "ko": "스플라인 해상도 설정",
+   "en": "Set Spline Resolution",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Control how many evaluated points should be generated on every curve segment"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSimulationInput",
+   "ko": "시뮬레이션 입력",
+   "en": "Simulation Input",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Input data for the simulation zone"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSimulationOutput",
+   "ko": "시뮬레이션 출력",
+   "en": "Simulation Output",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Output data from the simulation zone"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSortElements",
+   "ko": "요소 정렬",
+   "en": "Sort Elements",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Rearrange geometry elements, changing their indices"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSplineLength",
+   "ko": "스플라인 길이",
+   "en": "Spline Length",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the total length of each spline, as a distance or as a number of points"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSplineParameter",
+   "ko": "스플라인 매개변수",
+   "en": "Spline Parameter",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve how far along each spline a control point is"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSplitEdges",
+   "ko": "분할 가장자리",
+   "en": "Split Edges",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Duplicate mesh edges and break connections with the surrounding faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSplitToInstances",
+   "ko": "인스턴스로 분할",
+   "en": "Split to Instances",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create separate geometries containing the elements from the same group"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeStoreNamedAttribute",
+   "ko": "스토어 명명된 속성",
+   "en": "Store Named Attribute",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Store the result of a field on a geometry as an attribute with the specified name"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeStoreNamedGrid",
+   "ko": "스토어 이름 그리드",
+   "en": "Store Named Grid",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Store grid data in a volume geometry with the specified name"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeStringJoin",
+   "ko": "문자열 조인",
+   "en": "Join Strings",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Combine any number of input strings"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeStringToCurves",
+   "ko": "문자열을 커브로 변환",
+   "en": "String to Curves",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a paragraph of text with a specific font, using a curve instance to store each character"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSubdivideCurve",
+   "ko": "분할 커브",
+   "en": "Subdivide Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Dividing each curve segment into a specified number of pieces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSubdivideMesh",
+   "ko": "분할 메시지",
+   "en": "Subdivide Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Divide mesh faces into smaller ones without changing the shape or volume, using linear interpolation to place the new vertices"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSubdivisionSurface",
+   "ko": "분할 표면",
+   "en": "Subdivision Surface",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Divide mesh faces to form a smooth surface, using the Catmull-Clark subdivision method"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeSwitch",
+   "ko": "전환",
+   "en": "Switch",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Switch between two inputs"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeTool3DCursor",
+   "ko": "3D 커서",
+   "en": "3D Cursor",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "The scene's 3D cursor location and rotation"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolActiveElement",
+   "ko": "활성 요소",
+   "en": "Active Element",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Active element indices of the edited geometry, for tool execution"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolFaceSet",
+   "ko": "페이스 세트",
+   "en": "Face Set",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Each face's sculpt face set value"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolMousePosition",
+   "ko": "마우스 위치",
+   "en": "Mouse Position",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the position of the mouse cursor"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolSelection",
+   "ko": "선택",
+   "en": "Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "User selection of the edited geometry, for tool execution"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolSetFaceSet",
+   "ko": "페이스 세트 설정",
+   "en": "Set Face Set",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set sculpt face set values for faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeToolSetSelection",
+   "ko": "세트 선택",
+   "en": "Set Selection",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Set selection of the edited geometry, for tool execution"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeTransform",
+   "ko": "트랜스폼 지오메트리",
+   "en": "Transform Geometry",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Translate, rotate or scale the geometry"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeTranslateInstances",
+   "ko": "인스턴스 번역",
+   "en": "Translate Instances",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Move top-level geometry instances in local or global space"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeTriangulate",
+   "ko": "삼각분할",
+   "en": "Triangulate",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Convert all faces in a mesh to triangular faces"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeTrimCurve",
+   "ko": "트림 커브",
+   "en": "Trim Curve",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Shorten curves by removing portions at the start or end"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeUVPackIslands",
+   "ko": "UV 아일랜드를 포장",
+   "en": "Pack UV Islands",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Scale islands of a UV map and move them so they fill the UV space as much as possible"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeUVTangent",
+   "ko": "UV 탄젠트",
+   "en": "UV Tangent",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate tangent directions based on a UV map"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeUVUnwrap",
+   "ko": "UV 언랩",
+   "en": "UV Unwrap",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a UV map based on seam edges"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeVertexOfCorner",
+   "ko": "코너의 버텍스",
+   "en": "Vertex of Corner",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the vertex each face corner is attached to"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeViewer",
+   "ko": "뷰어",
+   "en": "Viewer",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Display the input data in the Spreadsheet Editor"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeViewportTransform",
+   "ko": "뷰포트 트랜스폼",
+   "en": "Viewport Transform",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Retrieve the view direction and location of the 3D viewport"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeVolumeCube",
+   "ko": "볼륨 큐브",
+   "en": "Volume Cube",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a dense volume with a field that controls the density at each grid voxel based on its position"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeVolumeToMesh",
+   "ko": "볼륨을 메시지로",
+   "en": "Volume to Mesh",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Generate a mesh on the \"surface\" of a volume"
+  },
+  {
+   "kind": "geometry_node",
+   "kind_ko": "지오메트리 노드",
+   "key": "GeometryNodeWarning",
+   "ko": "경고",
+   "en": "Warning",
+   "where": "Geometry Nodes 작업 공간 > Add",
+   "note": "Create custom warnings in node groups"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeAlphaOver",
+   "ko": "알파 오버",
+   "en": "Alpha Over",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Overlay a foreground image onto a background image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeAntiAliasing",
+   "ko": "안티앨리어싱",
+   "en": "Anti-Aliasing",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Smooth away jagged edges"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBilateralblur",
+   "ko": "쌍방 블러",
+   "en": "Bilateral Blur",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adaptively blur image, while retaining sharp edges"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBlur",
+   "ko": "블러",
+   "en": "Blur",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Blur an image, using several blur modes"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBokehBlur",
+   "ko": "보케 블러",
+   "en": "Bokeh Blur",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Generate a bokeh type blur similar to Defocus. Unlike defocus an in-focus region is defined in the compositor"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBokehImage",
+   "ko": "보케 이미지",
+   "en": "Bokeh Image",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Generate image with bokeh shape for use with the Bokeh Blur filter node"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBoxMask",
+   "ko": "박스 마스크",
+   "en": "Box Mask",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create rectangular mask suitable for use as a simple matte"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeBrightContrast",
+   "ko": "밝기/대비",
+   "en": "Brightness/Contrast",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adjust brightness and contrast"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeChannelMatte",
+   "ko": "채널 키",
+   "en": "Channel Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create matte based on differences in color channels"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeChromaMatte",
+   "ko": "크로마 키",
+   "en": "Chroma Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create matte based on chroma values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeColorBalance",
+   "ko": "색상 균형",
+   "en": "Color Balance",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adjust color and values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeColorCorrection",
+   "ko": "색상 보정",
+   "en": "Color Correction",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adjust the color of an image, separately in several tonal ranges (highlights, midtones and shadows)"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeColorMatte",
+   "ko": "색상 키",
+   "en": "Color Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create matte using a given color, for green or blue screen footage"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeColorSpill",
+   "ko": "색상 스필",
+   "en": "Color Spill",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Remove colors from a blue or green screen, by reducing one RGB channel compared to the others"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCombineColor",
+   "ko": "색상 결합",
+   "en": "Combine Color",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Combine an image from its composite color channels"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeConvertColorSpace",
+   "ko": "색 공간 변환",
+   "en": "Convert Colorspace",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Convert between color spaces"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeConvertToDisplay",
+   "ko": "디스플레이로 변환",
+   "en": "Convert to Display",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Convert from scene linear to display color space, with a view transform and look for tone mapping"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeConvolve",
+   "ko": "컨볼브",
+   "en": "Convolve",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Convolves an image with a kernel"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCornerPin",
+   "ko": "코너 핀",
+   "en": "Corner Pin",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Plane warp transformation using explicit corner values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCrop",
+   "ko": "자르기",
+   "en": "Crop",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Crops image to a smaller region, either making the cropped area transparent or resizing the image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCryptomatte",
+   "ko": "크립토매트 (레거시)",
+   "en": "Cryptomatte (Legacy)",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Deprecated. Use Cryptomatte Node instead"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCryptomatteV2",
+   "ko": "크립토마테",
+   "en": "Cryptomatte",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Generate matte for individual objects and materials using Cryptomatte render passes"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCurveRGB",
+   "ko": "RGB 커브",
+   "en": "RGB Curves",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Perform level adjustments on each color channel of an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeCustomGroup",
+   "ko": "컴포지터 사용자 정의 그룹",
+   "en": "Compositor Custom Group",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Custom Compositor Group Node for Python nodes"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDBlur",
+   "ko": "방향 블러",
+   "en": "Directional Blur",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Blur an image along a direction"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDefocus",
+   "ko": "포커스 흐림",
+   "en": "Defocus",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Apply depth of field in 2D, using a Z depth map or mask"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDenoise",
+   "ko": "디노이즈",
+   "en": "Denoise",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Denoise renders from Cycles and other ray tracing renderers"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDespeckle",
+   "ko": "얼룩 제거",
+   "en": "Despeckle",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Smooth areas of an image in which noise is noticeable, while leaving complex areas untouched"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDiffMatte",
+   "ko": "차이 키",
+   "en": "Difference Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Produce a matte that isolates foreground content by comparing it with a reference background image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDilateErode",
+   "ko": "팽창/침식",
+   "en": "Dilate/Erode",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Expand and shrink masks"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDisplace",
+   "ko": "변위",
+   "en": "Displace",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Displace pixel position using an offset vector"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDistanceMatte",
+   "ko": "거리 키",
+   "en": "Distance Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create matte based on 3D distance between colors"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeDoubleEdgeMask",
+   "ko": "이중 에지 마스크",
+   "en": "Double Edge Mask",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create a gradient between two masks"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeEllipseMask",
+   "ko": "타원 마스크",
+   "en": "Ellipse Mask",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create elliptical mask suitable for use as a simple matte or vignette mask"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeExposure",
+   "ko": "노출",
+   "en": "Exposure",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adjust brightness using a camera exposure parameter"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeFilter",
+   "ko": "필터",
+   "en": "Filter",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Apply common image enhancement filters"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeFlip",
+   "ko": "뒤집기",
+   "en": "Flip",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Flip an image along a defined axis"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeGamma",
+   "ko": "감마",
+   "en": "Gamma",
+   "where": "Compositing 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeGlare",
+   "ko": "글레어",
+   "en": "Glare",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Add lens flares, fog and glows around bright parts of the image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeGroup",
+   "ko": "그룹",
+   "en": "Group",
+   "where": "Compositing 작업 공간 > Add",
+   "note": ""
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeHueCorrect",
+   "ko": "색조 보정",
+   "en": "Hue Correct",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Adjust hue, saturation, and value with a curve"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeHueSat",
+   "ko": "색조/채도/값",
+   "en": "Hue/Saturation/Value",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Apply a color transformation in the HSV color model"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeIDMask",
+   "ko": "ID 마스크",
+   "en": "ID Mask",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create a matte from an object or material index pass"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeImage",
+   "ko": "이미지",
+   "en": "Image",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input image or movie file"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeImageCoordinates",
+   "ko": "이미지 좌표",
+   "en": "Image Coordinates",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Returns the coordinates of the pixels of an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeImageInfo",
+   "ko": "이미지 정보",
+   "en": "Image Info",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Returns information about an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeInpaint",
+   "ko": "인페인트",
+   "en": "Inpaint",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Extend borders of an image into transparent or masked regions"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeInvert",
+   "ko": "색상 반전",
+   "en": "Invert Color",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Invert colors, producing a negative"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeKeying",
+   "ko": "키잉",
+   "en": "Keying",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Perform both chroma keying (to remove the backdrop) and despill (to correct color cast from the backdrop)"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeKeyingScreen",
+   "ko": "키잉 화면",
+   "en": "Keying Screen",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create plates for use as a color reference for keying nodes"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeKuwahara",
+   "ko": "쿠와하라",
+   "en": "Kuwahara",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Apply smoothing filter that preserves edges, for stylized and painterly effects"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeLensdist",
+   "ko": "렌즈 왜곡",
+   "en": "Lens Distortion",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Simulate distortion and dispersion from camera lenses"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeLevels",
+   "ko": "레벨",
+   "en": "Levels",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Compute average and standard deviation of pixel values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeLumaMatte",
+   "ko": "휘도 키",
+   "en": "Luminance Key",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Create a matte based on luminance (brightness) difference"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeMapUV",
+   "ko": "맵 UV",
+   "en": "Map UV",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Map a texture using UV coordinates, to apply a texture to objects in compositing"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeMask",
+   "ko": "마스크",
+   "en": "Mask",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input mask from a mask data-block, created in the image editor"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeMaskToSDF",
+   "ko": "마스크를 거리장으로",
+   "en": "Mask To SDF",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Computes a signed distance field from the given mask"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeMovieClip",
+   "ko": "무비 클립",
+   "en": "Movie Clip",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input image or movie from a movie clip data-block, typically used for motion tracking"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeMovieDistortion",
+   "ko": "무비 왜곡",
+   "en": "Movie Distortion",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Remove lens distortion from footage, using motion tracking camera lens settings"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeNormal",
+   "ko": "노멀",
+   "en": "Normal",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input normalized normal values to other nodes in the tree"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeNormalize",
+   "ko": "노멀라이즈",
+   "en": "Normalize",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Map values to 0 to 1 range, based on the minimum and maximum pixel values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeOutputFile",
+   "ko": "파일 출력",
+   "en": "File Output",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Write image file to disk"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodePixelate",
+   "ko": "픽셀레이트",
+   "en": "Pixelate",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Reduce detail in an image by making individual pixels more prominent, for a blocky or mosaic-like appearance"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodePlaneTrackDeform",
+   "ko": "플레인 트랙 변형",
+   "en": "Plane Track Deform",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Replace flat planes in footage by another image, detected by plane tracks from motion tracking"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodePosterize",
+   "ko": "포스터화",
+   "en": "Posterize",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Reduce number of colors in an image, converting smooth gradients into sharp transitions"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodePremulKey",
+   "ko": "알파 변환",
+   "en": "Alpha Convert",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Convert to and from premultiplied (associated) alpha"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeRGB",
+   "ko": "색상",
+   "en": "Color",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "A color picker"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeRGBToBW",
+   "ko": "RGB를 BW로 변환",
+   "en": "RGB to BW",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Convert RGB input into grayscale using luminance"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeRLayers",
+   "ko": "렌더 레이어",
+   "en": "Render Layers",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input render passes from a scene render"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeRelativeToPixel",
+   "ko": "픽셀 대비 상대적",
+   "en": "Relative To Pixel",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Converts values that are relative to the image size to be in terms of pixels"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeRotate",
+   "ko": "회전",
+   "en": "Rotate",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Rotate image by specified angle"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeScale",
+   "ko": "스케일",
+   "en": "Scale",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Change the size of the image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSceneTime",
+   "ko": "씬 시간",
+   "en": "Scene Time",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Input the current scene time in seconds or frames"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSeparateColor",
+   "ko": "별도의 색상",
+   "en": "Separate Color",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Split an image into its composite color channels"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSequencerStripInfo",
+   "ko": "시퀀서 스트립 정보",
+   "en": "Sequencer Strip Info",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Returns information about the active strip of the modifier"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSetAlpha",
+   "ko": "알파 설정",
+   "en": "Set Alpha",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Add an alpha channel to an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSplit",
+   "ko": "분할",
+   "en": "Split",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Combine two images for side-by-side display. Typically used in combination with a Viewer node"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeStabilize",
+   "ko": "안정화 2D",
+   "en": "Stabilize 2D",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Stabilize footage using 2D stabilization motion tracking settings"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSwitch",
+   "ko": "전환",
+   "en": "Switch",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Switch between two images using a checkbox"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeSwitchView",
+   "ko": "전환 뷰",
+   "en": "Switch View",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Combine the views (left and right) into a single stereo 3D output"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeTime",
+   "ko": "시간 곡선",
+   "en": "Time Curve",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Generate a factor value (from 0.0 to 1.0) between scene start and end time, using a curve mapping"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeTonemap",
+   "ko": "톤맵",
+   "en": "Tonemap",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Map one set of colors to another in order to approximate the appearance of high dynamic range"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeTrackPos",
+   "ko": "트랙 위치",
+   "en": "Track Position",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Provide information about motion tracking points, such as x and y values"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeTransform",
+   "ko": "변환",
+   "en": "Transform",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Scale, translate and rotate an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeTranslate",
+   "ko": "옮기기",
+   "en": "Translate",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Offset an image"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeVecBlur",
+   "ko": "벡터 블러",
+   "en": "Vector Blur",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Uses the vector speed render pass to blur the image pixels in 2D"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeViewer",
+   "ko": "뷰어",
+   "en": "Viewer",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Visualize data from inside a node graph, in the image editor or as a backdrop"
+  },
+  {
+   "kind": "compositor_node",
+   "kind_ko": "컴포지터 노드",
+   "key": "CompositorNodeZcombine",
+   "ko": "깊이 결합",
+   "en": "Depth Combine",
+   "where": "Compositing 작업 공간 > Add",
+   "note": "Combine two images using depth maps"
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeAt",
+   "ko": "에서",
+   "en": "At",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeBricks",
+   "ko": "벽돌",
+   "en": "Bricks",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeChecker",
+   "ko": "체커",
+   "en": "Checker",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeCombineColor",
+   "ko": "색상 결합",
+   "en": "Combine Color",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeCompose",
+   "ko": "색 합치기",
+   "en": "Compose",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeCoordinates",
+   "ko": "좌표",
+   "en": "Coordinates",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeCurveRGB",
+   "ko": "RGB 커브",
+   "en": "RGB Curves",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeCurveTime",
+   "ko": "시간",
+   "en": "Time",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeDecompose",
+   "ko": "색 나누기",
+   "en": "Decompose",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeDistance",
+   "ko": "거리",
+   "en": "Distance",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeGroup",
+   "ko": "그룹",
+   "en": "Group",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeHueSaturation",
+   "ko": "색조/채도/값",
+   "en": "Hue/Saturation/Value",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeImage",
+   "ko": "이미지",
+   "en": "Image",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeInvert",
+   "ko": "색상 반전",
+   "en": "Invert Color",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeMath",
+   "ko": "수학",
+   "en": "Math",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeMixRGB",
+   "ko": "조합",
+   "en": "Mix",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeOutput",
+   "ko": "출력",
+   "en": "Output",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeRGBToBW",
+   "ko": "RGB를 BW로 변환",
+   "en": "RGB to BW",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeRotate",
+   "ko": "회전",
+   "en": "Rotate",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeScale",
+   "ko": "스케일",
+   "en": "Scale",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeSeparateColor",
+   "ko": "별도의 색상",
+   "en": "Separate Color",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexBlend",
+   "ko": "혼합",
+   "en": "Blend",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexClouds",
+   "ko": "구름",
+   "en": "Clouds",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexDistNoise",
+   "ko": "왜곡된 노이즈",
+   "en": "Distorted Noise",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexMagic",
+   "ko": "매직",
+   "en": "Magic",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexMarble",
+   "ko": "대리석",
+   "en": "Marble",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexMusgrave",
+   "ko": "머스그레이브",
+   "en": "Musgrave",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexNoise",
+   "ko": "노이즈",
+   "en": "Noise",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexStucci",
+   "ko": "스투치",
+   "en": "Stucci",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexVoronoi",
+   "ko": "보로노이",
+   "en": "Voronoi",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexWood",
+   "ko": "나무",
+   "en": "Wood",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTexture",
+   "ko": "텍스처",
+   "en": "Texture",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeTranslate",
+   "ko": "옮기기",
+   "en": "Translate",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeValToNor",
+   "ko": "값을 노멀로 변환",
+   "en": "Value to Normal",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeValToRGB",
+   "ko": "색상 램프",
+   "en": "Color Ramp",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "texture_node",
+   "kind_ko": "텍스처 노드",
+   "key": "TextureNodeViewer",
+   "ko": "뷰어",
+   "en": "Viewer",
+   "where": "텍스처 노드 편집기 > Add",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "DRAW",
+   "ko": "그리기",
+   "en": "Draw",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "DRAW_SHARP",
+   "ko": "날카롭게 그리기",
+   "en": "Draw Sharp",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "CLAY",
+   "ko": "점토",
+   "en": "Clay",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "CLAY_STRIPS",
+   "ko": "점토 띠",
+   "en": "Clay Strips",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "CLAY_THUMB",
+   "ko": "점토 문지르기",
+   "en": "Clay Thumb",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "LAYER",
+   "ko": "레이어",
+   "en": "Layer",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "INFLATE",
+   "ko": "팽창",
+   "en": "Inflate",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "BLOB",
+   "ko": "방울처럼 부풀리기",
+   "en": "Blob",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "CREASE",
+   "ko": "크리스",
+   "en": "Crease",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "SMOOTH",
+   "ko": "스무스",
+   "en": "Smooth",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "PLANE",
+   "ko": "평면",
+   "en": "Plane",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "MULTIPLANE_SCRAPE",
+   "ko": "각지게 깎기",
+   "en": "Multi-plane Scrape",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "PINCH",
+   "ko": "핀치",
+   "en": "Pinch",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "GRAB",
+   "ko": "잡아 끌기",
+   "en": "Grab",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "ELASTIC_DEFORM",
+   "ko": "탄력 있게 늘이기",
+   "en": "Elastic Deform",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "SNAKE_HOOK",
+   "ko": "길게 뽑아내기",
+   "en": "Snake Hook",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "THUMB",
+   "ko": "엄지로 밀기",
+   "en": "Thumb",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "POSE",
+   "ko": "포즈",
+   "en": "Pose",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "NUDGE",
+   "ko": "살짝 밀기",
+   "en": "Nudge",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "ROTATE",
+   "ko": "회전",
+   "en": "Rotate",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "TOPOLOGY",
+   "ko": "미끄러뜨려 고르기",
+   "en": "Slide Relax",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "BOUNDARY",
+   "ko": "경계",
+   "en": "Boundary",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "CLOTH",
+   "ko": "옷감",
+   "en": "Cloth",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "SIMPLIFY",
+   "ko": "단순화",
+   "en": "Simplify",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "MASK",
+   "ko": "마스크",
+   "en": "Mask",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "DRAW_FACE_SETS",
+   "ko": "면 묶음 칠하기",
+   "en": "Draw Face Sets",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "DISPLACEMENT_ERASER",
+   "ko": "멀티레스 요철 지우개",
+   "en": "Multires Displacement Eraser",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "DISPLACEMENT_SMEAR",
+   "ko": "멀티레스 요철 번지기",
+   "en": "Multires Displacement Smear",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "PAINT",
+   "ko": "페인트",
+   "en": "Paint",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "SMEAR",
+   "ko": "문지르기",
+   "en": "Smear",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "brush",
+   "kind_ko": "스컬프트 브러시",
+   "key": "BLUR",
+   "ko": "블러",
+   "en": "Blur",
+   "where": "스컬프트 모드 > 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.select",
+   "ko": "트윅",
+   "en": "Tweak",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.select_box",
+   "ko": "상자로 고르기",
+   "en": "Select Box",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.select_circle",
+   "ko": "원으로 고르기",
+   "en": "Select Circle",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.select_lasso",
+   "ko": "올가미로 고르기",
+   "en": "Select Lasso",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.scale",
+   "ko": "스케일",
+   "en": "Scale",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.scale_cage",
+   "ko": "상자로 크기 조절",
+   "en": "Scale Cage",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.annotate",
+   "ko": "메모 그리기",
+   "en": "Annotate",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.annotate_line",
+   "ko": "메모 직선",
+   "en": "Annotate Line",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.annotate_polygon",
+   "ko": "메모 다각형",
+   "en": "Annotate Polygon",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.annotate_eraser",
+   "ko": "메모 지우개",
+   "en": "Annotate Eraser",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.primitive_cube_add",
+   "ko": "정육면체 추가",
+   "en": "Add Cube",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.primitive_cone_add",
+   "ko": "원뿔 추가",
+   "en": "Add Cone",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.primitive_cylinder_add",
+   "ko": "원기둥 추가",
+   "en": "Add Cylinder",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.primitive_uv_sphere_add",
+   "ko": "구 추가 (UV 방식)",
+   "en": "Add UV Sphere",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.primitive_ico_sphere_add",
+   "ko": "구 추가 (삼각형 방식)",
+   "en": "Add Ico Sphere",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.breakdowner",
+   "ko": "중간 포즈 만들기",
+   "en": "Breakdowner",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.push",
+   "ko": "밀기",
+   "en": "Push",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.relax",
+   "ko": "포즈 누그러뜨리기",
+   "en": "Relax",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.bone_size",
+   "ko": "뼈대 크기",
+   "en": "Bone Size",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.bone_envelope",
+   "ko": "뼈대 엔벨로프",
+   "en": "Bone Envelope",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude",
+   "ko": "돌출",
+   "en": "Extrude",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude_to_cursor",
+   "ko": "커서 자리까지 밀어내기",
+   "en": "Extrude to Cursor",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude_region",
+   "ko": "지역 돌출",
+   "en": "Extrude Region",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": "Extrude freely or along an axis"
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude_manifold",
+   "ko": "겹치지 않게 밀어내기",
+   "en": "Extrude Manifold",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": "Extrude, dissolves edges whose faces form a flat surface and intersect new edges"
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude_along_normals",
+   "ko": "면이 보는 쪽으로 밀어내기",
+   "en": "Extrude Along Normals",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.extrude_individual",
+   "ko": "면마다 따로 밀어내기",
+   "en": "Extrude Individual",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.loop_cut",
+   "ko": "루프 잘라내기",
+   "en": "Loop Cut",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.offset_edge_loop_cut",
+   "ko": "간격을 두고 가로줄 넣기",
+   "en": "Offset Edge Loop Cut",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.knife",
+   "ko": "칼로 자르기",
+   "en": "Knife",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.bisect",
+   "ko": "분할",
+   "en": "Bisect",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.smooth",
+   "ko": "스무스",
+   "en": "Smooth",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.randomize",
+   "ko": "랜덤화",
+   "en": "Randomize",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.edge_slide",
+   "ko": "에지 슬라이드",
+   "en": "Edge Slide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.vertex_slide",
+   "ko": "점을 모서리 따라 밀기",
+   "en": "Vertex Slide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.shrink_fatten",
+   "ko": "수축/팽창",
+   "en": "Shrink/Fatten",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.push_pull",
+   "ko": "푸시/풀",
+   "en": "Push/Pull",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.shear",
+   "ko": "시어",
+   "en": "Shear",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.to_sphere",
+   "ko": "구체로",
+   "en": "To Sphere",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.rip_region",
+   "ko": "면을 뜯어내기",
+   "en": "Rip Region",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.rip_edge",
+   "ko": "모서리를 뜯어내기",
+   "en": "Rip Edge",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.box_mask",
+   "ko": "박스 마스크",
+   "en": "Box Mask",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.lasso_mask",
+   "ko": "올가미로 가리기",
+   "en": "Lasso Mask",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.line_mask",
+   "ko": "직선으로 가리기",
+   "en": "Line Mask",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.polyline_mask",
+   "ko": "꺾은선으로 가리기",
+   "en": "Polyline Mask",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.box_hide",
+   "ko": "상자로 숨기기",
+   "en": "Box Hide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.lasso_hide",
+   "ko": "올가미로 숨기기",
+   "en": "Lasso Hide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.line_hide",
+   "ko": "직선으로 숨기기",
+   "en": "Line Hide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.polyline_hide",
+   "ko": "꺾은선으로 숨기기",
+   "en": "Polyline Hide",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.box_face_set",
+   "ko": "상자로 면 묶기",
+   "en": "Box Face Set",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.lasso_face_set",
+   "ko": "올가미로 면 묶기",
+   "en": "Lasso Face Set",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.line_face_set",
+   "ko": "직선으로 면 묶기",
+   "en": "Line Face Set",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.polyline_face_set",
+   "ko": "꺾은선으로 면 묶기",
+   "en": "Polyline Face Set",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.box_trim",
+   "ko": "상자로 잘라내기",
+   "en": "Box Trim",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.lasso_trim",
+   "ko": "올가미로 잘라내기",
+   "en": "Lasso Trim",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.line_trim",
+   "ko": "직선으로 잘라내기",
+   "en": "Line Trim",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.polyline_trim",
+   "ko": "꺾은선으로 잘라내기",
+   "en": "Polyline Trim",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.sample_weight",
+   "ko": "웨이트 값 찍어 보기",
+   "en": "Sample Weight",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.sample_vertex_group",
+   "ko": "버텍스 그룹 찍어 보기",
+   "en": "Sample Vertex Group",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.box",
+   "ko": "박스",
+   "en": "Box",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.circle",
+   "ko": "원형",
+   "en": "Circle",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.line",
+   "ko": "라인",
+   "en": "Line",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.polyline",
+   "ko": "폴리라인",
+   "en": "Polyline",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.arc",
+   "ko": "아크",
+   "en": "Arc",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  },
+  {
+   "kind": "tool",
+   "kind_ko": "도구",
+   "key": "builtin.curve",
+   "ko": "커브",
+   "en": "Curve",
+   "where": "3D 화면 왼쪽 도구 막대",
+   "note": ""
+  }
+ ]
+}

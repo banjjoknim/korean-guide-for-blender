@@ -91,6 +91,12 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
                      "군더더기를 걷어내고 핵심 낱말로 찾습니다"),
         default=True,
     )
+    use_catalog: bpy.props.BoolProperty(
+        name="모디파이어·노드·브러시·도구도 찾는다",
+        description=("블렌더에는 기능이 아닌 것도 많습니다. 모디파이어 종류나 노드처럼 "
+                     "어디에 가서 골라야 하는 것들입니다. 667가지를 담아 두었습니다"),
+        default=True,
+    )
     use_similar: bpy.props.BoolProperty(
         name="못 찾으면 비슷한 것을 보여 준다",
         description=("오타나 소리대로 적은 말도 닿게 합니다. '모서라' 를 쳐도 "
@@ -222,6 +228,7 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
 
         col.separator()
         col.prop(self, "use_natural")
+        col.prop(self, "use_catalog")
         col.prop(self, "use_similar")
         col.prop(self, "use_agent")
 
@@ -321,6 +328,19 @@ class BLENDERGUIDE_AddonPreferences(bpy.types.AddonPreferences):
             row.operator("blender_guide.clear_favorites",
                          icon=popup.safe_icon('X', fallback='NONE'))
 
+        from . import catalog
+        counts = catalog.counts()
+        if counts:
+            row = box.row()
+            row.active = False
+            row.label(text="카탈로그 " + " · ".join(
+                f"{name} {n}" for name, n in counts.items()))
+        if catalog.get_error():
+            warn = box.row()
+            warn.alert = True
+            warn.label(text=f"카탈로그를 읽지 못했습니다 — {catalog.get_error()}",
+                       icon=popup.safe_icon('ERROR', fallback='NONE'))
+
         from . import history
         kept = history.load(self)
         if kept:
@@ -400,6 +420,7 @@ class _FallbackPrefs:
     focus_search_on_open = True
     use_op_index = True
     use_natural = True
+    use_catalog = True
     use_similar = True
     use_agent = False
     agent_command = ""

@@ -20,7 +20,7 @@
 
 import bpy
 
-from . import agent, focus, guide_data, history, nl, search, similar
+from . import agent, catalog, focus, guide_data, history, nl, search, similar
 
 # ── 아이콘 안전장치 ───────────────────────────────────────────────────
 # 블렌더 판에 따라 아이콘 이름이 사라지는 일이 있는데, 없는 이름을 쓰면
@@ -530,7 +530,12 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
         none.label(text=f"'{query}' 에 맞는 한국어 항목이 없습니다.",
                    icon=safe_icon('QUESTION', fallback='NONE'))
 
-        # 정확히 못 찾았을 때 비슷한 것을 보여 준다.
+        # 모디파이어·노드·브러시·도구에서 찾아본다. 기능이 아니라서 색인에
+        # 안 들어가지만, 사용자에게는 이것도 '블렌더의 도구' 이다.
+        if _draw_catalog(layout, context, query, p):
+            return
+
+        # 그래도 못 찾았을 때 비슷한 것을 보여 준다.
         # 여기서 찾아지면 에이전트를 부를 일이 없다.
         if _draw_similar(layout, context, entries, query, availability, p):
             return
@@ -706,6 +711,63 @@ def _draw_agent_ask(layout, context, query: str) -> None:
 
     row.operator("blender_guide.ask_agent",
                  icon=safe_icon('COMMUNITY', fallback='NONE')).question = query
+
+
+def _draw_catalog(layout, context, query: str, p) -> bool:
+    """모디파이어·제약·노드·브러시·도구에서 찾은 것을 보여 준다.
+
+    누를 수 있는 단추는 두지 않는다. 이것들은 실행하는 기능이 아니라 어디에
+    가서 골라야 하는 것이라, 알려 주는 것까지가 할 일이다.
+    """
+    if not getattr(p, "use_catalog", True):
+        return False
+
+    found = catalog.search(query, limit=p.max_results)
+    if not found:
+        return False
+
+    head = layout.row()
+    head.label(text="블렌더의 다른 도구에서 찾았습니다",
+               icon=safe_icon('TOOL_SETTINGS', fallback='NONE'))
+
+    text_width = max(30, int(p.popup_width / 7) - 8)
+    for entry in found:
+        box = layout.box()
+        col = box.column(align=True)
+
+        line = col.row(align=True)
+        name = line.row(align=True)
+        name.alignment = 'LEFT'
+        name.label(text=entry.get("ko", ""))
+        kind = line.row()
+        kind.alignment = 'RIGHT'
+        kind.active = False
+        kind.label(text=entry.get("_kind_ko", ""))
+
+        sub = col.row()
+        sub.active = False
+        sub.label(text=entry.get("en", ""))
+
+        where = entry.get("where")
+        if where:
+            row = col.row()
+            row.label(text=where,
+                      icon=safe_icon('KEYINGSET', fallback='NONE'))
+
+        note = entry.get("note")
+        if note:
+            for i, line_text in enumerate(wrap_text(note, text_width)[:2]):
+                row = col.row()
+                row.active = False
+                row.label(text=line_text,
+                          icon=safe_icon('INFO', fallback='NONE')
+                          if i == 0 else 'BLANK1')
+
+    hint = layout.column(align=True)
+    hint.active = False
+    hint.label(text="이것들은 눌러서 바로 쓰는 기능이 아니라, 적힌 자리에 가서 고르는 것입니다.")
+    layout.separator()
+    return True
 
 
 def _draw_similar(layout, context, entries, query, availability, p) -> bool:

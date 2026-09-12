@@ -328,6 +328,79 @@ check("낱말로 친 것은 문장으로 보지 않는다",
               and blender_guide.nl.looks_like_sentence("면을 둘로 나누고 싶어"))
 
 
+def check_catalog_load():
+    catalog = blender_guide.catalog
+    items = catalog.load()
+    if catalog.get_error():
+        raise AssertionError(f"카탈로그를 읽지 못했다: {catalog.get_error()}")
+    if len(items) < 600:
+        raise AssertionError(f"카탈로그가 너무 적다: {len(items)}개")
+    counts = catalog.counts()
+    return f"{len(items)}개 — " + " · ".join(f"{k} {v}" for k, v in counts.items())
+
+
+check("카탈로그를 읽는다", check_catalog_load)
+
+
+def check_catalog_quality():
+    """한국어와 영어 이름, 그리고 어디에 있는지가 모두 적혀 있는지 본다."""
+    seen = set()
+    for item in blender_guide.catalog.load():
+        for field in ("kind", "kind_ko", "ko", "en", "where"):
+            if not item.get(field):
+                raise AssertionError(f"{item.get('en') or item.get('key')} 에 "
+                                     f"{field} 가 없다")
+        sig = (item["kind"], item["en"])
+        if sig in seen:
+            raise AssertionError(f"같은 것이 두 번 들어 있다: {sig}")
+        seen.add(sig)
+        # 클래스 이름이 그대로 새어 들어온 것이 없어야 한다.
+        if item["en"].startswith(("ShaderNode", "GeometryNode",
+                                  "CompositorNode", "TextureNode")):
+            raise AssertionError(f"영어 이름이 클래스 이름이다: {item['en']}")
+    return f"{len(seen)}개 모두 한국어·영어·자리를 갖췄다"
+
+
+check("카탈로그 데이터에 흠이 없다", check_catalog_quality)
+
+
+def check_catalog_search():
+    catalog = blender_guide.catalog
+    cases = [("데이터 전송", "Data Transfer"), ("올가미로 고르기", "Select Lasso"),
+             ("Solidify", "Solidify"), ("점토", "Clay")]
+    lines = []
+    for query, want in cases:
+        got = catalog.search(query, limit=3)
+        names = [e.get("en") for e in got]
+        if want not in names:
+            raise AssertionError(f"{query!r} → {want} 가 있어야 하는데 {names}")
+        lines.append(f"{query!r} → {want}")
+    return " · ".join(lines)
+
+
+check("카탈로그에서 찾는다", check_catalog_search)
+
+
+def check_catalog_separate():
+    """카탈로그가 정리된 항목을 밀어내지 않는지 본다.
+
+    이것이 핵심이다. 667개가 같은 자격으로 끼어들면 하나의 답을 주던 검색이
+    수십 개를 쏟아낸다. 그래서 정리된 항목에서 찾은 것이 있으면 카탈로그는
+    아예 그리지 않는다.
+    """
+    entries = blender_guide.guide_data.load_entries()
+    for query in ("면 나누기", "모서리 둥글게", "돌리기"):
+        found = blender_guide.search.search(entries, query, limit=3)
+        if not found:
+            raise AssertionError(f"{query!r} 가 정리된 항목에서 안 걸린다")
+        if any(e.get("id", "").startswith("catalog:") for e in found):
+            raise AssertionError(f"{query!r} 결과에 카탈로그가 섞였다")
+    return "정리된 항목이 먼저 나오고 카탈로그는 섞이지 않는다"
+
+
+check("카탈로그가 정리된 항목을 밀어내지 않는다", check_catalog_separate)
+
+
 def check_similar():
     """오타를 유사도가 잡는지 본다. 자세한 것은 blender_guide/similar.py 에 있다."""
     entries = blender_guide.guide_data.load_entries()
