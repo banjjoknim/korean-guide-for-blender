@@ -1,5 +1,6 @@
 {
  "schema_version": 1,
+ "notice": "이 파일의 ko 이름과 note 설명은 블렌더 프로젝트에 딸려 오는 한국어 번역과, 블렌더가 각 설정에 붙여 둔 설명을 그대로 가져온 것이다. 그 부분의 저작권은 블렌더 재단과 블렌더 번역에 참여한 사람들에게 있으며, 블렌더 프로젝트의 GPL 을 따른다. https://projects.blender.org/blender/blender",
  "catalog": [
   {
    "kind": "modifier",

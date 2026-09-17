@@ -1,4 +1,4 @@
-# 블렌더 가이드 (한국어)
+# 한국어 가이드
 
 **하고 싶은 일을 한국어로 치면 블렌더 기능 이름과 단축키, 메뉴 위치를 알려 주는 팝업이다.**
 
@@ -52,7 +52,7 @@
 
 ### 블렌더 4.2 이상
 
-[Releases](../../releases) 에서 `blender_guide_ko-*.zip` 을 받아 **블렌더 창에 그대로 떨군다.**
+[Releases](../../releases) 에서 `korean_guide-*.zip` 을 받아 **블렌더 창에 그대로 떨군다.**
 직접 만들려면 `./build_extension.sh` 를 돌리면 `dist/` 에 생긴다.
 
 ### 그 전 판, 또는 고쳐 가며 쓸 때
@@ -711,4 +711,24 @@ $BL --background --factory-startup --python probe/build_catalog.py
 
 ## 라이선스
 
-GPL-3.0-or-later. 블렌더 애드온은 블렌더의 파이썬 API 를 쓰므로 GPL 을 따른다.
+코드와 직접 쓴 항목은 **GPL-3.0-or-later** 를 따른다. 블렌더 애드온은 블렌더의
+파이썬 API 를 쓰므로 GPL 을 따라야 한다.
+
+다만 `blender_guide/data/catalog_ko.json` 에 담긴 1,567개 항목의 한국어 이름과
+설명글은 직접 쓴 것이 아니다. 블렌더에 딸려 오는 한국어 번역과, 블렌더가 각 설정에
+붙여 둔 설명을 그대로 가져왔다. 화면에서 보는 말과 같아야 헷갈리지 않기 때문이다.
+그 부분의 저작권은 블렌더 재단과 블렌더 번역에 참여한 사람들에게 있으며 블렌더
+프로젝트의 GPL 을 따른다. 어느 쪽이든 GPL 이므로 이 저장소의 GPL-3.0-or-later 와
+어긋나지 않는다.
+
+- 블렌더 소스: <https://projects.blender.org/blender/blender>
+- 한국어 번역: <https://translate.blender.org/projects/blender-ui/>
+
+블렌더에 번역이 없어서 손으로 옮긴 이름은 `probe/build_catalog.py` 의 `MY_KO` 에
+모아 두었다. 그것은 이 저장소에서 쓴 것이다.
+
+## 상표
+
+Blender® 는 블렌더 재단의 등록 상표이다. 이 애드온은 블렌더 재단이 만들거나
+보증하거나 후원한 것이 아니다. 블렌더와 함께 쓰는 것임을 밝히기 위해서만 그 이름을
+쓴다.

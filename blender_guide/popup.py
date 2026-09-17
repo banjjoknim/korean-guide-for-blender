@@ -415,7 +415,7 @@ class BLENDERGUIDE_OT_popup(bpy.types.Operator):
     """한국어로 블렌더 기능을 찾는 가이드 팝업을 연다"""
 
     bl_idname = "blender_guide.popup"
-    bl_label = "블렌더 가이드"
+    bl_label = "한국어 가이드"
     bl_description = "한국어로 하고 싶은 일을 치면 블렌더 기능과 단축키를 알려 준다"
     bl_options = {'REGISTER'}
 

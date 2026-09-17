@@ -4,10 +4,10 @@
 
 schema_version = "1.0.0"
 
-id = "blender_guide_ko"
+id = "korean_guide"
 version = "0.1.0"
-name = "블렌더 가이드 (한국어)"
-tagline = "하고 싶은 일을 한국어로 치면 기능과 단축키를 찾아 준다"
+name = "한국어 가이드"
+tagline = "하고 싶은 일을 한국어로 치면 블렌더 기능과 단축키를 찾아 준다"
 maintainer = "banjjoknim"
 type = "add-on"
 

@@ -42,7 +42,7 @@ def check(label, fn):
     return result
 
 
-print("\n── 블렌더 가이드 애드온 점검 ──")
+print("\n── 한국어 가이드 애드온 점검 ──")
 print(f"블렌더 {bpy.app.version_string}\n")
 
 # 애드온이 이미 설치되어 켜져 있으면, 블렌더가 시작하면서 벌써 등록해 두었다.

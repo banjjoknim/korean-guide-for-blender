@@ -568,8 +568,15 @@ if missing:
     print(f"⚠️ 한국어 이름이 없는 항목 {len(missing)}개: "
           + ", ".join(i["en"] for i in missing[:12]))
 
+# 블렌더에서 그대로 가져온 말이 섞여 있다는 것을 데이터 파일 자신이 들고 있게 한다.
+# 왜: 이 json 만 따로 퍼져 나가도 어디서 온 말인지 함께 따라가야 하기 때문이다.
+NOTICE = ("이 파일의 ko 이름과 note 설명은 블렌더 프로젝트에 딸려 오는 한국어 번역과, "
+          "블렌더가 각 설정에 붙여 둔 설명을 그대로 가져온 것이다. 그 부분의 저작권은 "
+          "블렌더 재단과 블렌더 번역에 참여한 사람들에게 있으며, 블렌더 프로젝트의 GPL 을 "
+          "따른다. https://projects.blender.org/blender/blender")
+
 with open(OUT, "w", encoding="utf-8") as handle:
-    json.dump({"schema_version": 1, "catalog": items}, handle,
+    json.dump({"schema_version": 1, "notice": NOTICE, "catalog": items}, handle,
               ensure_ascii=False, indent=1)
 
 from collections import Counter

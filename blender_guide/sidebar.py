@@ -16,7 +16,7 @@ from . import guide_data, keymaps, popup, prefs
 
 
 class BLENDERGUIDE_PT_sidebar(bpy.types.Panel):
-    bl_label = "블렌더 가이드"
+    bl_label = "한국어 가이드"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "가이드"
@@ -130,7 +130,7 @@ def draw_help_menu(self, context):
     왜 Help 인가: 막힌 사람이 가장 먼저 열어 보는 메뉴이기 때문이다.
     """
     self.layout.operator("blender_guide.popup",
-                         text="블렌더 가이드 (한국어)",
+                         text="한국어 가이드",
                          icon=popup.safe_icon('VIEWZOOM', fallback='NONE'))
 
 
